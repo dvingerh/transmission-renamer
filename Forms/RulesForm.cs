@@ -22,6 +22,14 @@ namespace transmission_renamer.Forms
         private void SelectRuleTab(object sender, EventArgs e)
         {
             RuleTypeTabControl.SelectedIndex = RuleTypeListBox.SelectedIndex;
+            switch (RuleTypeTabControl.SelectedIndex)
+            {
+                case 0:
+                    InsertTextTextBox.Focus();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void CancelButtonClick(object sender, EventArgs e)
@@ -49,6 +57,11 @@ namespace transmission_renamer.Forms
                     DialogResult = DialogResult.Cancel;
                     break;
             }
+        }
+
+        private void RulesForm_Shown(object sender, EventArgs e)
+        {
+            SelectRuleTab(null, null);
         }
     }
 }

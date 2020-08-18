@@ -57,8 +57,8 @@
             this.CleanRuleTitleLabel = new System.Windows.Forms.Label();
             this.RegexRuleTabPage = new System.Windows.Forms.TabPage();
             this.RegexRuleTitleLabel = new System.Windows.Forms.Label();
-            this.ConfirmButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.ConfirmRuleButton = new System.Windows.Forms.Button();
+            this.CancelRuleButton = new System.Windows.Forms.Button();
             this.RuleTypeTabControl.SuspendLayout();
             this.InsertRuleTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InsertPositionNumericUpDown)).BeginInit();
@@ -380,36 +380,35 @@
             this.RegexRuleTitleLabel.TabIndex = 3;
             this.RegexRuleTitleLabel.Text = "Regular Expressions";
             // 
-            // ConfirmButton
+            // ConfirmRuleButton
             // 
-            this.ConfirmButton.Location = new System.Drawing.Point(593, 376);
-            this.ConfirmButton.Name = "ConfirmButton";
-            this.ConfirmButton.Size = new System.Drawing.Size(75, 23);
-            this.ConfirmButton.TabIndex = 1000;
-            this.ConfirmButton.Text = "Confirm";
-            this.ConfirmButton.UseVisualStyleBackColor = true;
-            this.ConfirmButton.Click += new System.EventHandler(this.ConfirmButtonClick);
+            this.ConfirmRuleButton.Location = new System.Drawing.Point(593, 376);
+            this.ConfirmRuleButton.Name = "ConfirmRuleButton";
+            this.ConfirmRuleButton.Size = new System.Drawing.Size(75, 23);
+            this.ConfirmRuleButton.TabIndex = 1000;
+            this.ConfirmRuleButton.Text = "Confirm";
+            this.ConfirmRuleButton.UseVisualStyleBackColor = true;
+            this.ConfirmRuleButton.Click += new System.EventHandler(this.ConfirmButtonClick);
             // 
-            // CancelButton
+            // CancelRuleButton
             // 
-            this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(512, 376);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 1001;
-            this.CancelButton.Text = "Cancel";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButtonClick);
+            this.CancelRuleButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CancelRuleButton.Location = new System.Drawing.Point(512, 376);
+            this.CancelRuleButton.Name = "CancelRuleButton";
+            this.CancelRuleButton.Size = new System.Drawing.Size(75, 23);
+            this.CancelRuleButton.TabIndex = 1001;
+            this.CancelRuleButton.Text = "Cancel";
+            this.CancelRuleButton.UseVisualStyleBackColor = true;
+            this.CancelRuleButton.Click += new System.EventHandler(this.CancelButtonClick);
             // 
             // RulesForm
             // 
-            this.AcceptButton = this.ConfirmButton;
+            this.AcceptButton = this.ConfirmRuleButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.CancelButton;
             this.ClientSize = new System.Drawing.Size(684, 411);
-            this.Controls.Add(this.CancelButton);
-            this.Controls.Add(this.ConfirmButton);
+            this.Controls.Add(this.CancelRuleButton);
+            this.Controls.Add(this.ConfirmRuleButton);
             this.Controls.Add(this.RuleTypeTabControl);
             this.Controls.Add(this.RuleTypeListBox);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -420,6 +419,7 @@
             this.Name = "RulesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "New Rule";
+            this.Shown += new System.EventHandler(this.RulesForm_Shown);
             this.RuleTypeTabControl.ResumeLayout(false);
             this.InsertRuleTabPage.ResumeLayout(false);
             this.InsertRuleTabPage.PerformLayout();
@@ -454,8 +454,8 @@
         private System.Windows.Forms.Label RegexRuleTitleLabel;
         private System.Windows.Forms.Label RemoveRuleTitleLabel;
         private System.Windows.Forms.Label ReplaceRuleTitleLabel;
-        private System.Windows.Forms.Button ConfirmButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button ConfirmRuleButton;
+        private System.Windows.Forms.Button CancelRuleButton;
         private System.Windows.Forms.TextBox InsertTextTextBox;
         private System.Windows.Forms.Label InsertTextLabel;
         private System.Windows.Forms.Label InsertWhereLabel;
