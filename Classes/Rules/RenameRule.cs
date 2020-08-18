@@ -11,6 +11,7 @@ namespace transmission_renamer.Classes.Rules
 
         public string Description { get; }
         public string Name { get;}
+        public string Id { get; }
 
         public string DoRename(FriendlyTorrentFileInfo friendlyTorrentFileInfo);
     }

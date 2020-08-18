@@ -327,6 +327,7 @@
             this.DeleteRuleButton.TabIndex = 7;
             this.DeleteRuleButton.Text = "Delete";
             this.DeleteRuleButton.UseVisualStyleBackColor = true;
+            this.DeleteRuleButton.Click += new System.EventHandler(this.DeleteRuleButtonClick);
             // 
             // MoveRuleDownButton
             // 
@@ -337,6 +338,7 @@
             this.MoveRuleDownButton.TabIndex = 10;
             this.MoveRuleDownButton.Text = "Down";
             this.MoveRuleDownButton.UseVisualStyleBackColor = true;
+            this.MoveRuleDownButton.Click += new System.EventHandler(this.MoveRuleDownButtonClick);
             // 
             // MoveRuleUpButton
             // 
@@ -347,6 +349,7 @@
             this.MoveRuleUpButton.TabIndex = 9;
             this.MoveRuleUpButton.Text = "Up";
             this.MoveRuleUpButton.UseVisualStyleBackColor = true;
+            this.MoveRuleUpButton.Click += new System.EventHandler(this.MoveRuleUpButtonClick);
             // 
             // EditRuleButton
             // 
@@ -379,11 +382,13 @@
             this.RulesListView.FullRowSelect = true;
             this.RulesListView.HideSelection = false;
             this.RulesListView.Location = new System.Drawing.Point(3, 35);
+            this.RulesListView.MultiSelect = false;
             this.RulesListView.Name = "RulesListView";
             this.RulesListView.Size = new System.Drawing.Size(850, 200);
             this.RulesListView.TabIndex = 0;
             this.RulesListView.UseCompatibleStateImageBehavior = false;
             this.RulesListView.View = System.Windows.Forms.View.Details;
+            this.RulesListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.RulesListView_ItemSelectionChanged);
             // 
             // CRuleQueuePosition
             // 
@@ -449,6 +454,7 @@
             // 
             // BackButton
             // 
+            this.BackButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BackButton.Location = new System.Drawing.Point(12, 676);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(75, 23);
@@ -553,6 +559,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.CancelButton = this.BackButton;
             this.ClientSize = new System.Drawing.Size(884, 711);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.RenameButton);

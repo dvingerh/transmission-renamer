@@ -11,6 +11,7 @@ namespace transmission_renamer.Classes.Rules
     {
         private string name = "Insert";
         private string description;
+        private readonly string id = Guid.NewGuid().ToString();
         private string insertText;
         private string beforeTextStr;
         private string afterTextStr;
@@ -20,6 +21,8 @@ namespace transmission_renamer.Classes.Rules
         public string Description { get => description; }
 
         public string Name { get => name; }
+
+        public string Id { get => id; }
 
         public InsertRule(string insertText, string beforeTextStr = "", string afterTextStr = "", bool prefix = true, bool suffix = false, bool position = false, bool beforeText = false, bool afterText = false, bool replaceFileName = false, bool ignoreExtension = false, int positionIndex = -1)
         {

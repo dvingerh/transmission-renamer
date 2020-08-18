@@ -129,6 +129,7 @@ namespace transmission_renamer
                 ToggleLoadingPanel(false);
                 RefreshTorrentListButton.Text = "Refresh Torrent List";
                 RefreshTorrentListButton.Enabled = true;
+                SearchTorrentListTextBox.Focus();
             }
         }
 
@@ -496,6 +497,69 @@ namespace transmission_renamer
                 }
                 FileNamesOldNewListView.EndUpdate();
             }
+        }
+
+        private void MoveRuleUpButtonClick(object sender, EventArgs e)
+        {
+            RenameRule currentSelectedRule = (RenameRule)RulesListView.SelectedItems[0].Tag;
+            int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentSelectedRule.Id));
+            int newRuleIndex = oldRuleIndex - 1;
+            Globals.RenameRules.RemoveAt(oldRuleIndex);
+            Globals.RenameRules.Insert(newRuleIndex, currentSelectedRule);
+            UpdateRulesListView();
+            UpdateFileRenameListView();
+            RulesListView.Focus();
+            RulesListView.Items[newRuleIndex].Focused = true;
+            RulesListView.Items[newRuleIndex].Selected = true;
+        }
+
+        private void MoveRuleDownButtonClick(object sender, EventArgs e)
+        {
+            RenameRule currentSelectedRule = (RenameRule)RulesListView.SelectedItems[0].Tag;
+            int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentSelectedRule.Id));
+            int newRuleIndex = oldRuleIndex + 1;
+            Globals.RenameRules.RemoveAt(oldRuleIndex);
+            Globals.RenameRules.Insert(newRuleIndex, currentSelectedRule);
+            UpdateRulesListView();
+            UpdateFileRenameListView();
+            RulesListView.Focus();
+            RulesListView.Items[newRuleIndex].Focused = true;
+            RulesListView.Items[newRuleIndex].Selected = true;
+        }
+
+        private void RulesListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            bool enablestate = RulesListView.SelectedItems.Count == 1;
+            EditRuleButton.Enabled = enablestate;
+            DeleteRuleButton.Enabled = enablestate;
+            if (enablestate)
+            {
+                MoveRuleDownButton.Enabled = RulesListView.Items.Count > 1 && RulesListView.SelectedItems[0].Index != RulesListView.Items.Count - 1;
+                MoveRuleUpButton.Enabled = RulesListView.Items.Count > 1 && RulesListView.SelectedItems[0].Index != 0;
+            }
+            else
+            {
+                MoveRuleDownButton.Enabled = false;
+                MoveRuleUpButton.Enabled = false;
+            }
+        }
+
+        private void DeleteRuleButtonClick(object sender, EventArgs e)
+        {
+            RenameRule currentSelectedRule = (RenameRule)RulesListView.SelectedItems[0].Tag;
+            int ruleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentSelectedRule.Id));
+            Globals.RenameRules.RemoveAt(ruleIndex);
+            UpdateRulesListView();
+            UpdateFileRenameListView();
+            RulesListView.Focus();
+            if (RulesListView.Items.Count != 0)
+            {
+                RulesListView.Items[RulesListView.Items.Count - 1].Focused = true;
+                RulesListView.Items[RulesListView.Items.Count - 1].Selected = true;
+            }
+            else
+                DeleteRuleButton.Enabled = false;
+
         }
     }
 }
