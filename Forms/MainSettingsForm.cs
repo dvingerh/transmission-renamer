@@ -499,6 +499,7 @@ namespace transmission_renamer
             }
         }
 
+
         private void MoveRuleUpButtonClick(object sender, EventArgs e)
         {
             RenameRule currentSelectedRule = (RenameRule)RulesListView.SelectedItems[0].Tag;
@@ -527,7 +528,7 @@ namespace transmission_renamer
             RulesListView.Items[newRuleIndex].Selected = true;
         }
 
-        private void RulesListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        private void UpdateRuleButtonStates(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             bool enablestate = RulesListView.SelectedItems.Count == 1;
             EditRuleButton.Enabled = enablestate;

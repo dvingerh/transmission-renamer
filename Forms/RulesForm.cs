@@ -44,10 +44,18 @@ namespace transmission_renamer.Forms
             switch (RuleTypeTabControl.SelectedIndex)
             {
                 case 0:
-                    InsertRule insertRule = new InsertRule(insertText: InsertTextTextBox.Text, beforeTextStr: InsertBeforeTextTextBox.Text,
-                        afterTextStr: InsertAfterTextTextBox.Text, prefix: InsertPrefixRadioButton.Checked, suffix: InsertSuffixRadioButton.Checked,
-                        position: PositionRadioButton.Checked, beforeText: InsertBeforeTextRadioButton.Checked, afterText: InsertAfterTextRadioButton.Checked,
-                        replaceFileName: ReplaceCurrentFileNameRadioButton.Checked, ignoreExtension: InsertIgnoreExtensionCheckBox.Checked,positionIndex: (int)InsertPositionNumericUpDown.Value);
+                    InsertRule insertRule = new InsertRule(insertText: InsertTextTextBox.Text,
+                        beforeTextStr: InsertBeforeTextTextBox.Text,
+                        afterTextStr: InsertAfterTextTextBox.Text,
+                        prefix: InsertPrefixRadioButton.Checked,
+                        suffix: InsertSuffixRadioButton.Checked,
+                        position: PositionRadioButton.Checked,
+                        positionRightToLeft: InsertPositionRightLeftCheckBox.Checked,
+                        beforeText: InsertBeforeTextRadioButton.Checked,
+                        afterText: InsertAfterTextRadioButton.Checked,
+                        replaceFileName: ReplaceCurrentFileNameRadioButton.Checked,
+                        ignoreExtension: InsertIgnoreExtensionCheckBox.Checked,
+                        positionIndex: (int)InsertPositionNumericUpDown.Value);
 
                     Globals.RenameRules.Add(insertRule);
                     DialogResult = DialogResult.OK;

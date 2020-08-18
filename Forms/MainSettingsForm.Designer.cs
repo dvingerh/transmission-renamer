@@ -388,7 +388,7 @@
             this.RulesListView.TabIndex = 0;
             this.RulesListView.UseCompatibleStateImageBehavior = false;
             this.RulesListView.View = System.Windows.Forms.View.Details;
-            this.RulesListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.RulesListView_ItemSelectionChanged);
+            this.RulesListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.UpdateRuleButtonStates);
             // 
             // CRuleQueuePosition
             // 

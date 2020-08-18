@@ -9,13 +9,13 @@ namespace transmission_renamer.Classes.Rules
 {
     public class InsertRule : RenameRule
     {
-        private string name = "Insert";
-        private string description;
+        private readonly string name = "Insert";
+        private readonly string description;
         private readonly string id = Guid.NewGuid().ToString();
         private string insertText;
         private string beforeTextStr;
         private string afterTextStr;
-        private bool prefix, suffix, position, beforeText, afterText, replaceFileName, ignoreExtension;
+        private bool prefix, suffix, position, beforeText, afterText, replaceFileName, ignoreExtension, positionRightToLeft;
         private int positionIndex;
 
         public string Description { get => description; }
@@ -24,7 +24,7 @@ namespace transmission_renamer.Classes.Rules
 
         public string Id { get => id; }
 
-        public InsertRule(string insertText, string beforeTextStr = "", string afterTextStr = "", bool prefix = true, bool suffix = false, bool position = false, bool beforeText = false, bool afterText = false, bool replaceFileName = false, bool ignoreExtension = false, int positionIndex = -1)
+        public InsertRule(string insertText, string beforeTextStr = "", string afterTextStr = "", bool prefix = true, bool suffix = false, bool position = false, bool positionRightToLeft = false, bool beforeText = false, bool afterText = false, bool replaceFileName = false, bool ignoreExtension = false, int positionIndex = -1)
         {
             this.insertText = insertText;
             this.beforeTextStr = beforeTextStr;
@@ -32,6 +32,7 @@ namespace transmission_renamer.Classes.Rules
             this.prefix = prefix;
             this.suffix = suffix;
             this.position = position;
+            this.positionRightToLeft = positionRightToLeft;
             this.beforeText = beforeText;
             this.afterText = afterText;
             this.replaceFileName = replaceFileName;
@@ -81,7 +82,12 @@ namespace transmission_renamer.Classes.Rules
                 else if (suffix)
                     newNameSb.Append(insertText);
                 else if (position && positionIndex != -1)
-                    newNameSb.Insert(positionIndex, insertText);
+                {
+                    if (positionRightToLeft)
+                        newNameSb.Insert(newNameSb.Length - positionIndex, insertText);
+                    else
+                        newNameSb.Insert(positionIndex, insertText);
+                }
                 else if (beforeText && !string.IsNullOrEmpty(beforeTextStr))
                     newNameSb.Insert(oldNameStr.IndexOf(beforeTextStr), insertText);
                 else if (afterText && !string.IsNullOrEmpty(afterTextStr))
