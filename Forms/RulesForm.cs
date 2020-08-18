@@ -13,10 +13,41 @@ namespace transmission_renamer.Forms
 {
     public partial class RulesForm : Form
     {
-        public RulesForm()
+        private bool editMode = false;
+        private RenameRule currentlyEditedRule;
+
+        public RulesForm(bool editMode = false, RenameRule rule = null)
         {
             InitializeComponent();
-            RuleTypeListBox.SelectedIndex = 0;
+            this.editMode = editMode;
+            if (editMode && rule != null)
+                ApplyEditingState(rule);
+            else
+                RuleTypeListBox.SelectedIndex = 0;
+        }
+
+        private void ApplyEditingState(RenameRule rule)
+        {
+            Text = "Edit Rule";
+            currentlyEditedRule = rule;
+            switch (rule)
+            {
+                case InsertRule insertRule:
+                    RuleTypeListBox.SelectedIndex = 0;
+                    InsertTextTextBox.Text = insertRule.InsertText;
+                    InsertPrefixRadioButton.Checked = insertRule.Prefix;
+                    InsertSuffixRadioButton.Checked = insertRule.Suffix;
+                    InsertAtPositionRadioButton.Checked = insertRule.Position;
+                    InsertPositionNumericUpDown.Value = insertRule.PositionIndex;
+                    InsertPositionRightLeftCheckBox.Checked = insertRule.PositionRightToLeft;
+                    InsertBeforeTextRadioButton.Checked = insertRule.BeforeText;
+                    InsertBeforeTextTextBox.Text = insertRule.BeforeTextStr;
+                    InsertAfterTextRadioButton.Checked = insertRule.AfterText;
+                    InsertAfterTextTextBox.Text = insertRule.AfterTextStr;
+                    ReplaceCurrentFileNameRadioButton.Checked = insertRule.ReplaceFileName;
+                    InsertIgnoreExtensionCheckBox.Checked = insertRule.IgnoreExtension;
+                    break;
+            }
         }
 
         private void SelectRuleTab(object sender, EventArgs e)
@@ -49,7 +80,7 @@ namespace transmission_renamer.Forms
                         afterTextStr: InsertAfterTextTextBox.Text,
                         prefix: InsertPrefixRadioButton.Checked,
                         suffix: InsertSuffixRadioButton.Checked,
-                        position: PositionRadioButton.Checked,
+                        position: InsertAtPositionRadioButton.Checked,
                         positionRightToLeft: InsertPositionRightLeftCheckBox.Checked,
                         beforeText: InsertBeforeTextRadioButton.Checked,
                         afterText: InsertAfterTextRadioButton.Checked,
@@ -57,7 +88,13 @@ namespace transmission_renamer.Forms
                         ignoreExtension: InsertIgnoreExtensionCheckBox.Checked,
                         positionIndex: (int)InsertPositionNumericUpDown.Value);
 
-                    Globals.RenameRules.Add(insertRule);
+                    if (editMode)
+                    {
+                        int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentlyEditedRule.Id));
+                        Globals.RenameRules[oldRuleIndex] = insertRule;
+                    }
+                    else
+                        Globals.RenameRules.Add(insertRule);
                     DialogResult = DialogResult.OK;
                     break;
                 default:

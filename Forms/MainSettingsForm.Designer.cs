@@ -321,7 +321,7 @@
             // DeleteRuleButton
             // 
             this.DeleteRuleButton.Enabled = false;
-            this.DeleteRuleButton.Location = new System.Drawing.Point(84, 6);
+            this.DeleteRuleButton.Location = new System.Drawing.Point(165, 6);
             this.DeleteRuleButton.Name = "DeleteRuleButton";
             this.DeleteRuleButton.Size = new System.Drawing.Size(75, 23);
             this.DeleteRuleButton.TabIndex = 7;
@@ -354,13 +354,13 @@
             // EditRuleButton
             // 
             this.EditRuleButton.Enabled = false;
-            this.EditRuleButton.Location = new System.Drawing.Point(165, 6);
+            this.EditRuleButton.Location = new System.Drawing.Point(84, 6);
             this.EditRuleButton.Name = "EditRuleButton";
             this.EditRuleButton.Size = new System.Drawing.Size(75, 23);
             this.EditRuleButton.TabIndex = 8;
             this.EditRuleButton.Text = "Edit";
             this.EditRuleButton.UseVisualStyleBackColor = true;
-            this.EditRuleButton.Visible = false;
+            this.EditRuleButton.Click += new System.EventHandler(this.EditRuleButtonClick);
             // 
             // NewRuleButton
             // 

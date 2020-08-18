@@ -562,5 +562,21 @@ namespace transmission_renamer
                 DeleteRuleButton.Enabled = false;
 
         }
+
+        private void EditRuleButtonClick(object sender, EventArgs e)
+        {
+            RenameRule currentSelectedRule = (RenameRule)RulesListView.SelectedItems[0].Tag;
+            int currentRuleIndex = RulesListView.SelectedItems[0].Index;
+            RulesForm rulesForm = new RulesForm(editMode: true, currentSelectedRule);
+            DialogResult dialogResult = rulesForm.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                UpdateRulesListView();
+                UpdateFileRenameListView();
+                RulesListView.Focus();
+                RulesListView.Items[currentRuleIndex].Focused = true;
+                RulesListView.Items[currentRuleIndex].Selected = true;
+            }
+        }
     }
 }

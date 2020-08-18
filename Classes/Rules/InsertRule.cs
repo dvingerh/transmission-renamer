@@ -23,6 +23,18 @@ namespace transmission_renamer.Classes.Rules
         public string Name { get => name; }
 
         public string Id { get => id; }
+        public string InsertText { get => insertText; set => insertText = value; }
+        public string BeforeTextStr { get => beforeTextStr; set => beforeTextStr = value; }
+        public string AfterTextStr { get => afterTextStr; set => afterTextStr = value; }
+        public bool Prefix { get => prefix; set => prefix = value; }
+        public bool Suffix { get => suffix; set => suffix = value; }
+        public bool Position { get => position; set => position = value; }
+        public bool BeforeText { get => beforeText; set => beforeText = value; }
+        public bool AfterText { get => afterText; set => afterText = value; }
+        public bool ReplaceFileName { get => replaceFileName; set => replaceFileName = value; }
+        public bool IgnoreExtension { get => ignoreExtension; set => ignoreExtension = value; }
+        public bool PositionRightToLeft { get => positionRightToLeft; set => positionRightToLeft = value; }
+        public int PositionIndex { get => positionIndex; set => positionIndex = value; }
 
         public InsertRule(string insertText, string beforeTextStr = "", string afterTextStr = "", bool prefix = true, bool suffix = false, bool position = false, bool positionRightToLeft = false, bool beforeText = false, bool afterText = false, bool replaceFileName = false, bool ignoreExtension = false, int positionIndex = -1)
         {

@@ -40,7 +40,7 @@
             this.InsertBeforeTextRadioButton = new System.Windows.Forms.RadioButton();
             this.InsertPositionRightLeftCheckBox = new System.Windows.Forms.CheckBox();
             this.InsertPositionNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.PositionRadioButton = new System.Windows.Forms.RadioButton();
+            this.InsertAtPositionRadioButton = new System.Windows.Forms.RadioButton();
             this.InsertSuffixRadioButton = new System.Windows.Forms.RadioButton();
             this.InsertPrefixRadioButton = new System.Windows.Forms.RadioButton();
             this.InsertWhereLabel = new System.Windows.Forms.Label();
@@ -117,7 +117,7 @@
             this.InsertRuleTabPage.Controls.Add(this.InsertBeforeTextRadioButton);
             this.InsertRuleTabPage.Controls.Add(this.InsertPositionRightLeftCheckBox);
             this.InsertRuleTabPage.Controls.Add(this.InsertPositionNumericUpDown);
-            this.InsertRuleTabPage.Controls.Add(this.PositionRadioButton);
+            this.InsertRuleTabPage.Controls.Add(this.InsertAtPositionRadioButton);
             this.InsertRuleTabPage.Controls.Add(this.InsertSuffixRadioButton);
             this.InsertRuleTabPage.Controls.Add(this.InsertPrefixRadioButton);
             this.InsertRuleTabPage.Controls.Add(this.InsertWhereLabel);
@@ -206,15 +206,15 @@
             this.InsertPositionNumericUpDown.Size = new System.Drawing.Size(50, 22);
             this.InsertPositionNumericUpDown.TabIndex = 7;
             // 
-            // PositionRadioButton
+            // InsertAtPositionRadioButton
             // 
-            this.PositionRadioButton.AutoSize = true;
-            this.PositionRadioButton.Location = new System.Drawing.Point(106, 128);
-            this.PositionRadioButton.Name = "PositionRadioButton";
-            this.PositionRadioButton.Size = new System.Drawing.Size(70, 17);
-            this.PositionRadioButton.TabIndex = 6;
-            this.PositionRadioButton.Text = "Position:";
-            this.PositionRadioButton.UseVisualStyleBackColor = true;
+            this.InsertAtPositionRadioButton.AutoSize = true;
+            this.InsertAtPositionRadioButton.Location = new System.Drawing.Point(106, 128);
+            this.InsertAtPositionRadioButton.Name = "InsertAtPositionRadioButton";
+            this.InsertAtPositionRadioButton.Size = new System.Drawing.Size(70, 17);
+            this.InsertAtPositionRadioButton.TabIndex = 6;
+            this.InsertAtPositionRadioButton.Text = "Position:";
+            this.InsertAtPositionRadioButton.UseVisualStyleBackColor = true;
             // 
             // InsertSuffixRadioButton
             // 
@@ -462,7 +462,7 @@
         private System.Windows.Forms.RadioButton InsertPrefixRadioButton;
         private System.Windows.Forms.RadioButton InsertSuffixRadioButton;
         private System.Windows.Forms.NumericUpDown InsertPositionNumericUpDown;
-        private System.Windows.Forms.RadioButton PositionRadioButton;
+        private System.Windows.Forms.RadioButton InsertAtPositionRadioButton;
         private System.Windows.Forms.CheckBox InsertPositionRightLeftCheckBox;
         private System.Windows.Forms.RadioButton InsertBeforeTextRadioButton;
         private System.Windows.Forms.TextBox InsertBeforeTextTextBox;
