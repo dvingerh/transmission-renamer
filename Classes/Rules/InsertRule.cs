@@ -50,7 +50,13 @@ namespace transmission_renamer.Classes.Rules
             else if (suffix)
                 descriptionSb.Append(" as Suffix ");
             else if (position && positionIndex != -1)
-                descriptionSb.Append($" at Position {positionIndex} ");
+            {
+                if (positionRightToLeft)
+                    descriptionSb.Append($" at Position {positionIndex} from right-to-left ");
+                else
+                    descriptionSb.Append($" at Position {positionIndex} ");
+            }
+
             else if (beforeText && !string.IsNullOrEmpty(beforeTextStr))
                 descriptionSb.Append($" Before Text '{beforeTextStr}' ");
             else if (afterText && !string.IsNullOrEmpty(afterTextStr))
