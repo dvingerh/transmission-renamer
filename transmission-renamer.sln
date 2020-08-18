@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "transmission-renamer", "transmission-renamer.csproj", "{D0A24187-DC64-40E9-BB24-57509EC4A873}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0A24187-DC64-40E9-BB24-57509EC4A873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0A24187-DC64-40E9-BB24-57509EC4A873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0A24187-DC64-40E9-BB24-57509EC4A873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0A24187-DC64-40E9-BB24-57509EC4A873}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {541B728C-AEEF-4058-AD71-C61E9914584A}
+	EndGlobalSection
+EndGlobal
