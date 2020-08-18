@@ -52,6 +52,12 @@ namespace transmission_renamer
 
         private async void ConnectButtonClicked(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(HostTextBox.Text))
+            {
+                MessageBox.Show("The host value is not valid.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             isConnecting = true;
             RemoteGroupBox.Enabled = false;
             ConnectButton.Enabled = false;
@@ -69,10 +75,20 @@ namespace transmission_renamer
                 }
                 catch (AggregateException ae)
                 {
-                    WebException ex = (WebException)ae.GetBaseException();
-                    HttpWebResponse webResponse = ex.Response as HttpWebResponse;
-                    if (webResponse != null && webResponse.StatusCode == HttpStatusCode.Unauthorized)
-                        connectionResult = 3;
+                    Exception aex = ae.GetBaseException();
+                    if (aex is WebException)
+                    {
+                        WebException ex = (WebException)aex;
+                        HttpWebResponse webResponse = ex.Response as HttpWebResponse;
+                        if (webResponse != null && webResponse.StatusCode == HttpStatusCode.Unauthorized)
+                            connectionResult = 3;
+                    }
+                    else
+                    {
+                        MessageBox.Show($"An unknown error has occurred:\n\n{aex.Message}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                 }
             });
 
@@ -82,6 +98,8 @@ namespace transmission_renamer
                 bool revertButtons = true;
                 switch (connectionResult)
                 {
+                    case -1:
+                        break;
                     case 0:
                         Hide();
                         SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm();
