@@ -25,18 +25,23 @@ namespace transmission_renamer
             InitializeComponent();
             lvwColumnSorter = new ListViewColumnSorter();
             TorrentsListView.ListViewItemSorter = lvwColumnSorter;
-            ImageList rowHeightFix = new ImageList(components);
-            rowHeightFix.ImageSize = new Size(1, 19);
-            rowHeightFix.TransparentColor = Color.Transparent;
-            TorrentsListView.SmallImageList = rowHeightFix;
-            RulesListView.SmallImageList = rowHeightFix;
-            ImageList torrentFilesImageList = new ImageList();
-            torrentFilesImageList.ColorDepth = ColorDepth.Depth32Bit;
-            torrentFilesImageList.TransparentColor = Color.Transparent;
-            torrentFilesImageList.Images.Add(Properties.Resources.file);
-            torrentFilesImageList.Images.Add(Properties.Resources.folder);
-            TorrentFileListTreeView.ImageList = torrentFilesImageList;
-            FileNamesOldNewListView.SmallImageList = torrentFilesImageList;
+            // inline better for optimization (not needed) code improvement
+            using (ImageList rowHeightFix = new ImageList(components))
+            {
+                rowHeightFix.ImageSize = new Size(1, 19);
+                rowHeightFix.TransparentColor = Color.Transparent;
+                TorrentsListView.SmallImageList = rowHeightFix;
+                RulesListView.SmallImageList = rowHeightFix;
+            }
+            using (ImageList torrentFilesImageList = new ImageList())
+            {
+                torrentFilesImageList.ColorDepth = ColorDepth.Depth32Bit;
+                torrentFilesImageList.TransparentColor = Color.Transparent;
+                torrentFilesImageList.Images.Add(Properties.Resources.file);
+                torrentFilesImageList.Images.Add(Properties.Resources.folder);
+                TorrentFileListTreeView.ImageList = torrentFilesImageList;
+                FileNamesOldNewListView.SmallImageList = torrentFilesImageList;
+            }
         }
 
         private void BackButtonClick(object sender, EventArgs e)
@@ -137,14 +142,7 @@ namespace transmission_renamer
         {
             if (e.Column == lvwColumnSorter.SortColumn)
             {
-                if (lvwColumnSorter.Order == SortOrder.Ascending)
-                {
-                    lvwColumnSorter.Order = SortOrder.Descending;
-                }
-                else
-                {
-                    lvwColumnSorter.Order = SortOrder.Ascending;
-                }
+                lvwColumnSorter.Order = lvwColumnSorter.Order == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
             }
             else
             {
@@ -159,7 +157,7 @@ namespace transmission_renamer
 
         private void TimeOutTimerTick(object sender, EventArgs e)
         {
-            int secondsLeft = int.Parse(TimeOutTimer.Tag.ToString()) - 1;
+            var secondsLeft = int.Parse(TimeOutTimer.Tag.ToString()) - 1;
             RefreshTorrentListButton.Text = $"Waiting ({secondsLeft})";
             TimeOutTimer.Tag = secondsLeft--.ToString();
         }
@@ -173,7 +171,7 @@ namespace transmission_renamer
             foreach (TransmissionTorrentFiles torrentFile in Globals.SelectedTorrent.Torrent.Files)
             {
                 FriendlyTorrentFileInfo friendlyTorrentFileInfo = new FriendlyTorrentFileInfo(torrentFile);
-                torrentPaths.Add(friendlyTorrentFileInfo.InitialName);
+                torrentPaths.Add(item: friendlyTorrentFileInfo.InitialName);
             }
             foreach (TreeNode node in MakeTreeFromPaths(torrentPaths).Nodes)
             {
@@ -258,22 +256,9 @@ namespace transmission_renamer
         {
             RenameButton.Enabled = TorrentFileListTreeView.TotalFilesSelected > 0;
             SelectedFileCountLabel.Text = $"Selected files: {TorrentFileListTreeView.TotalFilesSelected} of {TorrentFileListTreeView.TotalFiles} files currently selected";
-            if (TorrentFileListTreeView.TotalFiles > 1)
-            {
-                foreach (Control control in FilesTabPage.Controls)
-                {
-                    if (control is Button)
-                        control.Enabled = true;
-                }
-            }
-            else
-            {
-                foreach (Control control in FilesTabPage.Controls)
-                {
-                    if (control is Button)
-                        control.Enabled = false;
-                }
-            }
+
+            // one liner with conditional determination if the buttons should be enabled or not.
+            FilesTabPage.Controls.OfType<Button>().ToList().ForEach(x => x.Enabled = (TorrentFileListTreeView.TotalFiles > 1) ? true : false);
             await LoadSelectedFilesToRulesTab();
         }
 
@@ -288,12 +273,14 @@ namespace transmission_renamer
                 List<ListViewItem> torrentFilesLVItems = new List<ListViewItem>();
                 foreach (FriendlyTorrentFileInfo torrentFile in Globals.SelectedTorrentFiles)
                 {
-                    ListViewItem torrentFileLVItem = new ListViewItem();
-                    torrentFileLVItem.Text = torrentFile.InitialName.Split('/').Last();
+                    ListViewItem torrentFileLVItem = new ListViewItem()
+                    {
+                        Text = torrentFile.InitialName.Split('/').Last(),
+                        ToolTipText = torrentFile.InitialName,
+                        ImageIndex = 0,
+                        Tag = torrentFile
+                    };
                     torrentFileLVItem.SubItems.Add(torrentFileLVItem.Text);
-                    torrentFileLVItem.ToolTipText = torrentFile.InitialName;
-                    torrentFileLVItem.ImageIndex = 0;
-                    torrentFileLVItem.Tag = torrentFile;
                     torrentFilesLVItems.Add(torrentFileLVItem);
                 }
                 BeginInvoke((Action)(() =>
@@ -335,19 +322,14 @@ namespace transmission_renamer
             foreach (TreeNode tn in node.Nodes)
             {
                 if (tn.Tag.ToString() != "Folder")
-                {
                     tn.Checked = !tn.Checked;
-                }
                 InvertFileSelection(tn);
             }
         }
 
         private void SetFileCheckState(TreeNode node, bool state)
         {
-            foreach (TreeNode tn in node.Nodes)
-            {
-                tn.Checked = state;
-            }
+            node.Nodes.OfType<TreeNode>().ToList().ForEach(x => x.Checked = state);
         }
 
         private async void ExpandAllButtonClick(object sender, EventArgs e)
@@ -383,9 +365,8 @@ namespace transmission_renamer
         private void HandleCtrlBackspace(object sender, KeyEventArgs e)
         {
             if (e.Control & e.KeyCode == Keys.Back)
-            {
                 SendKeys.SendWait("^+{LEFT}{BACKSPACE}");
-            }
+
             if (e.KeyCode == Keys.Enter)
             {
                 DoTorrentSearch(SearchTorrentListTextBox.Text);
@@ -431,17 +412,10 @@ namespace transmission_renamer
                 await LoadTorrentFilesList();
             }
             TorrentsListView.BeginUpdate();
+            
             foreach (ListViewItem torrentItem in TorrentsListView.Items)
-            {
-                if (torrentItem != currentTorrentListViewItem)
-                {
-                    torrentItem.ForeColor = Color.Black;
-                }
-                else
-                {
-                    torrentItem.ForeColor = Color.Blue;
-                }
-            }
+                torrentItem.ForeColor = (torrentItem != currentTorrentListViewItem) ? Color.Black : Color.Blue;
+            
             TorrentsListView.EndUpdate();
         }
 
