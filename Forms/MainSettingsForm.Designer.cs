@@ -162,7 +162,7 @@
             this.SearchTorrentListTextBox.Name = "SearchTorrentListTextBox";
             this.SearchTorrentListTextBox.Size = new System.Drawing.Size(760, 22);
             this.SearchTorrentListTextBox.TabIndex = 0;
-            this.SearchTorrentListTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HandleCtrlBackspace);
+            this.SearchTorrentListTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HandleSearchTorrentListTextBoxBehavior);
             // 
             // FilesTabPage
             // 
