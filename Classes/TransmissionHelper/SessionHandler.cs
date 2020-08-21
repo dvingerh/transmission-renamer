@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Transmission.API.RPC;
 using Transmission.API.RPC.Entity;
+using static transmission_renamer.Globals;
 
 namespace transmission_renamer
 {
@@ -13,14 +15,16 @@ namespace transmission_renamer
         private int port;
         private string username;
         private string password;
+        private string address;
 
         public string Host { get => host; set => host = value; }
         public int Port { get => port; set => port = value; }
         public string Username { get => username; set => username = value; }
         public string Password { get => password; set => password = value; }
+        public string Url { get => address; set => address = value; }
 
         private Client client;
-        private bool isCancelled = false;
+        private bool requestCancelled = false;
 
         public SessionHandler(string host, int port, string username, string password)
         {
@@ -30,49 +34,66 @@ namespace transmission_renamer
             Password = password;
         }
 
-
-        public async Task<int> TestConnection()
+        private bool ValidateUrl()
         {
-            int connectionResult;
-            client = new Client("http://" + Host + ":" + Port + Constants.RPC_PATH, null, Username, Password);
+            try
+            {
+                Uri uri = new Uri("http://" + Host + ":" + Port + Constants.RPC_PATH);
+                Url = uri.ToString();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
+        public async Task<ConnectionResult> TestConnection()
+        {
+            if (client != null)
+                client.CloseSessionAsync();
+            if (ValidateUrl())
+                client = new Client(url: Url, login: Username, password: Password);
+            else
+                return ConnectionResult.InvalidUrl;
+
+            ConnectionResult connectionResult;
             Task<SessionInfo> sessionInfoTask = client.GetSessionInformationAsync();
             Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
-            await Task.WhenAny(sessionInfoTask, delayTask);
-            if (!isCancelled)
+
+            await Task.Run(async () => await Task.WhenAny(sessionInfoTask, delayTask));
+
+            
+            if (!requestCancelled)
             {
                 if (delayTask.IsCompleted)
-                    connectionResult = 1;
+                    connectionResult = ConnectionResult.Timeout;
                 else
                 {
                     SessionInfo sessionInfo = sessionInfoTask.Result;
                     if (sessionInfo != null && sessionInfo.Version != null)
-                        connectionResult = 0;
+                        connectionResult = ConnectionResult.Success;
                     else
-                        connectionResult = 2;
+                        connectionResult = ConnectionResult.InvalidResp;
                 }
             }
             else
-            {
-                connectionResult = 4;
-            }
-
-
+                connectionResult = ConnectionResult.Cancelled;
             return connectionResult;
         }
 
-        public async Task<List<TorrentInfo>> GetSessionTorrents()
+        public async Task<List<TorrentInfo>> GetTorrents()
         {
-            Task<TransmissionTorrents> transmissionTorrentsTask = client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
+            Task<TransmissionTorrents> getTorrentsTask = client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
             Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
-            await Task.WhenAny(transmissionTorrentsTask, delayTask);
-            if (!isCancelled)
+            await Task.WhenAny(getTorrentsTask, delayTask);
+            if (!requestCancelled)
             {
                 if (delayTask.IsCompleted)
                     return null;
                 else
                 {
-                    TransmissionTorrents torrentsList = transmissionTorrentsTask.Result;
+                    TransmissionTorrents torrentsList = getTorrentsTask.Result;
                     if (torrentsList != null && torrentsList.Torrents != null)
                         return torrentsList.Torrents.ToList();
                     else
@@ -92,7 +113,7 @@ namespace transmission_renamer
 
         public void CancelConnecting()
         {
-            isCancelled = true;
+            requestCancelled = true;
         }
 
     }

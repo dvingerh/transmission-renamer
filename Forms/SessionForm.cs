@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using static transmission_renamer.Globals;
 
 namespace transmission_renamer
 {
@@ -54,7 +55,7 @@ namespace transmission_renamer
         {
             if (string.IsNullOrWhiteSpace(HostTextBox.Text))
             {
-                MessageBox.Show("The host value is not valid.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The host value may not be empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -65,65 +66,65 @@ namespace transmission_renamer
             CloseCancelButton.Text = "Cancel";
             TimeOutTimer.Enabled = true;
             TimeOutTimer.Start();
-            Globals.SessionHandler = new SessionHandler(HostTextBox.Text, (int)PortUpDown.Value, UsernameTextBox.Text, PasswordTextBox.Text);
-            var connectionResult = -1;
-
-            await Task.Run(async() => {
-                try
+            ConnectionResult connectionResult = ConnectionResult.Unknown;
+            try
+            {
+                Globals.SessionHandler = new SessionHandler(HostTextBox.Text, (int)PortUpDown.Value, UsernameTextBox.Text, PasswordTextBox.Text);
+                connectionResult = await Globals.SessionHandler.TestConnection();
+            }
+            catch (AggregateException ae)
+            {
+                ae.Handle(ex =>
                 {
-                    connectionResult = await Globals.SessionHandler.TestConnection();
-                }
-                catch (AggregateException ae)
-                {
-                    Exception aex = ae.GetBaseException();
-                    if (aex is WebException)
+                    if (ex is WebException)
                     {
-                        WebException ex = (WebException)aex;
-                        HttpWebResponse webResponse = ex.Response as HttpWebResponse;
+                        WebException we = (WebException)ex;
+                        HttpWebResponse webResponse = we.Response as HttpWebResponse;
                         if (webResponse != null && webResponse.StatusCode == HttpStatusCode.Unauthorized)
-                            connectionResult = 3;
+                            connectionResult = ConnectionResult.Unauthorized;
+                        else
+                            connectionResult = ConnectionResult.Unknown;
                     }
-                    else
-                    {
-                        MessageBox.Show($"An unknown error has occurred:\n\n{aex.Message}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                }
-            });
-
-
+                    else if (ex is NullReferenceException)
+                        connectionResult = ConnectionResult.InvalidUrl;
+                    return ex is WebException || ex is NullReferenceException;
+                });
+            }
             if (isConnecting)
             {
-                bool revertButtons = true;
+                bool revertUi = true;
                 switch (connectionResult)
                 {
-                    case -1:
-                        break;
-                    case 0:
+                    case ConnectionResult.Success:
                         Hide();
                         SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm();
                         selectTorrentFilesForm.ShowDialog();
                         Show();
                         break;
-                    case 1:
+                    case ConnectionResult.Timeout:
                         MessageBox.Show("The connection to the host has timed out.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case 2:
+                    case ConnectionResult.InvalidResp:
                         MessageBox.Show("The host returned an invalid response.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case 3:
+                    case ConnectionResult.InvalidUrl:
+                        MessageBox.Show("The specified host address is invalid.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
+                    case ConnectionResult.Unauthorized:
                         MessageBox.Show("The host rejected the login credentials.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case 4:
-                        // Connection was cancelled in this case, show no message but keep UI controls and behavior intact
-                        revertButtons = false;
+                    case ConnectionResult.Cancelled:
+                        // show no message but keep UI controls and behavior intact
+                        revertUi = false;
+                        break;
+                    case ConnectionResult.Unknown:
+                        MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     default:
                         MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                 }
-                if (revertButtons)
+                if (revertUi)
                 {
                     ConnectButton.Text = "Connect";
                     CloseCancelButton.Text = "Close";
