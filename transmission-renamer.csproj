@@ -85,8 +85,8 @@
     </Compile>
     <Compile Include="Classes\ColumnSorter.cs" />
     <Compile Include="Classes\Constants.cs" />
-    <Compile Include="Classes\FriendlyTorrentFileInfo.cs" />
-    <Compile Include="Classes\FriendlyTorrentInfo.cs" />
+    <Compile Include="Classes\TransmissionHelper\FriendlyTorrentFileInfo.cs" />
+    <Compile Include="Classes\TransmissionHelper\FriendlyTorrentInfo.cs" />
     <Compile Include="Classes\Globals.cs" />
     <Compile Include="Classes\Rules\InsertRule.cs" />
     <Compile Include="Classes\Rules\RenameRule.cs" />
@@ -110,7 +110,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Classes\SessionHandler.cs" />
+    <Compile Include="Classes\TransmissionHelper\SessionHandler.cs" />
     <EmbeddedResource Include="Forms\MainSettingsForm.resx">
       <DependentUpon>MainSettingsForm.cs</DependentUpon>
     </EmbeddedResource>

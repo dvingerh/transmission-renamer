@@ -127,7 +127,7 @@ namespace transmission_renamer
                 ToggleLoadingPanels(true);
 
                 // retrieve torrents list
-                List<TorrentInfo> torrentsInfo = await Task.Run(() => Globals.SessionHandler.GetSessionTorrents());
+                List<TorrentInfo> torrentsInfo = await Task.Run(() => Globals.SessionHandler.GetTorrents());
 
                 TimeOutTimer.Stop();
                 TimeOutTimer.Tag = "10";
@@ -157,7 +157,7 @@ namespace transmission_renamer
                     }
                 }
                 else
-                    MessageBox.Show("The connection to the host has timed out.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("The torrent list could not be retrieved.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 ToggleLoadingPanels(false);
                 RefreshTorrentListButton.Text = "Refresh Torrent List";

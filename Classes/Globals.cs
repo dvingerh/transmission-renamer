@@ -12,6 +12,18 @@ namespace transmission_renamer
         private static List<FriendlyTorrentFileInfo> selectedTorrentFiles = new List<FriendlyTorrentFileInfo>();
         private static List<FriendlyTorrentInfo> torrentsInfo = new List<FriendlyTorrentInfo>();
 
+        public enum ConnectionResult
+        {
+            Success,
+            Timeout,
+            InvalidResp,
+            InvalidUrl,
+            Unauthorized,
+            Cancelled,
+            Unknown
+
+        }
+
         public static SessionHandler SessionHandler { get; set; }
         public static FriendlyTorrentInfo SelectedTorrent { get; set; }
         public static List<RenameRule> RenameRules { get => renameRules; set => renameRules = value; }

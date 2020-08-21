@@ -25,11 +25,6 @@ namespace transmission_renamer
             SEEDING, // Seeding
             ISOLATED
         }
-        public enum SizeUnits
-        {
-            Byte, KB, MB, GB, TB, PB, EB, ZB, YB
-        }
-
 
         public string QueuePosition { get => queuePosition; set => queuePosition = value; }
         public string Name { get => name; set => name = value; }
