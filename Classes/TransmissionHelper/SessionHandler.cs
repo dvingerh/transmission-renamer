@@ -1,26 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Transmission.API.RPC;
 using Transmission.API.RPC.Entity;
+using static transmission_renamer.Globals;
 
 namespace transmission_renamer
 {
     public class SessionHandler
     {
-        private string host;
-        private int port;
-        private string username;
-        private string password;
-        private string address;
-
-        public string Host { get => host; set => host = value; }
-        public int Port { get => port; set => port = value; }
-        public string Username { get => username; set => username = value; }
-        public string Password { get => password; set => password = value; }
-        public string Url { get => address; set => address = value; }
+        public string Host { get; set; }
+        public int Port { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Url { get; set; }
 
         private Client client;
         private bool requestCancelled = false;
@@ -37,8 +31,7 @@ namespace transmission_renamer
         {
             try
             {
-                Uri uri = new Uri("http://" + Host + ":" + Port + Constants.RPC_PATH);
-                Url = uri.ToString();
+                Url = new Uri("http://" + Host + ":" + Port + Constants.RPC_PATH).ToString();
                 return true;
             }
             catch
@@ -47,37 +40,40 @@ namespace transmission_renamer
             }
         }
 
-        public async Task<Globals.RequestResult> TestConnection()
+        public async Task<RequestResult> TestConnection()
         {
             if (client != null)
                 client.CloseSessionAsync();
             if (ValidateUrl())
+            {
                 client = new Client(url: Url, login: Username, password: Password);
+            }
             else
-                return Globals.RequestResult.InvalidUrl;
+            {
+                return RequestResult.InvalidUrl;
+            }
 
-            Globals.RequestResult connectionResult;
+            RequestResult connectionResult;
             Task<SessionInfo> sessionInfoTask = client.GetSessionInformationAsync();
             Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
 
             await Task.Run(async () => await Task.WhenAny(sessionInfoTask, delayTask));
 
-            
+
             if (!requestCancelled)
             {
                 if (delayTask.IsCompleted)
-                    connectionResult = Globals.RequestResult.Timeout;
+                {
+                    connectionResult = RequestResult.Timeout;
+                }
                 else
                 {
                     SessionInfo sessionInfo = sessionInfoTask.Result;
-                    if (sessionInfo != null && sessionInfo.Version != null)
-                        connectionResult = Globals.RequestResult.Success;
-                    else
-                        connectionResult = Globals.RequestResult.InvalidResp;
+                    connectionResult = sessionInfo != null && sessionInfo.Version != null ? RequestResult.Success : RequestResult.InvalidResp;
                 }
             }
             else
-                connectionResult = Globals.RequestResult.Cancelled;
+                connectionResult = RequestResult.Cancelled;
             return connectionResult;
         }
 
@@ -89,14 +85,13 @@ namespace transmission_renamer
             if (!requestCancelled)
             {
                 if (delayTask.IsCompleted)
+                {
                     return null;
+                }
                 else
                 {
                     TransmissionTorrents torrentsList = getTorrentsTask.Result;
-                    if (torrentsList != null && torrentsList.Torrents != null)
-                        return torrentsList.Torrents.ToList();
-                    else
-                        return new List<TorrentInfo>();
+                    return torrentsList != null && torrentsList.Torrents != null ? torrentsList.Torrents.ToList() : new List<TorrentInfo>();
                 }
             }
             else
@@ -105,36 +100,34 @@ namespace transmission_renamer
             }
         }
 
-        public async Task<Globals.RequestResult> RenameTorrent(string filePath, string newName, TorrentInfo torrent)
+        public async Task<RequestResult> RenameTorrent(string filePath, string newName, TorrentInfo torrent)
         {
-            Globals.RequestResult renameResult;
+            RequestResult renameResult;
             Task<RenameTorrentInfo> renameFileTask = client.TorrentRenamePathAsync(torrent.ID, filePath, newName);
             Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
 
             await Task.Run(async () => await Task.WhenAny(renameFileTask, delayTask));
 
-            if (delayTask.IsCompleted)
-                renameResult = Globals.RequestResult.Timeout;
-            else
+
+            if (!requestCancelled)
             {
-                RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
-                if (renameTorrentInfo != null && renameTorrentInfo.Name == newName)
-                    renameResult = Globals.RequestResult.Success;
+                if (delayTask.IsCompleted)
+                    renameResult = RequestResult.Timeout;
                 else
-                    renameResult = Globals.RequestResult.Failed;
+                {
+                    RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
+                    renameResult = renameTorrentInfo != null && renameTorrentInfo.Name == newName ? RequestResult.Success : RequestResult.Failed;
+                }
             }
+            else
+                renameResult = RequestResult.Cancelled;
             return renameResult;
+
         }
 
-        public void CloseConnection()
-        {
-            client.CloseSessionAsync();
-        }
+        public void CloseConnection() => client.CloseSessionAsync();
 
-        public void CancelConnecting()
-        {
-            requestCancelled = true;
-        }
+        public void CancelConnecting() => requestCancelled = true;
 
     }
 }
