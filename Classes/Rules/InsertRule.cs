@@ -138,7 +138,7 @@ namespace transmission_renamer.Classes.Rules
 
                 return newNameSb.ToString();
             }
-            catch { return torrentFileInfo.NewestName; }
+            catch { return Path.GetFileName(torrentFileInfo.NewestName); }
 
         }
     }

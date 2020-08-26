@@ -643,6 +643,7 @@ namespace transmission_renamer
                     FileNamesOldNewListView.Items[i].Selected = true;
                     FileNamesOldNewListView.Items[i].Focused = true;
                     FileNamesOldNewListView.Focus();
+                    FileNamesOldNewListView.EnsureVisible(i);
                     ListViewItem fileItem = FileNamesOldNewListView.Items[i];
                     FriendlyTorrentFileInfo friendlyTorrentFileInfo = (FriendlyTorrentFileInfo)fileItem.Tag;
                     curFilePath = friendlyTorrentFileInfo.InitialPath;
