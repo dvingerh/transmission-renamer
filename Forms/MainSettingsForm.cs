@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -11,7 +11,6 @@ using Transmission.API.RPC.Entity;
 using transmission_renamer.Classes;
 using transmission_renamer.Classes.Rules;
 using transmission_renamer.Forms;
-using static transmission_renamer.Globals;
 
 namespace transmission_renamer
 {
@@ -501,12 +500,17 @@ namespace transmission_renamer
                 ruleLVItem.Tag = rule;
                 RulesListView.Items.Add(ruleLVItem);
             }
+            ResetOldNewFileNameValues();
+        }
+
+        private void ResetOldNewFileNameValues()
+        {
             FileNamesOldNewListView.BeginUpdate();
             foreach (ListViewItem torrentFileItem in FileNamesOldNewListView.Items)
             {
                 FriendlyTorrentFileInfo torrentFileInfo = (FriendlyTorrentFileInfo)torrentFileItem.Tag;
                 torrentFileInfo.NewestName = torrentFileInfo.InitialPath;
-                torrentFileItem.SubItems[1].Text = torrentFileInfo.InitialPath;
+                torrentFileItem.SubItems[1].Text = torrentFileItem.Text;
                 torrentFileItem.Tag = torrentFileInfo;
             }
             FileNamesOldNewListView.EndUpdate();
@@ -515,7 +519,8 @@ namespace transmission_renamer
         // update all the new file name previews in FileNamesOldNewListView
         private void UpdateFileRenameListView()
         {
-            if (Globals.RenameRules != null)
+            ResetOldNewFileNameValues();
+            if (Globals.RenameRules.Count > 0)
             {
                 FileNamesOldNewListView.BeginUpdate();
                 foreach (RenameRule renameRule in Globals.RenameRules)
@@ -595,8 +600,10 @@ namespace transmission_renamer
                 RulesListView.Items[RulesListView.Items.Count - 1].Selected = true;
             }
             else
+            {
                 DeleteRuleButton.Enabled = false;
-
+                EditRuleButton.Enabled = false;
+            }
         }
 
         // edit selected rule from the list of rules, update UI state
@@ -630,7 +637,7 @@ namespace transmission_renamer
             {
                 string curFilePath = null, newFileName = null;
                 TorrentInfo torrent = null;
-                RequestResult renameResult = RequestResult.Unknown;
+                Globals.RequestResult renameResult = Globals.RequestResult.Unknown;
                 Invoke((MethodInvoker)delegate
                 {
                     FileNamesOldNewListView.Items[i].Selected = true;
@@ -648,23 +655,23 @@ namespace transmission_renamer
 
                     switch (renameResult)
                     {
-                        case RequestResult.Success:
+                        case Globals.RequestResult.Success:
                             Invoke((MethodInvoker)delegate
                             {
                                 FileNamesOldNewListView.Items[i].ForeColor = Color.Green;
                             });
                             break;
-                        case RequestResult.Timeout:
+                        case Globals.RequestResult.Timeout:
                             Invoke((MethodInvoker)delegate
                             {
                                 FileNamesOldNewListView.Items[i].ForeColor = Color.Yellow;
                             }); break;
-                        case RequestResult.Failed:
+                        case Globals.RequestResult.Failed:
                             Invoke((MethodInvoker)delegate
                             {
                                 FileNamesOldNewListView.Items[i].ForeColor = Color.Red;
                             }); break;
-                        case RequestResult.Unknown:
+                        case Globals.RequestResult.Unknown:
                             MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         default:

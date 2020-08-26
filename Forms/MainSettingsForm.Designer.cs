@@ -410,7 +410,7 @@
             this.DeleteRuleButton.Name = "DeleteRuleButton";
             this.DeleteRuleButton.Size = new System.Drawing.Size(75, 23);
             this.DeleteRuleButton.TabIndex = 7;
-            this.DeleteRuleButton.Text = "&Delete";
+            this.DeleteRuleButton.Text = "Delete";
             this.DeleteRuleButton.UseVisualStyleBackColor = true;
             this.DeleteRuleButton.Click += new System.EventHandler(this.DeleteRuleButtonClick);
             // 
@@ -421,7 +421,7 @@
             this.MoveRuleDownButton.Name = "MoveRuleDownButton";
             this.MoveRuleDownButton.Size = new System.Drawing.Size(75, 23);
             this.MoveRuleDownButton.TabIndex = 10;
-            this.MoveRuleDownButton.Text = "&Down";
+            this.MoveRuleDownButton.Text = "Down";
             this.MoveRuleDownButton.UseVisualStyleBackColor = true;
             this.MoveRuleDownButton.Click += new System.EventHandler(this.MoveRuleDownButtonClick);
             // 
@@ -432,7 +432,7 @@
             this.MoveRuleUpButton.Name = "MoveRuleUpButton";
             this.MoveRuleUpButton.Size = new System.Drawing.Size(75, 23);
             this.MoveRuleUpButton.TabIndex = 9;
-            this.MoveRuleUpButton.Text = "&Up";
+            this.MoveRuleUpButton.Text = "Up";
             this.MoveRuleUpButton.UseVisualStyleBackColor = true;
             this.MoveRuleUpButton.Click += new System.EventHandler(this.MoveRuleUpButtonClick);
             // 
@@ -443,7 +443,7 @@
             this.EditRuleButton.Name = "EditRuleButton";
             this.EditRuleButton.Size = new System.Drawing.Size(75, 23);
             this.EditRuleButton.TabIndex = 8;
-            this.EditRuleButton.Text = "&Edit";
+            this.EditRuleButton.Text = "Edit";
             this.EditRuleButton.UseVisualStyleBackColor = true;
             this.EditRuleButton.Click += new System.EventHandler(this.EditRuleButtonClick);
             // 
@@ -453,7 +453,7 @@
             this.NewRuleButton.Name = "NewRuleButton";
             this.NewRuleButton.Size = new System.Drawing.Size(75, 23);
             this.NewRuleButton.TabIndex = 6;
-            this.NewRuleButton.Text = "&New";
+            this.NewRuleButton.Text = "New";
             this.NewRuleButton.UseVisualStyleBackColor = true;
             this.NewRuleButton.Click += new System.EventHandler(this.NewRuleButtonClick);
             // 
@@ -534,7 +534,7 @@
             this.RenameButton.Name = "RenameButton";
             this.RenameButton.Size = new System.Drawing.Size(75, 23);
             this.RenameButton.TabIndex = 4;
-            this.RenameButton.Text = "&Rename";
+            this.RenameButton.Text = "Rename";
             this.RenameButton.UseVisualStyleBackColor = true;
             this.RenameButton.Click += new System.EventHandler(this.RenameButtonClick);
             // 
@@ -545,7 +545,7 @@
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(75, 23);
             this.BackButton.TabIndex = 2;
-            this.BackButton.Text = "&Back";
+            this.BackButton.Text = "Back";
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.BackButtonClick);
             // 

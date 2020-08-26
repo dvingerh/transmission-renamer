@@ -152,10 +152,8 @@ class BufferedTreeView : TreeView
 	}
 	public async Task UpdateCounters()
 	{
-		if (Globals.SelectedTorrentFiles == null)
-			Globals.SelectedTorrentFiles = new List<FriendlyTorrentFileInfo>();
-		else
-			Globals.SelectedTorrentFiles.Clear();
+
+		Globals.SelectedTorrentFiles.Clear();
 		TotalFiles = 0;
 		TotalFilesSelected = 0;
 		foreach (var node in GetAllNodes(Nodes))
