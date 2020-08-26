@@ -5,7 +5,15 @@ Currently this project is **unfinished**, not all core functionality has been im
 An overview of implemented and planned functionality can be found below, as well as some screenshots showcasing the user interface.
 
 
-## Core Functionality
+#### Note
+When (eventually) all functionalities and rules are implemented in this project I may start doing a .NET Core rewrite of this application with the aim of providing cross-platform support and improved code overall. Very little planning was done for this particular project, but should I one day start with the full rewrite preparations will be made where they are most important.
+
+
+![](/Screenshots/spacer.png?raw=true)
+
+## To-do
+
+#### Core Functionality
 | Logic                                | Not Implemented | Implemented |
 |--------------------------------------|:---------------:|:-----------:|
 | Connection with Transmission session |                 |      x      |
@@ -21,7 +29,9 @@ An overview of implemented and planned functionality can be found below, as well
 | Send Rename command to Transmission  |        x        |             |
 | Must-Have level Error Handling       |        x        |             |
 
-## Planned Rules
+![](/Screenshots/spacer.png?raw=true)
+
+#### Planned Rules
 | Rule Type           | Not Implemented | Implemented | Description                                                                        |
 |---------------------|:---------------:|:-----------:|------------------------------------------------------------------------------------|
 | Insert              |                 |      x      | Insert string at a given position or text in the filename.                         |
@@ -31,32 +41,51 @@ An overview of implemented and planned functionality can be found below, as well
 | Clean               |        x        |             | Remove pre-defined or user-defined characters from the filename.                   |
 | Regular Expressions |        x        |             | Replace a character or string matched by the Regular Expression with a new string. |
 
-## Additional Plans
+![](/Screenshots/spacer.png?raw=true)
+
+#### Additional Plans
 | Plan                                 | Not Done | Done |
 |--------------------------------------|:--------:|:----:|
 | Add Unit Tests                       |    x     |      |
 | Expand Error Checking / Handling     |    x     |      |
 | Code Refactoring                     |    x     |      |
 
-## Screenshots
+![](/Screenshots/spacer.png?raw=true)
+
+### Screenshots
 *The interface is subject to change and does not represent the final product.*
 
-#### Connect to session
+![](/Screenshots/spacer.png?raw=true)
+
+##### Connect to session
 
 ![Connect to session](/Screenshots/transmission-renamer_session.png?raw=true "Connect to session")
 
-#### Session Torrents Overview
+![](/Screenshots/spacer.png?raw=true)
+
+##### Session Torrents Overview
 
 ![Session Torrents Overview](/Screenshots/transmission-renamer_torrents.png?raw=true "Session Torrents Overview")
 
-#### Torrent File Selection
+![](/Screenshots/spacer.png?raw=true)
+
+##### Torrent File Selection
 
 ![File selection](/Screenshots/transmission-renamer_files.png?raw=true "File selection")
 
-#### New / Edit Rule Window
+![](/Screenshots/spacer.png?raw=true)
+
+##### New / Edit Rule Window
 
 ![New / Edit Rule Window](/Screenshots/transmission-renamer_newrule.png?raw=true "New / Edit Rule Window")
 
-#### Rename Rules Overview
+![](/Screenshots/spacer.png?raw=true)
+
+##### Rename Rules Overview
 
 ![Rename Rules Overview](/Screenshots/transmission-renamer_rulepreview.png?raw=true "Rename Rules Overview")
+
+![](/Screenshots/spacer.png?raw=true)
+
+##### Full Renaming Process Demo (click to enlarge)
+![Full Renaming Process Demo](/Screenshots/transmission-renamer_demo.gif?raw=true "Full Renaming Process Demo")
