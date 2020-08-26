@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Transmission.API.RPC;
 using Transmission.API.RPC.Entity;
@@ -46,9 +45,13 @@ namespace transmission_renamer
             if (client != null)
                 client.CloseSessionAsync();
             if (ValidateUrl())
+            {
                 client = new Client(url: Url, login: Username, password: Password);
+            }
             else
+            {
                 return RequestResult.InvalidUrl;
+            }
 
             RequestResult connectionResult;
             Task<SessionInfo> sessionInfoTask = client.GetSessionInformationAsync();
@@ -56,18 +59,17 @@ namespace transmission_renamer
 
             await Task.Run(async () => await Task.WhenAny(sessionInfoTask, delayTask));
 
-            
+
             if (!requestCancelled)
             {
                 if (delayTask.IsCompleted)
+                {
                     connectionResult = RequestResult.Timeout;
+                }
                 else
                 {
                     SessionInfo sessionInfo = sessionInfoTask.Result;
-                    if (sessionInfo != null && sessionInfo.Version != null)
-                        connectionResult = RequestResult.Success;
-                    else
-                        connectionResult = RequestResult.InvalidResp;
+                    connectionResult = sessionInfo != null && sessionInfo.Version != null ? RequestResult.Success : RequestResult.InvalidResp;
                 }
             }
             else
@@ -83,14 +85,13 @@ namespace transmission_renamer
             if (!requestCancelled)
             {
                 if (delayTask.IsCompleted)
+                {
                     return null;
+                }
                 else
                 {
                     TransmissionTorrents torrentsList = getTorrentsTask.Result;
-                    if (torrentsList != null && torrentsList.Torrents != null)
-                        return torrentsList.Torrents.ToList();
-                    else
-                        return new List<TorrentInfo>();
+                    return torrentsList != null && torrentsList.Torrents != null ? torrentsList.Torrents.ToList() : new List<TorrentInfo>();
                 }
             }
             else
@@ -115,10 +116,7 @@ namespace transmission_renamer
                 else
                 {
                     RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
-                    if (renameTorrentInfo != null && renameTorrentInfo.Name == newName)
-                        renameResult = RequestResult.Success;
-                    else
-                        renameResult = RequestResult.Failed;
+                    renameResult = renameTorrentInfo != null && renameTorrentInfo.Name == newName ? RequestResult.Success : RequestResult.Failed;
                 }
             }
             else
