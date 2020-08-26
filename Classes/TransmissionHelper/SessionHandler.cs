@@ -108,21 +108,14 @@ namespace transmission_renamer
 
             await Task.Run(async () => await Task.WhenAny(renameFileTask, delayTask));
 
-
-            if (!requestCancelled)
-            {
-                if (delayTask.IsCompleted)
-                    renameResult = RequestResult.Timeout;
-                else
-                {
-                    RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
-                    renameResult = renameTorrentInfo != null && renameTorrentInfo.Name == newName ? RequestResult.Success : RequestResult.Failed;
-                }
-            }
+            if (delayTask.IsCompleted)
+                renameResult = RequestResult.Timeout;
             else
-                renameResult = RequestResult.Cancelled;
+            {
+                RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
+                renameResult = renameTorrentInfo != null && renameTorrentInfo.Name == newName ? RequestResult.Success : RequestResult.Failed;
+            }
             return renameResult;
-
         }
 
         public void CloseConnection() => client.CloseSessionAsync();
