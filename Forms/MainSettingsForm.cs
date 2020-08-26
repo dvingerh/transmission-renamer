@@ -500,12 +500,17 @@ namespace transmission_renamer
                 ruleLVItem.Tag = rule;
                 RulesListView.Items.Add(ruleLVItem);
             }
+            ResetOldNewFileNameValues();
+        }
+
+        private void ResetOldNewFileNameValues()
+        {
             FileNamesOldNewListView.BeginUpdate();
             foreach (ListViewItem torrentFileItem in FileNamesOldNewListView.Items)
             {
                 FriendlyTorrentFileInfo torrentFileInfo = (FriendlyTorrentFileInfo)torrentFileItem.Tag;
                 torrentFileInfo.NewestName = torrentFileInfo.InitialPath;
-                torrentFileItem.SubItems[1].Text = torrentFileInfo.InitialPath;
+                torrentFileItem.SubItems[1].Text = torrentFileItem.Text;
                 torrentFileItem.Tag = torrentFileInfo;
             }
             FileNamesOldNewListView.EndUpdate();
@@ -514,7 +519,8 @@ namespace transmission_renamer
         // update all the new file name previews in FileNamesOldNewListView
         private void UpdateFileRenameListView()
         {
-            if (Globals.RenameRules != null)
+            ResetOldNewFileNameValues();
+            if (Globals.RenameRules.Count > 0)
             {
                 FileNamesOldNewListView.BeginUpdate();
                 foreach (RenameRule renameRule in Globals.RenameRules)
@@ -594,7 +600,10 @@ namespace transmission_renamer
                 RulesListView.Items[RulesListView.Items.Count - 1].Selected = true;
             }
             else
+            {
                 DeleteRuleButton.Enabled = false;
+                EditRuleButton.Enabled = false;
+            }
         }
 
         // edit selected rule from the list of rules, update UI state
