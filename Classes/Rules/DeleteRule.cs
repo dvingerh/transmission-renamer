@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace transmission_renamer.Classes.Rules
 {
-    public class DeleteRule : RenameRule
+    public class DeleteRule: RenameRule
     {
         public string Name { get; } = "Delete";
 
@@ -20,14 +23,13 @@ namespace transmission_renamer.Classes.Rules
         public bool DeleteToEnd { get; set; }
         public bool DeleteEntireFileName { get; set; }
         public bool IgnoreExtension { get; set; }
-        public bool RightToLeft { get; set; }
         public bool KeepDelimiters { get; set; }
         public int FromPositionIndex { get; set; }
         public int ToPositionIndex { get; set; }
         public string FromDelimiterStr { get; set; }
         public string ToDelimiterStr { get; set; }
 
-        public DeleteRule(bool fromPosition, bool fromDelimiter, bool toPosition, bool toDelimiter, bool deleteToEnd, bool deleteEntireFileName, bool ignoreExtension, bool rightToLeft, bool keepDelimiters, int fromPositionIndex, int toPositionIndex, string fromDelimiterStr, string toDelimiterStr)
+        public DeleteRule(bool fromPosition, bool fromDelimiter, bool toPosition, bool toDelimiter, bool deleteToEnd, bool deleteEntireFileName, bool ignoreExtension, bool keepDelimiters, int fromPositionIndex, int toPositionIndex, string fromDelimiterStr, string toDelimiterStr)
         {
             this.FromPosition = fromPosition;
             this.FromDelimiter = fromDelimiter;
@@ -36,7 +38,6 @@ namespace transmission_renamer.Classes.Rules
             this.DeleteToEnd = deleteToEnd;
             this.DeleteEntireFileName = deleteEntireFileName;
             this.IgnoreExtension = ignoreExtension;
-            this.RightToLeft = rightToLeft;
             this.KeepDelimiters = keepDelimiters;
             this.FromPositionIndex = fromPositionIndex;
             this.ToPositionIndex = toPositionIndex;
@@ -68,27 +69,22 @@ namespace transmission_renamer.Classes.Rules
                     descriptionSb.Append(" to End ");
 
 
-                if (RightToLeft && KeepDelimiters && IgnoreExtension)
-                    descriptionSb.Append("(from right-to-left, keeping delimiters, ignoring extension)");
-                else if (RightToLeft || KeepDelimiters || IgnoreExtension)
+                if (KeepDelimiters && IgnoreExtension)
+                    descriptionSb.Append("(keeping delimiters, ignoring extension)");
+                else if (KeepDelimiters || IgnoreExtension)
                 {
                     descriptionSb.Append("(");
 
-                    if (RightToLeft)
-                        descriptionSb.Append("from right-to-left");
                     if (KeepDelimiters)
-                        if (RightToLeft)
-                        {
-                            descriptionSb.Append(", ");
-                            descriptionSb.Append("keeping delimiters");
-                        }
+                    {
+                        descriptionSb.Append("keeping delimiters");
+                    }
                     if (IgnoreExtension)
-                        if (RightToLeft || KeepDelimiters)
-                        {
+                    {
+                        if (KeepDelimiters)
                             descriptionSb.Append(", ");
-                            descriptionSb.Append("ignoring extension");
-                        }
-
+                        descriptionSb.Append("ignoring extension");
+                    }
                     descriptionSb.Append(")");
                 }
 
@@ -109,20 +105,29 @@ namespace transmission_renamer.Classes.Rules
 
                 string oldNameStr = newNameSb.ToString();
 
+                if (DeleteEntireFileName)
+                {
+                    newNameSb.Clear();
+                    if (IgnoreExtension)
+                        newNameSb.Append(extension);
+
+                    return newNameSb.ToString();
+                }
+
                 int fromDelimiterPos = 0;
                 int toDelimiterPos = 0;
-
                 if (FromDelimiter)
                     fromDelimiterPos = newNameSb.ToString().IndexOf(FromDelimiterStr);
                 if (ToDelimiter)
                     toDelimiterPos = newNameSb.ToString().IndexOf(ToDelimiterStr);
 
-                int fromIndex = FromPosition ? FromPositionIndex : fromDelimiterPos;
-                int endIndex = ToPosition ? (ToPositionIndex - fromIndex) + 1 : (toDelimiterPos - fromIndex);
-                int rl0, rl1;
+                int removeStartIndex = FromPosition ? FromPositionIndex : fromDelimiterPos + (!KeepDelimiters ? 0 : FromDelimiterStr.Length);
+                int removeLength = ToPosition ? (ToPositionIndex - removeStartIndex) + 1 : (toDelimiterPos + ToDelimiterStr.Length) - removeStartIndex - (!KeepDelimiters ? 0 : ToDelimiterStr.Length);
 
-                newNameSb.Remove(fromIndex + (!KeepDelimiters ? 0 : FromDelimiterStr.Length), endIndex + (KeepDelimiters ? 0 : ToDelimiterStr.Length));
+                if (DeleteToEnd)
+                    removeLength = newNameSb.Length - removeStartIndex;
 
+                newNameSb.Remove(removeStartIndex, removeLength);
 
                 if (IgnoreExtension)
                     newNameSb.Append(extension);
@@ -131,17 +136,6 @@ namespace transmission_renamer.Classes.Rules
             }
             catch { return torrentFileInfo.NewestName; }
 
-        }
-
-        public static string Reverse(string s)
-        {
-            //char[] charArray = s.ToCharArray();
-            //Array.Reverse(s.ToCharArray().ToArray());
-            //return new string(charArray);
-
-
-
-            return new string(s.ToCharArray().Reverse().ToArray());
         }
     }
 }
