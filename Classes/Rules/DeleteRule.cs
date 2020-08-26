@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace transmission_renamer.Classes.Rules
 {
@@ -13,7 +14,7 @@ namespace transmission_renamer.Classes.Rules
         private readonly string description;
         private readonly string id = Guid.NewGuid().ToString();
 
-        private bool fromPosition, fromDelimiter, toPosition, toDelimiter, deleteToEnd, ignoreExtension, deleteEntireFileName, rightToLeft, keepDelimiters;
+        private bool fromPosition, fromDelimiter, toPosition, toDelimiter, deleteToEnd, ignoreExtension, deleteEntireFileName, keepDelimiters;
         private int fromPositionIndex, toPositionIndex;
         private string fromDelimiterStr, toDelimiterStr;
 
@@ -30,14 +31,13 @@ namespace transmission_renamer.Classes.Rules
         public bool DeleteToEnd { get => deleteToEnd; set => deleteToEnd = value; }
         public bool DeleteEntireFileName { get => deleteEntireFileName; set => deleteEntireFileName = value; }
         public bool IgnoreExtension { get => ignoreExtension; set => ignoreExtension = value; }
-        public bool RightToLeft { get => rightToLeft; set => rightToLeft = value; }
         public bool KeepDelimiters { get => keepDelimiters; set => keepDelimiters = value; }
         public int FromPositionIndex { get => fromPositionIndex; set => fromPositionIndex = value; }
         public int ToPositionIndex { get => toPositionIndex; set => toPositionIndex = value; }
         public string FromDelimiterStr { get => fromDelimiterStr; set => fromDelimiterStr = value; }
         public string ToDelimiterStr { get => toDelimiterStr; set => toDelimiterStr = value; }
 
-        public DeleteRule(bool fromPosition, bool fromDelimiter, bool toPosition, bool toDelimiter, bool deleteToEnd, bool deleteEntireFileName, bool ignoreExtension, bool rightToLeft, bool keepDelimiters, int fromPositionIndex, int toPositionIndex, string fromDelimiterStr, string toDelimiterStr)
+        public DeleteRule(bool fromPosition, bool fromDelimiter, bool toPosition, bool toDelimiter, bool deleteToEnd, bool deleteEntireFileName, bool ignoreExtension, bool keepDelimiters, int fromPositionIndex, int toPositionIndex, string fromDelimiterStr, string toDelimiterStr)
         {
             this.fromPosition = fromPosition;
             this.fromDelimiter = fromDelimiter;
@@ -46,7 +46,6 @@ namespace transmission_renamer.Classes.Rules
             this.deleteToEnd = deleteToEnd;
             this.deleteEntireFileName = deleteEntireFileName;
             this.ignoreExtension = ignoreExtension;
-            this.rightToLeft = rightToLeft;
             this.keepDelimiters = keepDelimiters;
             this.fromPositionIndex = fromPositionIndex;
             this.toPositionIndex = toPositionIndex;
@@ -78,23 +77,19 @@ namespace transmission_renamer.Classes.Rules
                     descriptionSb.Append(" to End ");
 
 
-                if (RightToLeft && KeepDelimiters && IgnoreExtension)
-                    descriptionSb.Append("(from right-to-left, keeping delimiters, ignoring extension)");
-                else if (RightToLeft || KeepDelimiters || IgnoreExtension)
+                if (KeepDelimiters && IgnoreExtension)
+                    descriptionSb.Append("(keeping delimiters, ignoring extension)");
+                else if (KeepDelimiters || IgnoreExtension)
                 {
                     descriptionSb.Append("(");
 
-                    if (RightToLeft)
-                        descriptionSb.Append("from right-to-left");
                     if (KeepDelimiters)
                     {
-                        if (RightToLeft)
-                            descriptionSb.Append(", ");
                         descriptionSb.Append("keeping delimiters");
                     }
                     if (IgnoreExtension)
                     {
-                        if (RightToLeft || KeepDelimiters)
+                        if (KeepDelimiters)
                             descriptionSb.Append(", ");
                         descriptionSb.Append("ignoring extension");
                     }
@@ -134,9 +129,8 @@ namespace transmission_renamer.Classes.Rules
                 if (toDelimiter)
                     toDelimiterPos = newNameSb.ToString().IndexOf(toDelimiterStr);
 
-
                 int removeStartIndex = FromPosition ? fromPositionIndex : fromDelimiterPos + (!keepDelimiters ? 0 : fromDelimiterStr.Length);
-                int removeLength = ToPosition ? (toPositionIndex - removeStartIndex) + 1 : (toDelimiterPos + toDelimiterStr.Length + 1) - removeStartIndex - (!keepDelimiters ? 0 : toDelimiterStr.Length);
+                int removeLength = ToPosition ? (toPositionIndex - removeStartIndex) + 1 : (toDelimiterPos + toDelimiterStr.Length) - removeStartIndex - (!keepDelimiters ? 0 : toDelimiterStr.Length);
 
                 if (DeleteToEnd)
                     removeLength = newNameSb.Length - removeStartIndex;

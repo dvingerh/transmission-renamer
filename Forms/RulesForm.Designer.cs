@@ -50,7 +50,6 @@
             this.DeleteRuleTabPage = new System.Windows.Forms.TabPage();
             this.DeleteIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
             this.DeleteKeepDelimitersCheckBox = new System.Windows.Forms.CheckBox();
-            this.DeleteRightToLeftCheckBox = new System.Windows.Forms.CheckBox();
             this.DeleteEntireFileNameCheckBox = new System.Windows.Forms.CheckBox();
             this.DeleteToGroupBox = new System.Windows.Forms.GroupBox();
             this.DeleteToEndRadioButton = new System.Windows.Forms.RadioButton();
@@ -298,7 +297,6 @@
             this.DeleteRuleTabPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.DeleteRuleTabPage.Controls.Add(this.DeleteIgnoreExtensionCheckBox);
             this.DeleteRuleTabPage.Controls.Add(this.DeleteKeepDelimitersCheckBox);
-            this.DeleteRuleTabPage.Controls.Add(this.DeleteRightToLeftCheckBox);
             this.DeleteRuleTabPage.Controls.Add(this.DeleteEntireFileNameCheckBox);
             this.DeleteRuleTabPage.Controls.Add(this.DeleteToGroupBox);
             this.DeleteRuleTabPage.Controls.Add(this.DeleteFromGroupBox);
@@ -326,22 +324,12 @@
             // DeleteKeepDelimitersCheckBox
             // 
             this.DeleteKeepDelimitersCheckBox.AutoSize = true;
-            this.DeleteKeepDelimitersCheckBox.Location = new System.Drawing.Point(264, 266);
+            this.DeleteKeepDelimitersCheckBox.Location = new System.Drawing.Point(264, 243);
             this.DeleteKeepDelimitersCheckBox.Name = "DeleteKeepDelimitersCheckBox";
             this.DeleteKeepDelimitersCheckBox.Size = new System.Drawing.Size(104, 17);
             this.DeleteKeepDelimitersCheckBox.TabIndex = 6;
             this.DeleteKeepDelimitersCheckBox.Text = "Keep delimiters";
             this.DeleteKeepDelimitersCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // DeleteRightToLeftCheckBox
-            // 
-            this.DeleteRightToLeftCheckBox.AutoSize = true;
-            this.DeleteRightToLeftCheckBox.Location = new System.Drawing.Point(264, 243);
-            this.DeleteRightToLeftCheckBox.Name = "DeleteRightToLeftCheckBox";
-            this.DeleteRightToLeftCheckBox.Size = new System.Drawing.Size(90, 17);
-            this.DeleteRightToLeftCheckBox.TabIndex = 5;
-            this.DeleteRightToLeftCheckBox.Text = "Right-to-left";
-            this.DeleteRightToLeftCheckBox.UseVisualStyleBackColor = true;
             // 
             // DeleteEntireFileNameCheckBox
             // 
@@ -668,7 +656,6 @@
         private System.Windows.Forms.RadioButton DeleteToPositionRadioButton;
         private System.Windows.Forms.CheckBox DeleteEntireFileNameCheckBox;
         private System.Windows.Forms.RadioButton DeleteToEndRadioButton;
-        private System.Windows.Forms.CheckBox DeleteRightToLeftCheckBox;
         private System.Windows.Forms.CheckBox DeleteKeepDelimitersCheckBox;
         private System.Windows.Forms.CheckBox DeleteIgnoreExtensionCheckBox;
     }
