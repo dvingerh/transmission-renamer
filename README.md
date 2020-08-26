@@ -87,5 +87,5 @@ When (eventually) all functionalities and rules are implemented in this project 
 
 ![](/Screenshots/spacer.png?raw=true)
 
-##### Full Renaming Process Demo (click to enlarge)
+##### Full Renaming Process Demo (click to download full-resolution version)
 ![Full Renaming Process Demo](/Screenshots/transmission-renamer_demo.gif?raw=true "Full Renaming Process Demo")
