@@ -14,7 +14,6 @@ namespace transmission_renamer.Forms
     public partial class RulesForm : Form
     {
         private readonly bool editMode = false;
-        private readonly bool debug = true;
         private RenameRule currentlyEditedRule;
 
         public RulesForm(bool editMode = false, RenameRule rule = null)
@@ -25,13 +24,6 @@ namespace transmission_renamer.Forms
                 ApplyEditingState(rule);
             else
                 RuleTypeListBox.SelectedIndex = 0;
-
-            if (debug)
-            {
-                InsertTextTextBox.Text = "S02E";
-                InsertAfterTextRadioButton.Checked = true;
-                InsertAfterTextTextBox.Text = "!! - ";
-            }
         }
 
         private void ApplyEditingState(RenameRule rule)
