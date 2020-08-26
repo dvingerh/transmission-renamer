@@ -1,48 +1,59 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace transmission_renamer.Classes.Rules
 {
-    public class DeleteRule : RenameRule
+    public class DeleteRule: RenameRule
     {
-        public string Name { get; } = "Delete";
+        private readonly string name = "Delete";
+        private readonly string description;
+        private readonly string id = Guid.NewGuid().ToString();
 
-        public string Description { get; }
+        private bool fromPosition, fromDelimiter, toPosition, toDelimiter, deleteToEnd, ignoreExtension, deleteEntireFileName, rightToLeft, keepDelimiters;
+        private int fromPositionIndex, toPositionIndex;
+        private string fromDelimiterStr, toDelimiterStr;
 
-        public string Id { get; } = Guid.NewGuid().ToString();
+        public string Name => name;
 
-        public bool FromPosition { get; set; }
-        public bool FromDelimiter { get; set; }
-        public bool ToPosition { get; set; }
-        public bool ToDelimiter { get; set; }
-        public bool DeleteToEnd { get; set; }
-        public bool DeleteEntireFileName { get; set; }
-        public bool IgnoreExtension { get; set; }
-        public bool RightToLeft { get; set; }
-        public bool KeepDelimiters { get; set; }
-        public int FromPositionIndex { get; set; }
-        public int ToPositionIndex { get; set; }
-        public string FromDelimiterStr { get; set; }
-        public string ToDelimiterStr { get; set; }
+        public string Description => description;
+
+        public string Id => id;
+
+        public bool FromPosition { get => fromPosition; set => fromPosition = value; }
+        public bool FromDelimiter { get => fromDelimiter; set => fromDelimiter = value; }
+        public bool ToPosition { get => toPosition; set => toPosition = value; }
+        public bool ToDelimiter { get => toDelimiter; set => toDelimiter = value; }
+        public bool DeleteToEnd { get => deleteToEnd; set => deleteToEnd = value; }
+        public bool DeleteEntireFileName { get => deleteEntireFileName; set => deleteEntireFileName = value; }
+        public bool IgnoreExtension { get => ignoreExtension; set => ignoreExtension = value; }
+        public bool RightToLeft { get => rightToLeft; set => rightToLeft = value; }
+        public bool KeepDelimiters { get => keepDelimiters; set => keepDelimiters = value; }
+        public int FromPositionIndex { get => fromPositionIndex; set => fromPositionIndex = value; }
+        public int ToPositionIndex { get => toPositionIndex; set => toPositionIndex = value; }
+        public string FromDelimiterStr { get => fromDelimiterStr; set => fromDelimiterStr = value; }
+        public string ToDelimiterStr { get => toDelimiterStr; set => toDelimiterStr = value; }
 
         public DeleteRule(bool fromPosition, bool fromDelimiter, bool toPosition, bool toDelimiter, bool deleteToEnd, bool deleteEntireFileName, bool ignoreExtension, bool rightToLeft, bool keepDelimiters, int fromPositionIndex, int toPositionIndex, string fromDelimiterStr, string toDelimiterStr)
         {
-            this.FromPosition = fromPosition;
-            this.FromDelimiter = fromDelimiter;
-            this.ToPosition = toPosition;
-            this.ToDelimiter = toDelimiter;
-            this.DeleteToEnd = deleteToEnd;
-            this.DeleteEntireFileName = deleteEntireFileName;
-            this.IgnoreExtension = ignoreExtension;
-            this.RightToLeft = rightToLeft;
-            this.KeepDelimiters = keepDelimiters;
-            this.FromPositionIndex = fromPositionIndex;
-            this.ToPositionIndex = toPositionIndex;
-            this.FromDelimiterStr = fromDelimiterStr;
-            this.ToDelimiterStr = toDelimiterStr;
+            this.fromPosition = fromPosition;
+            this.fromDelimiter = fromDelimiter;
+            this.toPosition = toPosition;
+            this.toDelimiter = toDelimiter;
+            this.deleteToEnd = deleteToEnd;
+            this.deleteEntireFileName = deleteEntireFileName;
+            this.ignoreExtension = ignoreExtension;
+            this.rightToLeft = rightToLeft;
+            this.keepDelimiters = keepDelimiters;
+            this.fromPositionIndex = fromPositionIndex;
+            this.toPositionIndex = toPositionIndex;
+            this.fromDelimiterStr = fromDelimiterStr;
+            this.toDelimiterStr = toDelimiterStr;
 
-            this.Description = GenerateDescription();
+            this.description = GenerateDescription();
         }
 
         private string GenerateDescription()
@@ -57,7 +68,7 @@ namespace transmission_renamer.Classes.Rules
             {
                 if (FromPosition && FromPositionIndex != -1)
                     descriptionSb.Append($" Position {FromPositionIndex}");
-                else if (FromDelimiter)
+                else if (fromDelimiter)
                     descriptionSb.Append($" Delimiter '{FromDelimiterStr}'");
                 if (ToPosition && ToPositionIndex != -1)
                     descriptionSb.Append($" to Position {ToPositionIndex} ");
@@ -76,18 +87,17 @@ namespace transmission_renamer.Classes.Rules
                     if (RightToLeft)
                         descriptionSb.Append("from right-to-left");
                     if (KeepDelimiters)
+                    {
                         if (RightToLeft)
-                        {
                             descriptionSb.Append(", ");
-                            descriptionSb.Append("keeping delimiters");
-                        }
+                        descriptionSb.Append("keeping delimiters");
+                    }
                     if (IgnoreExtension)
+                    {
                         if (RightToLeft || KeepDelimiters)
-                        {
                             descriptionSb.Append(", ");
-                            descriptionSb.Append("ignoring extension");
-                        }
-
+                        descriptionSb.Append("ignoring extension");
+                    }
                     descriptionSb.Append(")");
                 }
 
@@ -101,27 +111,39 @@ namespace transmission_renamer.Classes.Rules
             {
                 StringBuilder newNameSb;
                 string extension = Path.GetExtension(torrentFileInfo.NewestName);
-                if (IgnoreExtension)
+                if (ignoreExtension)
                     newNameSb = new StringBuilder(Path.GetFileNameWithoutExtension(torrentFileInfo.NewestName));
                 else
                     newNameSb = new StringBuilder(torrentFileInfo.NewestName);
 
                 string oldNameStr = newNameSb.ToString();
 
+                if (DeleteEntireFileName)
+                {
+                    newNameSb.Clear();
+                    if (ignoreExtension)
+                        newNameSb.Append(extension);
+
+                    return newNameSb.ToString();
+                }
+
                 int fromDelimiterPos = 0;
                 int toDelimiterPos = 0;
-
-                if (FromDelimiter)
-                    fromDelimiterPos = newNameSb.ToString().IndexOf(FromDelimiterStr);
-                if (ToDelimiter)
-                    toDelimiterPos = newNameSb.ToString().IndexOf(ToDelimiterStr);
-
-                int fromIndex = FromPosition ? FromPositionIndex : fromDelimiterPos;
-                int endIndex = ToPosition ? (ToPositionIndex - fromIndex) + 1 : (toDelimiterPos - fromIndex);
-                newNameSb.Remove(fromIndex + (!KeepDelimiters ? 0 : FromDelimiterStr.Length), endIndex + (KeepDelimiters ? 0 : ToDelimiterStr.Length));
+                if (fromDelimiter)
+                    fromDelimiterPos = newNameSb.ToString().IndexOf(fromDelimiterStr);
+                if (toDelimiter)
+                    toDelimiterPos = newNameSb.ToString().IndexOf(toDelimiterStr);
 
 
-                if (IgnoreExtension)
+                int removeStartIndex = FromPosition ? fromPositionIndex : fromDelimiterPos + (!keepDelimiters ? 0 : fromDelimiterStr.Length);
+                int removeLength = ToPosition ? (toPositionIndex - removeStartIndex) + 1 : (toDelimiterPos + toDelimiterStr.Length + 1) - removeStartIndex - (!keepDelimiters ? 0 : toDelimiterStr.Length);
+
+                if (DeleteToEnd)
+                    removeLength = newNameSb.Length - removeStartIndex;
+
+                newNameSb.Remove(removeStartIndex, removeLength);
+
+                if (ignoreExtension)
                     newNameSb.Append(extension);
 
                 return newNameSb.ToString();
