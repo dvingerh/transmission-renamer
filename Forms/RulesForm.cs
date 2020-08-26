@@ -112,7 +112,10 @@ namespace transmission_renamer.Forms
                         Globals.RenameRules[oldRuleIndex] = insertRule;
                     }
                     else
+                    {
                         Globals.RenameRules.Add(insertRule);
+                    }
+
                     DialogResult = DialogResult.OK;
                     break;
                 case 1:
@@ -136,7 +139,10 @@ namespace transmission_renamer.Forms
                         Globals.RenameRules[oldRuleIndex] = deleteRule;
                     }
                     else
+                    {
                         Globals.RenameRules.Add(deleteRule);
+                    }
+
                     DialogResult = DialogResult.OK;
                     break;
                 default:
@@ -146,9 +152,6 @@ namespace transmission_renamer.Forms
             }
         }
 
-        private void RulesForm_Shown(object sender, EventArgs e)
-        {
-            SelectRuleTab(null, null);
-        }
+        private void RulesForm_Shown(object sender, EventArgs e) => SelectRuleTab(null, null);
     }
 }

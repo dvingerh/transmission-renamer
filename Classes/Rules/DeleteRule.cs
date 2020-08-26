@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace transmission_renamer.Classes.Rules
@@ -118,6 +119,8 @@ namespace transmission_renamer.Classes.Rules
 
                 int fromIndex = FromPosition ? FromPositionIndex : fromDelimiterPos;
                 int endIndex = ToPosition ? (ToPositionIndex - fromIndex) + 1 : (toDelimiterPos - fromIndex);
+                int rl0, rl1;
+
                 newNameSb.Remove(fromIndex + (!KeepDelimiters ? 0 : FromDelimiterStr.Length), endIndex + (KeepDelimiters ? 0 : ToDelimiterStr.Length));
 
 
@@ -128,6 +131,17 @@ namespace transmission_renamer.Classes.Rules
             }
             catch { return torrentFileInfo.NewestName; }
 
+        }
+
+        public static string Reverse(string s)
+        {
+            //char[] charArray = s.ToCharArray();
+            //Array.Reverse(s.ToCharArray().ToArray());
+            //return new string(charArray);
+
+
+
+            return new string(s.ToCharArray().Reverse().ToArray());
         }
     }
 }
