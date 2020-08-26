@@ -92,9 +92,10 @@ namespace transmission_renamer.Classes.Rules
             {
                 StringBuilder newNameSb;
                 string extension = Path.GetExtension(torrentFileInfo.NewestName);
-                newNameSb = IgnoreExtension
-                    ? new StringBuilder(Path.GetFileNameWithoutExtension(torrentFileInfo.NewestName))
-                    : new StringBuilder(torrentFileInfo.NewestName);
+                if (IgnoreExtension)
+                    newNameSb = new StringBuilder(Path.GetFileNameWithoutExtension(torrentFileInfo.NewestName));
+                else
+                    newNameSb = new StringBuilder(Path.GetFileName(torrentFileInfo.NewestName));
 
                 string oldNameStr = newNameSb.ToString();
 

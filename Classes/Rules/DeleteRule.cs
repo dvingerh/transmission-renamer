@@ -101,9 +101,7 @@ namespace transmission_renamer.Classes.Rules
                 if (IgnoreExtension)
                     newNameSb = new StringBuilder(Path.GetFileNameWithoutExtension(torrentFileInfo.NewestName));
                 else
-                    newNameSb = new StringBuilder(torrentFileInfo.NewestName);
-
-                string oldNameStr = newNameSb.ToString();
+                    newNameSb = new StringBuilder(Path.GetFileName(torrentFileInfo.NewestName));
 
                 if (DeleteEntireFileName)
                 {
