@@ -11,17 +11,11 @@ namespace transmission_renamer
 {
     public class SessionHandler
     {
-        private string host;
-        private int port;
-        private string username;
-        private string password;
-        private string address;
-
-        public string Host { get => host; set => host = value; }
-        public int Port { get => port; set => port = value; }
-        public string Username { get => username; set => username = value; }
-        public string Password { get => password; set => password = value; }
-        public string Url { get => address; set => address = value; }
+        public string Host { get; set; }
+        public int Port { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Url { get; set; }
 
         private Client client;
         private bool requestCancelled = false;
@@ -38,8 +32,7 @@ namespace transmission_renamer
         {
             try
             {
-                Uri uri = new Uri("http://" + Host + ":" + Port + Constants.RPC_PATH);
-                Url = uri.ToString();
+                Url = new Uri("http://" + Host + ":" + Port + Constants.RPC_PATH).ToString();
                 return true;
             }
             catch
@@ -134,15 +127,9 @@ namespace transmission_renamer
 
         }
 
-        public void CloseConnection()
-        {
-            client.CloseSessionAsync();
-        }
+        public void CloseConnection() => client.CloseSessionAsync();
 
-        public void CancelConnecting()
-        {
-            requestCancelled = true;
-        }
+        public void CancelConnecting() => requestCancelled = true;
 
     }
 }
