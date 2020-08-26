@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using static transmission_renamer.Globals;
 
 namespace transmission_renamer
 {
@@ -66,27 +64,25 @@ namespace transmission_renamer
             CloseCancelButton.Text = "Cancel";
             TimeOutTimer.Enabled = true;
             TimeOutTimer.Start();
-            ConnectionResult connectionResult = ConnectionResult.Unknown;
+            Globals.RequestResult connectionResult = Globals.RequestResult.Unknown;
             try
             {
                 Globals.SessionHandler = new SessionHandler(HostTextBox.Text, (int)PortUpDown.Value, UsernameTextBox.Text, PasswordTextBox.Text);
-                connectionResult = await Globals.SessionHandler.TestConnection();
+                await Task.Run(async () => { connectionResult = await Globals.SessionHandler.TestConnection(); }); 
             }
             catch (AggregateException ae)
             {
                 ae.Handle(ex =>
                 {
-                    if (ex is WebException)
+                    if (ex is WebException we)
                     {
-                        WebException we = (WebException)ex;
-                        HttpWebResponse webResponse = we.Response as HttpWebResponse;
-                        if (webResponse != null && webResponse.StatusCode == HttpStatusCode.Unauthorized)
-                            connectionResult = ConnectionResult.Unauthorized;
+                        if (we.Response is HttpWebResponse webResponse && webResponse.StatusCode == HttpStatusCode.Unauthorized)
+                            connectionResult = Globals.RequestResult.Unauthorized;
                         else
-                            connectionResult = ConnectionResult.Unknown;
+                            connectionResult = Globals.RequestResult.Unknown;
                     }
                     else if (ex is NullReferenceException)
-                        connectionResult = ConnectionResult.InvalidUrl;
+                        connectionResult = Globals.RequestResult.InvalidUrl;
                     return ex is WebException || ex is NullReferenceException;
                 });
             }
@@ -95,29 +91,29 @@ namespace transmission_renamer
                 bool revertUi = true;
                 switch (connectionResult)
                 {
-                    case ConnectionResult.Success:
+                    case Globals.RequestResult.Success:
                         Hide();
                         SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm();
                         selectTorrentFilesForm.ShowDialog();
                         Show();
                         break;
-                    case ConnectionResult.Timeout:
+                    case Globals.RequestResult.Timeout:
                         MessageBox.Show("The connection to the host has timed out.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case ConnectionResult.InvalidResp:
+                    case Globals.RequestResult.InvalidResp:
                         MessageBox.Show("The host returned an invalid response.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case ConnectionResult.InvalidUrl:
+                    case Globals.RequestResult.InvalidUrl:
                         MessageBox.Show("The specified host address is invalid.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case ConnectionResult.Unauthorized:
+                    case Globals.RequestResult.Unauthorized:
                         MessageBox.Show("The host rejected the login credentials.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case ConnectionResult.Cancelled:
+                    case Globals.RequestResult.Cancelled:
                         // show no message but keep UI controls and behavior intact
                         revertUi = false;
                         break;
-                    case ConnectionResult.Unknown:
+                    case Globals.RequestResult.Unknown:
                         MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     default:

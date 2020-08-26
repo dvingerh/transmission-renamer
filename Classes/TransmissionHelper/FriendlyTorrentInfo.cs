@@ -7,13 +7,6 @@ namespace transmission_renamer
 {
     public class FriendlyTorrentInfo
     {
-        private string queuePosition;
-        private string name;
-        private string status;
-        private string size;
-        private string progress;
-        private TorrentInfo torrent;
-
         enum EStatus
         {
             STOPPED, // Torrent is stopped
@@ -26,12 +19,12 @@ namespace transmission_renamer
             ISOLATED
         }
 
-        public string QueuePosition { get => queuePosition; set => queuePosition = value; }
-        public string Name { get => name; set => name = value; }
-        public string Status { get => status; set => status = value; }
-        public string Size { get => size; set => size = value; }
-        public string Progress { get => progress; set => progress = value; }
-        public TorrentInfo Torrent { get => torrent; set => torrent = value; }
+        public string QueuePosition { get; set; }
+        public string Name { get; set; }
+        public string Status { get; set; }
+        public string Size { get; set; }
+        public string Progress { get; set; }
+        public TorrentInfo Torrent { get; set; }
 
         public FriendlyTorrentInfo(TorrentInfo torrent)
         {
@@ -43,10 +36,7 @@ namespace transmission_renamer
             Progress = SetFriendlyProgress(torrent.PercentDone);
         }
 
-        private string SetFriendlyQueuePosition(int queuePosition)
-        {
-            return queuePosition.ToString();
-        }
+        private string SetFriendlyQueuePosition(int queuePosition) => queuePosition.ToString();
 
         private string SetFriendlyStatus(int status)
         {
@@ -56,15 +46,9 @@ namespace transmission_renamer
             return textInfo.ToTitleCase(eStatus.ToString().ToLower().Replace("_", " "));
         }
 
-        private string SetFriendlySize(long size)
-        {
-            return SizeSuffix(size, 2);
-        }
+        private string SetFriendlySize(long size) => SizeSuffix(size, 2);
 
-        private string SetFriendlyProgress(double percentDone)
-        {
-            return Math.Round(percentDone * 100, 2).ToString() + "%";
-        }
+        private string SetFriendlyProgress(double percentDone) => Math.Round(percentDone * 100, 2).ToString() + "%";
 
         static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
         static string SizeSuffix(long value, int decimalPlaces = 0)
