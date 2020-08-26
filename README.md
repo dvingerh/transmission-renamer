@@ -35,7 +35,7 @@ When (eventually) all functionalities and rules are implemented in this project 
 | Rule Type           | Not Implemented | Implemented | Description                                                                        |
 |---------------------|:---------------:|:-----------:|------------------------------------------------------------------------------------|
 | Insert              |                 |      x      | Insert string at a given position or text in the filename.                         |
-| Delete              |        x        |             | Delete characters from a start / end position or delimiter.                        |
+| Delete              |                 |      x      | Delete characters from a start / end position or delimiter.                        |
 | Remove              |        x        |             | Remove one or more occurrences of a string in the filename.                        |
 | Replace             |        x        |             | Replace one or more occurrences of a string in the filename with another string.   |
 | Clean               |        x        |             | Remove pre-defined or user-defined characters from the filename.                   |
@@ -86,6 +86,3 @@ When (eventually) all functionalities and rules are implemented in this project 
 ![Rename Rules Overview](/Screenshots/transmission-renamer_rulepreview.png?raw=true "Rename Rules Overview")
 
 ![](/Screenshots/spacer.png?raw=true)
-
-##### Full Renaming Process Demo (click to download full-resolution version)
-![Full Renaming Process Demo](/Screenshots/transmission-renamer_demo.gif?raw=true "Full Renaming Process Demo")
