@@ -126,7 +126,6 @@ namespace transmission_renamer.Forms
                         deleteToEnd: DeleteToEndRadioButton.Checked,
                         deleteEntireFileName: DeleteEntireFileNameCheckBox.Checked,
                         ignoreExtension: DeleteIgnoreExtensionCheckBox.Checked,
-                        rightToLeft: DeleteRightToLeftCheckBox.Checked,
                         keepDelimiters: DeleteKeepDelimitersCheckBox.Checked,
                         fromPositionIndex: (int)DeleteFromPositionNumericUpDown.Value,
                         toPositionIndex: (int)DeleteToPositionNumericUpDown.Value,
