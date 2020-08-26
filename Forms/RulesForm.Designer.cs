@@ -48,6 +48,21 @@
             this.InsertTextLabel = new System.Windows.Forms.Label();
             this.InsertRuleTitleLabel = new System.Windows.Forms.Label();
             this.DeleteRuleTabPage = new System.Windows.Forms.TabPage();
+            this.DeleteIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
+            this.DeleteKeepDelimitersCheckBox = new System.Windows.Forms.CheckBox();
+            this.DeleteRightToLeftCheckBox = new System.Windows.Forms.CheckBox();
+            this.DeleteEntireFileNameCheckBox = new System.Windows.Forms.CheckBox();
+            this.DeleteToGroupBox = new System.Windows.Forms.GroupBox();
+            this.DeleteToEndRadioButton = new System.Windows.Forms.RadioButton();
+            this.DeleteToDelimiterTextBox = new System.Windows.Forms.TextBox();
+            this.DeleteToPositionNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.DeleteToDelimiterRadioButton = new System.Windows.Forms.RadioButton();
+            this.DeleteToPositionRadioButton = new System.Windows.Forms.RadioButton();
+            this.DeleteFromGroupBox = new System.Windows.Forms.GroupBox();
+            this.DeleteFromDelimiterTextBox = new System.Windows.Forms.TextBox();
+            this.DeleteFromDelimiterRadioButton = new System.Windows.Forms.RadioButton();
+            this.DeleteFromPositionNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.DeleteFromPositionRadioButton = new System.Windows.Forms.RadioButton();
             this.DeleteRuleTitleLabel = new System.Windows.Forms.Label();
             this.RemoveRuleTabPage = new System.Windows.Forms.TabPage();
             this.RemoveRuleTitleLabel = new System.Windows.Forms.Label();
@@ -63,6 +78,10 @@
             this.InsertRuleTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InsertPositionNumericUpDown)).BeginInit();
             this.DeleteRuleTabPage.SuspendLayout();
+            this.DeleteToGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteToPositionNumericUpDown)).BeginInit();
+            this.DeleteFromGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteFromPositionNumericUpDown)).BeginInit();
             this.RemoveRuleTabPage.SuspendLayout();
             this.ReplaceRuleTabPage.SuspendLayout();
             this.CleanRuleTabPage.SuspendLayout();
@@ -137,7 +156,7 @@
             this.InsertIgnoreExtensionCheckBox.AutoSize = true;
             this.InsertIgnoreExtensionCheckBox.Checked = true;
             this.InsertIgnoreExtensionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.InsertIgnoreExtensionCheckBox.Location = new System.Drawing.Point(106, 251);
+            this.InsertIgnoreExtensionCheckBox.Location = new System.Drawing.Point(108, 266);
             this.InsertIgnoreExtensionCheckBox.Name = "InsertIgnoreExtensionCheckBox";
             this.InsertIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
             this.InsertIgnoreExtensionCheckBox.TabIndex = 14;
@@ -147,7 +166,7 @@
             // ReplaceCurrentFileNameRadioButton
             // 
             this.ReplaceCurrentFileNameRadioButton.AutoSize = true;
-            this.ReplaceCurrentFileNameRadioButton.Location = new System.Drawing.Point(106, 219);
+            this.ReplaceCurrentFileNameRadioButton.Location = new System.Drawing.Point(108, 234);
             this.ReplaceCurrentFileNameRadioButton.Name = "ReplaceCurrentFileNameRadioButton";
             this.ReplaceCurrentFileNameRadioButton.Size = new System.Drawing.Size(152, 17);
             this.ReplaceCurrentFileNameRadioButton.TabIndex = 13;
@@ -156,7 +175,7 @@
             // 
             // InsertAfterTextTextBox
             // 
-            this.InsertAfterTextTextBox.Location = new System.Drawing.Point(195, 184);
+            this.InsertAfterTextTextBox.Location = new System.Drawing.Point(197, 199);
             this.InsertAfterTextTextBox.Name = "InsertAfterTextTextBox";
             this.InsertAfterTextTextBox.Size = new System.Drawing.Size(259, 22);
             this.InsertAfterTextTextBox.TabIndex = 12;
@@ -164,7 +183,7 @@
             // InsertAfterTextRadioButton
             // 
             this.InsertAfterTextRadioButton.AutoSize = true;
-            this.InsertAfterTextRadioButton.Location = new System.Drawing.Point(106, 185);
+            this.InsertAfterTextRadioButton.Location = new System.Drawing.Point(108, 200);
             this.InsertAfterTextRadioButton.Name = "InsertAfterTextRadioButton";
             this.InsertAfterTextRadioButton.Size = new System.Drawing.Size(75, 17);
             this.InsertAfterTextRadioButton.TabIndex = 11;
@@ -173,7 +192,7 @@
             // 
             // InsertBeforeTextTextBox
             // 
-            this.InsertBeforeTextTextBox.Location = new System.Drawing.Point(195, 156);
+            this.InsertBeforeTextTextBox.Location = new System.Drawing.Point(197, 171);
             this.InsertBeforeTextTextBox.Name = "InsertBeforeTextTextBox";
             this.InsertBeforeTextTextBox.Size = new System.Drawing.Size(259, 22);
             this.InsertBeforeTextTextBox.TabIndex = 10;
@@ -181,7 +200,7 @@
             // InsertBeforeTextRadioButton
             // 
             this.InsertBeforeTextRadioButton.AutoSize = true;
-            this.InsertBeforeTextRadioButton.Location = new System.Drawing.Point(106, 157);
+            this.InsertBeforeTextRadioButton.Location = new System.Drawing.Point(108, 172);
             this.InsertBeforeTextRadioButton.Name = "InsertBeforeTextRadioButton";
             this.InsertBeforeTextRadioButton.Size = new System.Drawing.Size(83, 17);
             this.InsertBeforeTextRadioButton.TabIndex = 9;
@@ -191,7 +210,7 @@
             // InsertPositionRightLeftCheckBox
             // 
             this.InsertPositionRightLeftCheckBox.AutoSize = true;
-            this.InsertPositionRightLeftCheckBox.Location = new System.Drawing.Point(254, 131);
+            this.InsertPositionRightLeftCheckBox.Location = new System.Drawing.Point(256, 146);
             this.InsertPositionRightLeftCheckBox.Name = "InsertPositionRightLeftCheckBox";
             this.InsertPositionRightLeftCheckBox.Size = new System.Drawing.Size(90, 17);
             this.InsertPositionRightLeftCheckBox.TabIndex = 8;
@@ -201,7 +220,7 @@
             // InsertPositionNumericUpDown
             // 
             this.InsertPositionNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InsertPositionNumericUpDown.Location = new System.Drawing.Point(195, 128);
+            this.InsertPositionNumericUpDown.Location = new System.Drawing.Point(197, 143);
             this.InsertPositionNumericUpDown.Name = "InsertPositionNumericUpDown";
             this.InsertPositionNumericUpDown.Size = new System.Drawing.Size(50, 22);
             this.InsertPositionNumericUpDown.TabIndex = 7;
@@ -209,7 +228,7 @@
             // InsertAtPositionRadioButton
             // 
             this.InsertAtPositionRadioButton.AutoSize = true;
-            this.InsertAtPositionRadioButton.Location = new System.Drawing.Point(106, 128);
+            this.InsertAtPositionRadioButton.Location = new System.Drawing.Point(108, 143);
             this.InsertAtPositionRadioButton.Name = "InsertAtPositionRadioButton";
             this.InsertAtPositionRadioButton.Size = new System.Drawing.Size(70, 17);
             this.InsertAtPositionRadioButton.TabIndex = 6;
@@ -219,7 +238,7 @@
             // InsertSuffixRadioButton
             // 
             this.InsertSuffixRadioButton.AutoSize = true;
-            this.InsertSuffixRadioButton.Location = new System.Drawing.Point(106, 105);
+            this.InsertSuffixRadioButton.Location = new System.Drawing.Point(108, 120);
             this.InsertSuffixRadioButton.Name = "InsertSuffixRadioButton";
             this.InsertSuffixRadioButton.Size = new System.Drawing.Size(54, 17);
             this.InsertSuffixRadioButton.TabIndex = 5;
@@ -230,7 +249,7 @@
             // 
             this.InsertPrefixRadioButton.AutoSize = true;
             this.InsertPrefixRadioButton.Checked = true;
-            this.InsertPrefixRadioButton.Location = new System.Drawing.Point(106, 82);
+            this.InsertPrefixRadioButton.Location = new System.Drawing.Point(108, 97);
             this.InsertPrefixRadioButton.Name = "InsertPrefixRadioButton";
             this.InsertPrefixRadioButton.Size = new System.Drawing.Size(53, 17);
             this.InsertPrefixRadioButton.TabIndex = 4;
@@ -241,7 +260,7 @@
             // InsertWhereLabel
             // 
             this.InsertWhereLabel.AutoSize = true;
-            this.InsertWhereLabel.Location = new System.Drawing.Point(56, 84);
+            this.InsertWhereLabel.Location = new System.Drawing.Point(58, 99);
             this.InsertWhereLabel.Name = "InsertWhereLabel";
             this.InsertWhereLabel.Size = new System.Drawing.Size(44, 13);
             this.InsertWhereLabel.TabIndex = 3;
@@ -250,7 +269,7 @@
             // InsertTextTextBox
             // 
             this.InsertTextTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InsertTextTextBox.Location = new System.Drawing.Point(106, 42);
+            this.InsertTextTextBox.Location = new System.Drawing.Point(108, 57);
             this.InsertTextTextBox.Name = "InsertTextTextBox";
             this.InsertTextTextBox.Size = new System.Drawing.Size(348, 22);
             this.InsertTextTextBox.TabIndex = 2;
@@ -258,7 +277,7 @@
             // InsertTextLabel
             // 
             this.InsertTextLabel.AutoSize = true;
-            this.InsertTextLabel.Location = new System.Drawing.Point(61, 45);
+            this.InsertTextLabel.Location = new System.Drawing.Point(63, 60);
             this.InsertTextLabel.Name = "InsertTextLabel";
             this.InsertTextLabel.Size = new System.Drawing.Size(39, 13);
             this.InsertTextLabel.TabIndex = 1;
@@ -277,6 +296,12 @@
             // DeleteRuleTabPage
             // 
             this.DeleteRuleTabPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DeleteRuleTabPage.Controls.Add(this.DeleteIgnoreExtensionCheckBox);
+            this.DeleteRuleTabPage.Controls.Add(this.DeleteKeepDelimitersCheckBox);
+            this.DeleteRuleTabPage.Controls.Add(this.DeleteRightToLeftCheckBox);
+            this.DeleteRuleTabPage.Controls.Add(this.DeleteEntireFileNameCheckBox);
+            this.DeleteRuleTabPage.Controls.Add(this.DeleteToGroupBox);
+            this.DeleteRuleTabPage.Controls.Add(this.DeleteFromGroupBox);
             this.DeleteRuleTabPage.Controls.Add(this.DeleteRuleTitleLabel);
             this.DeleteRuleTabPage.Location = new System.Drawing.Point(4, 5);
             this.DeleteRuleTabPage.Name = "DeleteRuleTabPage";
@@ -285,6 +310,161 @@
             this.DeleteRuleTabPage.TabIndex = 1;
             this.DeleteRuleTabPage.Text = "Delete";
             this.DeleteRuleTabPage.UseVisualStyleBackColor = true;
+            // 
+            // DeleteIgnoreExtensionCheckBox
+            // 
+            this.DeleteIgnoreExtensionCheckBox.AutoSize = true;
+            this.DeleteIgnoreExtensionCheckBox.Checked = true;
+            this.DeleteIgnoreExtensionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DeleteIgnoreExtensionCheckBox.Location = new System.Drawing.Point(111, 266);
+            this.DeleteIgnoreExtensionCheckBox.Name = "DeleteIgnoreExtensionCheckBox";
+            this.DeleteIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.DeleteIgnoreExtensionCheckBox.TabIndex = 7;
+            this.DeleteIgnoreExtensionCheckBox.Text = "Ignore extension";
+            this.DeleteIgnoreExtensionCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // DeleteKeepDelimitersCheckBox
+            // 
+            this.DeleteKeepDelimitersCheckBox.AutoSize = true;
+            this.DeleteKeepDelimitersCheckBox.Location = new System.Drawing.Point(264, 266);
+            this.DeleteKeepDelimitersCheckBox.Name = "DeleteKeepDelimitersCheckBox";
+            this.DeleteKeepDelimitersCheckBox.Size = new System.Drawing.Size(104, 17);
+            this.DeleteKeepDelimitersCheckBox.TabIndex = 6;
+            this.DeleteKeepDelimitersCheckBox.Text = "Keep delimiters";
+            this.DeleteKeepDelimitersCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // DeleteRightToLeftCheckBox
+            // 
+            this.DeleteRightToLeftCheckBox.AutoSize = true;
+            this.DeleteRightToLeftCheckBox.Location = new System.Drawing.Point(264, 243);
+            this.DeleteRightToLeftCheckBox.Name = "DeleteRightToLeftCheckBox";
+            this.DeleteRightToLeftCheckBox.Size = new System.Drawing.Size(90, 17);
+            this.DeleteRightToLeftCheckBox.TabIndex = 5;
+            this.DeleteRightToLeftCheckBox.Text = "Right-to-left";
+            this.DeleteRightToLeftCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // DeleteEntireFileNameCheckBox
+            // 
+            this.DeleteEntireFileNameCheckBox.AutoSize = true;
+            this.DeleteEntireFileNameCheckBox.Location = new System.Drawing.Point(111, 243);
+            this.DeleteEntireFileNameCheckBox.Name = "DeleteEntireFileNameCheckBox";
+            this.DeleteEntireFileNameCheckBox.Size = new System.Drawing.Size(139, 17);
+            this.DeleteEntireFileNameCheckBox.TabIndex = 4;
+            this.DeleteEntireFileNameCheckBox.Text = "Delete entire filename";
+            this.DeleteEntireFileNameCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // DeleteToGroupBox
+            // 
+            this.DeleteToGroupBox.Controls.Add(this.DeleteToEndRadioButton);
+            this.DeleteToGroupBox.Controls.Add(this.DeleteToDelimiterTextBox);
+            this.DeleteToGroupBox.Controls.Add(this.DeleteToPositionNumericUpDown);
+            this.DeleteToGroupBox.Controls.Add(this.DeleteToDelimiterRadioButton);
+            this.DeleteToGroupBox.Controls.Add(this.DeleteToPositionRadioButton);
+            this.DeleteToGroupBox.Location = new System.Drawing.Point(260, 45);
+            this.DeleteToGroupBox.Name = "DeleteToGroupBox";
+            this.DeleteToGroupBox.Size = new System.Drawing.Size(200, 150);
+            this.DeleteToGroupBox.TabIndex = 3;
+            this.DeleteToGroupBox.TabStop = false;
+            this.DeleteToGroupBox.Text = "To";
+            // 
+            // DeleteToEndRadioButton
+            // 
+            this.DeleteToEndRadioButton.AutoSize = true;
+            this.DeleteToEndRadioButton.Location = new System.Drawing.Point(21, 87);
+            this.DeleteToEndRadioButton.Name = "DeleteToEndRadioButton";
+            this.DeleteToEndRadioButton.Size = new System.Drawing.Size(91, 17);
+            this.DeleteToEndRadioButton.TabIndex = 16;
+            this.DeleteToEndRadioButton.Text = "End position";
+            this.DeleteToEndRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteToDelimiterTextBox
+            // 
+            this.DeleteToDelimiterTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DeleteToDelimiterTextBox.Location = new System.Drawing.Point(110, 59);
+            this.DeleteToDelimiterTextBox.Name = "DeleteToDelimiterTextBox";
+            this.DeleteToDelimiterTextBox.Size = new System.Drawing.Size(70, 22);
+            this.DeleteToDelimiterTextBox.TabIndex = 15;
+            // 
+            // DeleteToPositionNumericUpDown
+            // 
+            this.DeleteToPositionNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DeleteToPositionNumericUpDown.Location = new System.Drawing.Point(110, 31);
+            this.DeleteToPositionNumericUpDown.Name = "DeleteToPositionNumericUpDown";
+            this.DeleteToPositionNumericUpDown.Size = new System.Drawing.Size(70, 22);
+            this.DeleteToPositionNumericUpDown.TabIndex = 13;
+            // 
+            // DeleteToDelimiterRadioButton
+            // 
+            this.DeleteToDelimiterRadioButton.AutoSize = true;
+            this.DeleteToDelimiterRadioButton.Location = new System.Drawing.Point(21, 60);
+            this.DeleteToDelimiterRadioButton.Name = "DeleteToDelimiterRadioButton";
+            this.DeleteToDelimiterRadioButton.Size = new System.Drawing.Size(74, 17);
+            this.DeleteToDelimiterRadioButton.TabIndex = 14;
+            this.DeleteToDelimiterRadioButton.Text = "Delimiter:";
+            this.DeleteToDelimiterRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteToPositionRadioButton
+            // 
+            this.DeleteToPositionRadioButton.AutoSize = true;
+            this.DeleteToPositionRadioButton.Checked = true;
+            this.DeleteToPositionRadioButton.Location = new System.Drawing.Point(21, 31);
+            this.DeleteToPositionRadioButton.Name = "DeleteToPositionRadioButton";
+            this.DeleteToPositionRadioButton.Size = new System.Drawing.Size(70, 17);
+            this.DeleteToPositionRadioButton.TabIndex = 12;
+            this.DeleteToPositionRadioButton.TabStop = true;
+            this.DeleteToPositionRadioButton.Text = "Position:";
+            this.DeleteToPositionRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteFromGroupBox
+            // 
+            this.DeleteFromGroupBox.Controls.Add(this.DeleteFromDelimiterTextBox);
+            this.DeleteFromGroupBox.Controls.Add(this.DeleteFromDelimiterRadioButton);
+            this.DeleteFromGroupBox.Controls.Add(this.DeleteFromPositionNumericUpDown);
+            this.DeleteFromGroupBox.Controls.Add(this.DeleteFromPositionRadioButton);
+            this.DeleteFromGroupBox.Location = new System.Drawing.Point(54, 45);
+            this.DeleteFromGroupBox.Name = "DeleteFromGroupBox";
+            this.DeleteFromGroupBox.Size = new System.Drawing.Size(200, 150);
+            this.DeleteFromGroupBox.TabIndex = 2;
+            this.DeleteFromGroupBox.TabStop = false;
+            this.DeleteFromGroupBox.Text = "From";
+            // 
+            // DeleteFromDelimiterTextBox
+            // 
+            this.DeleteFromDelimiterTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DeleteFromDelimiterTextBox.Location = new System.Drawing.Point(110, 59);
+            this.DeleteFromDelimiterTextBox.Name = "DeleteFromDelimiterTextBox";
+            this.DeleteFromDelimiterTextBox.Size = new System.Drawing.Size(70, 22);
+            this.DeleteFromDelimiterTextBox.TabIndex = 11;
+            // 
+            // DeleteFromDelimiterRadioButton
+            // 
+            this.DeleteFromDelimiterRadioButton.AutoSize = true;
+            this.DeleteFromDelimiterRadioButton.Location = new System.Drawing.Point(21, 60);
+            this.DeleteFromDelimiterRadioButton.Name = "DeleteFromDelimiterRadioButton";
+            this.DeleteFromDelimiterRadioButton.Size = new System.Drawing.Size(74, 17);
+            this.DeleteFromDelimiterRadioButton.TabIndex = 10;
+            this.DeleteFromDelimiterRadioButton.Text = "Delimiter:";
+            this.DeleteFromDelimiterRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // DeleteFromPositionNumericUpDown
+            // 
+            this.DeleteFromPositionNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DeleteFromPositionNumericUpDown.Location = new System.Drawing.Point(110, 31);
+            this.DeleteFromPositionNumericUpDown.Name = "DeleteFromPositionNumericUpDown";
+            this.DeleteFromPositionNumericUpDown.Size = new System.Drawing.Size(70, 22);
+            this.DeleteFromPositionNumericUpDown.TabIndex = 9;
+            // 
+            // DeleteFromPositionRadioButton
+            // 
+            this.DeleteFromPositionRadioButton.AutoSize = true;
+            this.DeleteFromPositionRadioButton.Checked = true;
+            this.DeleteFromPositionRadioButton.Location = new System.Drawing.Point(21, 31);
+            this.DeleteFromPositionRadioButton.Name = "DeleteFromPositionRadioButton";
+            this.DeleteFromPositionRadioButton.Size = new System.Drawing.Size(70, 17);
+            this.DeleteFromPositionRadioButton.TabIndex = 8;
+            this.DeleteFromPositionRadioButton.TabStop = true;
+            this.DeleteFromPositionRadioButton.Text = "Position:";
+            this.DeleteFromPositionRadioButton.UseVisualStyleBackColor = true;
             // 
             // DeleteRuleTitleLabel
             // 
@@ -426,6 +606,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.InsertPositionNumericUpDown)).EndInit();
             this.DeleteRuleTabPage.ResumeLayout(false);
             this.DeleteRuleTabPage.PerformLayout();
+            this.DeleteToGroupBox.ResumeLayout(false);
+            this.DeleteToGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteToPositionNumericUpDown)).EndInit();
+            this.DeleteFromGroupBox.ResumeLayout(false);
+            this.DeleteFromGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteFromPositionNumericUpDown)).EndInit();
             this.RemoveRuleTabPage.ResumeLayout(false);
             this.RemoveRuleTabPage.PerformLayout();
             this.ReplaceRuleTabPage.ResumeLayout(false);
@@ -470,5 +656,20 @@
         private System.Windows.Forms.RadioButton InsertAfterTextRadioButton;
         private System.Windows.Forms.RadioButton ReplaceCurrentFileNameRadioButton;
         private System.Windows.Forms.CheckBox InsertIgnoreExtensionCheckBox;
+        private System.Windows.Forms.GroupBox DeleteFromGroupBox;
+        private System.Windows.Forms.GroupBox DeleteToGroupBox;
+        private System.Windows.Forms.NumericUpDown DeleteFromPositionNumericUpDown;
+        private System.Windows.Forms.RadioButton DeleteFromPositionRadioButton;
+        private System.Windows.Forms.RadioButton DeleteFromDelimiterRadioButton;
+        private System.Windows.Forms.TextBox DeleteFromDelimiterTextBox;
+        private System.Windows.Forms.TextBox DeleteToDelimiterTextBox;
+        private System.Windows.Forms.NumericUpDown DeleteToPositionNumericUpDown;
+        private System.Windows.Forms.RadioButton DeleteToDelimiterRadioButton;
+        private System.Windows.Forms.RadioButton DeleteToPositionRadioButton;
+        private System.Windows.Forms.CheckBox DeleteEntireFileNameCheckBox;
+        private System.Windows.Forms.RadioButton DeleteToEndRadioButton;
+        private System.Windows.Forms.CheckBox DeleteRightToLeftCheckBox;
+        private System.Windows.Forms.CheckBox DeleteKeepDelimitersCheckBox;
+        private System.Windows.Forms.CheckBox DeleteIgnoreExtensionCheckBox;
     }
 }

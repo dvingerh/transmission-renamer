@@ -11,13 +11,14 @@ using Transmission.API.RPC.Entity;
 using transmission_renamer.Classes;
 using transmission_renamer.Classes.Rules;
 using transmission_renamer.Forms;
+using static transmission_renamer.Globals;
 
 namespace transmission_renamer
 {
     public partial class SelectTorrentFilesForm : Form
     {
         // private properties
-        private ListViewColumnSorter lvwColumnSorter;
+        private readonly ListViewColumnSorter lvwColumnSorter;
         private ListViewItem currentTorrentListViewItem;
         private TreeNode rootNode;
 
@@ -28,16 +29,20 @@ namespace transmission_renamer
             TorrentsListView.ListViewItemSorter = lvwColumnSorter;
 
             // adjust row height for TorrentsListView, RulesListView
-            ImageList rowHeightFix = new ImageList();
-            rowHeightFix.ImageSize = new Size(1, 19);
-            rowHeightFix.TransparentColor = Color.Transparent;
+            ImageList rowHeightFix = new ImageList
+            {
+                ImageSize = new Size(1, 19),
+                TransparentColor = Color.Transparent
+            };
             TorrentsListView.SmallImageList = rowHeightFix;
             RulesListView.SmallImageList = rowHeightFix;
 
             // programatically load file, folder icons list to bypass transparency loss bug if done in Designer instead
-            ImageList torrentFilesImageList = new ImageList();
-            torrentFilesImageList.ColorDepth = ColorDepth.Depth32Bit;
-            torrentFilesImageList.TransparentColor = Color.Transparent;
+            ImageList torrentFilesImageList = new ImageList
+            {
+                ColorDepth = ColorDepth.Depth32Bit,
+                TransparentColor = Color.Transparent
+            };
             torrentFilesImageList.Images.Add(Properties.Resources.file);
             torrentFilesImageList.Images.Add(Properties.Resources.folder);
             TorrentFileListTreeView.ImageList = torrentFilesImageList;
@@ -146,9 +151,14 @@ namespace transmission_renamer
                         {
                             FriendlyTorrentInfo fTorrentInfo = new FriendlyTorrentInfo(torrent);
                             globalTorrentsInfo.Add(fTorrentInfo);
-                            var torrentLVItem = new ListViewItem(new[] { fTorrentInfo.QueuePosition, fTorrentInfo.Name, fTorrentInfo.Status,
-                            fTorrentInfo.Size, fTorrentInfo.Progress });
-                            torrentLVItem.Tag = fTorrentInfo.Torrent;
+                            var torrentLVItem = new ListViewItem(new[] {
+                                fTorrentInfo.QueuePosition,
+                                fTorrentInfo.Name, fTorrentInfo.Status,
+                                fTorrentInfo.Size, fTorrentInfo.Progress
+                            })
+                            {
+                                Tag = fTorrentInfo.Torrent
+                            };
                             torrentLVItems.Add(torrentLVItem);
                         }
                         TorrentsListView.Items.AddRange(torrentLVItems.ToArray());
@@ -275,8 +285,8 @@ namespace transmission_renamer
             List<string> torrentPaths = new List<string>();
             foreach (TransmissionTorrentFiles torrentFile in Globals.SelectedTorrent.Torrent.Files)
             {
-                FriendlyTorrentFileInfo friendlyTorrentFileInfo = new FriendlyTorrentFileInfo(torrentFile);
-                torrentPaths.Add(item: friendlyTorrentFileInfo.InitialName);
+                FriendlyTorrentFileInfo friendlyTorrentFileInfo = new FriendlyTorrentFileInfo(torrentFile, Globals.SelectedTorrent.Torrent);
+                torrentPaths.Add(item: friendlyTorrentFileInfo.InitialPath);
             }
 
             // populate TorrentFileListTreeView
@@ -321,11 +331,11 @@ namespace transmission_renamer
                         // determine node type
                         if (isFile)
                         {
-                            FriendlyTorrentFileInfo torrentInfo = new FriendlyTorrentFileInfo(Globals.SelectedTorrent.Torrent.Files[paths.IndexOf(path)]);
+                            FriendlyTorrentFileInfo torrentInfo = new FriendlyTorrentFileInfo(Globals.SelectedTorrent.Torrent.Files[paths.IndexOf(path)], Globals.SelectedTorrent.Torrent);
                             treeNode.ImageIndex = 0;
                             treeNode.SelectedImageIndex = 0;
                             treeNode.Tag = torrentInfo;
-                            treeNode.ToolTipText = torrentInfo.InitialName;
+                            treeNode.ToolTipText = torrentInfo.InitialPath;
                         }
                         else
                         {
@@ -348,7 +358,7 @@ namespace transmission_renamer
             SelectedFileCountLabel.Text = $"Selected files: {TorrentFileListTreeView.TotalFilesSelected} of {TorrentFileListTreeView.TotalFiles} files currently selected";
 
             // one liner with conditional determination if the buttons should be enabled or not.
-            FilesTabPage.Controls.OfType<Button>().ToList().ForEach(x => x.Enabled = (TorrentFileListTreeView.TotalFiles > 1) ? true : false);
+            FilesTabPage.Controls.OfType<Button>().ToList().ForEach(x => x.Enabled = (TorrentFileListTreeView.TotalFiles > 1));
             await LoadSelectedFilesToRulesTab();
         }
 
@@ -365,8 +375,8 @@ namespace transmission_renamer
                 {
                     ListViewItem torrentFileLVItem = new ListViewItem()
                     {
-                        Text = torrentFile.InitialName.Split('/').Last(), // don't show entire path, just the file name
-                        ToolTipText = torrentFile.InitialName,
+                        Text = torrentFile.InitialPath.Split('/').Last(), // don't show entire path, just the file name
+                        ToolTipText = torrentFile.InitialPath,
                         ImageIndex = 0,
                         Tag = torrentFile
                     };
@@ -482,8 +492,10 @@ namespace transmission_renamer
             for (int i = 0; i < Globals.RenameRules.Count; i++)
             {
                 RenameRule rule = Globals.RenameRules[i];
-                ListViewItem ruleLVItem = new ListViewItem();
-                ruleLVItem.Text = (i+1).ToString();
+                ListViewItem ruleLVItem = new ListViewItem
+                {
+                    Text = (i + 1).ToString()
+                };
                 ruleLVItem.SubItems.Add(rule.Name);
                 ruleLVItem.SubItems.Add(rule.Description);
                 ruleLVItem.Tag = rule;
@@ -493,8 +505,8 @@ namespace transmission_renamer
             foreach (ListViewItem torrentFileItem in FileNamesOldNewListView.Items)
             {
                 FriendlyTorrentFileInfo torrentFileInfo = (FriendlyTorrentFileInfo)torrentFileItem.Tag;
-                torrentFileInfo.NewestName = torrentFileInfo.InitialName;
-                torrentFileItem.SubItems[1].Text = torrentFileInfo.InitialName;
+                torrentFileInfo.NewestName = torrentFileInfo.InitialPath;
+                torrentFileItem.SubItems[1].Text = torrentFileInfo.InitialPath;
                 torrentFileItem.Tag = torrentFileInfo;
             }
             FileNamesOldNewListView.EndUpdate();
@@ -604,5 +616,71 @@ namespace transmission_renamer
             }
         }
         #endregion
+
+        private async void RenameButtonClick(object sender, EventArgs e)
+        {
+            ToggleLoadingPanels(true);
+            await Task.Run(async () => { await RenameTorrentFiles(); });
+            ToggleLoadingPanels(false);
+        }
+
+        private async Task RenameTorrentFiles()
+        {
+            for (int i = 0; i < FileNamesOldNewListView.Items.Count; i++)
+            {
+                string curFilePath = null, newFileName = null;
+                TorrentInfo torrent = null;
+                RequestResult renameResult = RequestResult.Unknown;
+                Invoke((MethodInvoker)delegate
+                {
+                    FileNamesOldNewListView.Items[i].Selected = true;
+                    FileNamesOldNewListView.Items[i].Focused = true;
+                    FileNamesOldNewListView.Focus();
+                    ListViewItem fileItem = FileNamesOldNewListView.Items[i];
+                    FriendlyTorrentFileInfo friendlyTorrentFileInfo = (FriendlyTorrentFileInfo)fileItem.Tag;
+                    curFilePath = friendlyTorrentFileInfo.InitialPath;
+                    newFileName = friendlyTorrentFileInfo.NewestName;
+                    torrent = friendlyTorrentFileInfo.ParentTorrent;
+                });
+                if (curFilePath != null && newFileName != null && torrent != null)
+                {
+                    renameResult = await Globals.SessionHandler.RenameTorrent(curFilePath, newFileName, torrent);
+
+                    switch (renameResult)
+                    {
+                        case RequestResult.Success:
+                            Invoke((MethodInvoker)delegate
+                            {
+                                FileNamesOldNewListView.Items[i].ForeColor = Color.Green;
+                            });
+                            break;
+                        case RequestResult.Timeout:
+                            Invoke((MethodInvoker)delegate
+                            {
+                                FileNamesOldNewListView.Items[i].ForeColor = Color.Yellow;
+                            }); break;
+                        case RequestResult.Failed:
+                            Invoke((MethodInvoker)delegate
+                            {
+                                FileNamesOldNewListView.Items[i].ForeColor = Color.Red;
+                            }); break;
+                        case RequestResult.Unknown:
+                            MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        default:
+                            MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                    }
+                }
+            }
+        }
+
+        private void FocusTorrentSearchBoxShortcut(object sender, KeyEventArgs e)
+        {
+            if ((e.Control && e.KeyCode == Keys.F))
+            {
+                SearchTorrentListTextBox.Focus();
+            }
+        }
     }
 }

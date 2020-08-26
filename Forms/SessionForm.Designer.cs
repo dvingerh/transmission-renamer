@@ -149,7 +149,7 @@
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.Size = new System.Drawing.Size(85, 23);
             this.ConnectButton.TabIndex = 3;
-            this.ConnectButton.Text = "Connect";
+            this.ConnectButton.Text = "&Connect";
             this.ConnectButton.UseVisualStyleBackColor = true;
             this.ConnectButton.Click += new System.EventHandler(this.ConnectButtonClicked);
             // 
@@ -160,7 +160,7 @@
             this.CloseCancelButton.Name = "CloseCancelButton";
             this.CloseCancelButton.Size = new System.Drawing.Size(85, 23);
             this.CloseCancelButton.TabIndex = 4;
-            this.CloseCancelButton.Text = "Close";
+            this.CloseCancelButton.Text = "C&lose";
             this.CloseCancelButton.UseVisualStyleBackColor = true;
             this.CloseCancelButton.Click += new System.EventHandler(this.CloseCancelButtonPressed);
             // 

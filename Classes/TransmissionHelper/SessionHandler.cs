@@ -48,16 +48,16 @@ namespace transmission_renamer
             }
         }
 
-        public async Task<ConnectionResult> TestConnection()
+        public async Task<RequestResult> TestConnection()
         {
             if (client != null)
                 client.CloseSessionAsync();
             if (ValidateUrl())
                 client = new Client(url: Url, login: Username, password: Password);
             else
-                return ConnectionResult.InvalidUrl;
+                return RequestResult.InvalidUrl;
 
-            ConnectionResult connectionResult;
+            RequestResult connectionResult;
             Task<SessionInfo> sessionInfoTask = client.GetSessionInformationAsync();
             Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
 
@@ -67,18 +67,18 @@ namespace transmission_renamer
             if (!requestCancelled)
             {
                 if (delayTask.IsCompleted)
-                    connectionResult = ConnectionResult.Timeout;
+                    connectionResult = RequestResult.Timeout;
                 else
                 {
                     SessionInfo sessionInfo = sessionInfoTask.Result;
                     if (sessionInfo != null && sessionInfo.Version != null)
-                        connectionResult = ConnectionResult.Success;
+                        connectionResult = RequestResult.Success;
                     else
-                        connectionResult = ConnectionResult.InvalidResp;
+                        connectionResult = RequestResult.InvalidResp;
                 }
             }
             else
-                connectionResult = ConnectionResult.Cancelled;
+                connectionResult = RequestResult.Cancelled;
             return connectionResult;
         }
 
@@ -104,6 +104,34 @@ namespace transmission_renamer
             {
                 return null;
             }
+        }
+
+        public async Task<RequestResult> RenameTorrent(string filePath, string newName, TorrentInfo torrent)
+        {
+            RequestResult renameResult;
+            Task<RenameTorrentInfo> renameFileTask = client.TorrentRenamePathAsync(torrent.ID, filePath, newName);
+            Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
+
+            await Task.Run(async () => await Task.WhenAny(renameFileTask, delayTask));
+
+
+            if (!requestCancelled)
+            {
+                if (delayTask.IsCompleted)
+                    renameResult = RequestResult.Timeout;
+                else
+                {
+                    RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
+                    if (renameTorrentInfo != null && renameTorrentInfo.Name == newName)
+                        renameResult = RequestResult.Success;
+                    else
+                        renameResult = RequestResult.Failed;
+                }
+            }
+            else
+                renameResult = RequestResult.Cancelled;
+            return renameResult;
+
         }
 
         public void CloseConnection()

@@ -13,7 +13,8 @@ namespace transmission_renamer.Forms
 {
     public partial class RulesForm : Form
     {
-        private bool editMode = false;
+        private readonly bool editMode = false;
+        private readonly bool debug = true;
         private RenameRule currentlyEditedRule;
 
         public RulesForm(bool editMode = false, RenameRule rule = null)
@@ -24,6 +25,13 @@ namespace transmission_renamer.Forms
                 ApplyEditingState(rule);
             else
                 RuleTypeListBox.SelectedIndex = 0;
+
+            if (debug)
+            {
+                InsertTextTextBox.Text = "S02E";
+                InsertAfterTextRadioButton.Checked = true;
+                InsertAfterTextTextBox.Text = "!! - ";
+            }
         }
 
         private void ApplyEditingState(RenameRule rule)
@@ -47,6 +55,21 @@ namespace transmission_renamer.Forms
                     ReplaceCurrentFileNameRadioButton.Checked = insertRule.ReplaceFileName;
                     InsertIgnoreExtensionCheckBox.Checked = insertRule.IgnoreExtension;
                     break;
+                case DeleteRule deleteRule:
+                    RuleTypeListBox.SelectedIndex = 1;
+                    DeleteFromPositionRadioButton.Checked = deleteRule.FromPosition;
+                    DeleteFromPositionNumericUpDown.Value = deleteRule.FromPositionIndex;
+                    DeleteFromDelimiterRadioButton.Checked = deleteRule.FromDelimiter;
+                    DeleteFromDelimiterTextBox.Text = deleteRule.FromDelimiterStr;
+                    DeleteToPositionRadioButton.Checked = deleteRule.ToPosition;
+                    DeleteToPositionNumericUpDown.Value = deleteRule.ToPositionIndex;
+                    DeleteToDelimiterRadioButton.Checked = deleteRule.ToDelimiter;
+                    DeleteToDelimiterTextBox.Text = deleteRule.ToDelimiterStr;
+                    DeleteToEndRadioButton.Checked = deleteRule.DeleteToEnd;
+                    DeleteEntireFileNameCheckBox.Checked = deleteRule.DeleteEntireFileName;
+                    DeleteKeepDelimitersCheckBox.Checked = deleteRule.KeepDelimiters;
+                    DeleteIgnoreExtensionCheckBox.Checked = deleteRule.IgnoreExtension;
+                    break;
             }
         }
 
@@ -57,6 +80,9 @@ namespace transmission_renamer.Forms
             {
                 case 0:
                     InsertTextTextBox.Focus();
+                    break;
+                case 1:
+                    DeleteFromDelimiterTextBox.Focus();
                     break;
                 default:
                     break;
@@ -95,6 +121,30 @@ namespace transmission_renamer.Forms
                     }
                     else
                         Globals.RenameRules.Add(insertRule);
+                    DialogResult = DialogResult.OK;
+                    break;
+                case 1:
+                    DeleteRule deleteRule = new DeleteRule(fromPosition: DeleteFromPositionRadioButton.Checked,
+                        fromDelimiter: DeleteFromDelimiterRadioButton.Checked,
+                        toPosition: DeleteToPositionRadioButton.Checked,
+                        toDelimiter: DeleteToDelimiterRadioButton.Checked,
+                        deleteToEnd: DeleteToEndRadioButton.Checked,
+                        deleteEntireFileName: DeleteEntireFileNameCheckBox.Checked,
+                        ignoreExtension: DeleteIgnoreExtensionCheckBox.Checked,
+                        rightToLeft: DeleteRightToLeftCheckBox.Checked,
+                        keepDelimiters: DeleteKeepDelimitersCheckBox.Checked,
+                        fromPositionIndex: (int)DeleteFromPositionNumericUpDown.Value,
+                        toPositionIndex: (int)DeleteToPositionNumericUpDown.Value,
+                        fromDelimiterStr: DeleteFromDelimiterTextBox.Text,
+                        toDelimiterStr: DeleteToDelimiterTextBox.Text);
+
+                    if (editMode)
+                    {
+                        int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentlyEditedRule.Id));
+                        Globals.RenameRules[oldRuleIndex] = deleteRule;
+                    }
+                    else
+                        Globals.RenameRules.Add(deleteRule);
                     DialogResult = DialogResult.OK;
                     break;
                 default:

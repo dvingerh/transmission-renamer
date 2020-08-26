@@ -12,7 +12,7 @@ namespace transmission_renamer
         private static List<FriendlyTorrentFileInfo> selectedTorrentFiles = new List<FriendlyTorrentFileInfo>();
         private static List<FriendlyTorrentInfo> torrentsInfo = new List<FriendlyTorrentInfo>();
 
-        public enum ConnectionResult
+        public enum RequestResult
         {
             Success,
             Timeout,
@@ -20,8 +20,8 @@ namespace transmission_renamer
             InvalidUrl,
             Unauthorized,
             Cancelled,
-            Unknown
-
+            Unknown,
+            Failed
         }
 
         public static SessionHandler SessionHandler { get; set; }

@@ -9,19 +9,22 @@ namespace transmission_renamer.Classes
 {
     public class FriendlyTorrentFileInfo
     {
-        private string initialName;
+        private string initialPath;
         private string newestName;
         private TransmissionTorrentFiles torrentFile;
+        private TorrentInfo parentTorrent;
 
-        public string InitialName { get => initialName; set => initialName = value; }
+        public string InitialPath { get => initialPath; set => initialPath = value; }
         public string NewestName { get => newestName; set => newestName = value; }
         public TransmissionTorrentFiles TorrentFile { get => torrentFile; set => torrentFile = value; }
+        public TorrentInfo ParentTorrent { get => parentTorrent; set => parentTorrent = value; }
 
-        public FriendlyTorrentFileInfo(TransmissionTorrentFiles torrentFile)
+        public FriendlyTorrentFileInfo(TransmissionTorrentFiles torrentFile, TorrentInfo parentTorrent)
         {
-            this.InitialName = torrentFile.Name;
-            this.NewestName = InitialName;
+            this.InitialPath = torrentFile.Name;
+            this.NewestName = InitialPath;
             this.TorrentFile = torrentFile;
+            this.ParentTorrent = parentTorrent;
         }
     }
 }

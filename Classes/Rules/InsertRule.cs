@@ -12,17 +12,18 @@ namespace transmission_renamer.Classes.Rules
         private readonly string name = "Insert";
         private readonly string description;
         private readonly string id = Guid.NewGuid().ToString();
+
         private string insertText;
         private string beforeTextStr;
         private string afterTextStr;
         private bool prefix, suffix, position, beforeText, afterText, replaceFileName, ignoreExtension, positionRightToLeft;
         private int positionIndex;
 
-        public string Description { get => description; }
+        public string Name => name;
 
-        public string Name { get => name; }
+        public string Description => description;
 
-        public string Id { get => id; }
+        public string Id => id;
         public string InsertText { get => insertText; set => insertText = value; }
         public string BeforeTextStr { get => beforeTextStr; set => beforeTextStr = value; }
         public string AfterTextStr { get => afterTextStr; set => afterTextStr = value; }
