@@ -87,14 +87,17 @@ namespace transmission_renamer.Classes.Rules
                     if (RightToLeft)
                         descriptionSb.Append("from right-to-left");
                     if (KeepDelimiters)
+                    {
                         if (RightToLeft)
                             descriptionSb.Append(", ");
                         descriptionSb.Append("keeping delimiters");
+                    }
                     if (IgnoreExtension)
+                    {
                         if (RightToLeft || KeepDelimiters)
                             descriptionSb.Append(", ");
                         descriptionSb.Append("ignoring extension");
-
+                    }
                     descriptionSb.Append(")");
                 }
 
@@ -115,18 +118,30 @@ namespace transmission_renamer.Classes.Rules
 
                 string oldNameStr = newNameSb.ToString();
 
+                if (DeleteEntireFileName)
+                {
+                    newNameSb.Clear();
+                    if (ignoreExtension)
+                        newNameSb.Append(extension);
+
+                    return newNameSb.ToString();
+                }
+
                 int fromDelimiterPos = 0;
                 int toDelimiterPos = 0;
-
                 if (fromDelimiter)
                     fromDelimiterPos = newNameSb.ToString().IndexOf(fromDelimiterStr);
                 if (toDelimiter)
                     toDelimiterPos = newNameSb.ToString().IndexOf(toDelimiterStr);
 
-                int fromIndex = FromPosition ? fromPositionIndex : fromDelimiterPos;
-                int endIndex = ToPosition ? (toPositionIndex - fromIndex) + 1 : (toDelimiterPos - fromIndex);
-                newNameSb.Remove(fromIndex + (!keepDelimiters ? 0 : fromDelimiterStr.Length), endIndex + (keepDelimiters ? 0 : toDelimiterStr.Length));
-                
+
+                int removeStartIndex = FromPosition ? fromPositionIndex : fromDelimiterPos + (!keepDelimiters ? 0 : fromDelimiterStr.Length);
+                int removeLength = ToPosition ? (toPositionIndex - removeStartIndex) + 1 : (toDelimiterPos + toDelimiterStr.Length + 1) - removeStartIndex - (!keepDelimiters ? 0 : toDelimiterStr.Length);
+
+                if (DeleteToEnd)
+                    removeLength = newNameSb.Length - removeStartIndex;
+
+                newNameSb.Remove(removeStartIndex, removeLength);
 
                 if (ignoreExtension)
                     newNameSb.Append(extension);
