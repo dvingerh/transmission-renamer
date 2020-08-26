@@ -5,7 +5,6 @@ using System.Net;
 using System.Threading.Tasks;
 using Transmission.API.RPC;
 using Transmission.API.RPC.Entity;
-using static transmission_renamer.Globals;
 
 namespace transmission_renamer
 {
@@ -48,16 +47,16 @@ namespace transmission_renamer
             }
         }
 
-        public async Task<RequestResult> TestConnection()
+        public async Task<Globals.RequestResult> TestConnection()
         {
             if (client != null)
                 client.CloseSessionAsync();
             if (ValidateUrl())
                 client = new Client(url: Url, login: Username, password: Password);
             else
-                return RequestResult.InvalidUrl;
+                return Globals.RequestResult.InvalidUrl;
 
-            RequestResult connectionResult;
+            Globals.RequestResult connectionResult;
             Task<SessionInfo> sessionInfoTask = client.GetSessionInformationAsync();
             Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
 
@@ -67,18 +66,18 @@ namespace transmission_renamer
             if (!requestCancelled)
             {
                 if (delayTask.IsCompleted)
-                    connectionResult = RequestResult.Timeout;
+                    connectionResult = Globals.RequestResult.Timeout;
                 else
                 {
                     SessionInfo sessionInfo = sessionInfoTask.Result;
                     if (sessionInfo != null && sessionInfo.Version != null)
-                        connectionResult = RequestResult.Success;
+                        connectionResult = Globals.RequestResult.Success;
                     else
-                        connectionResult = RequestResult.InvalidResp;
+                        connectionResult = Globals.RequestResult.InvalidResp;
                 }
             }
             else
-                connectionResult = RequestResult.Cancelled;
+                connectionResult = Globals.RequestResult.Cancelled;
             return connectionResult;
         }
 
@@ -106,32 +105,25 @@ namespace transmission_renamer
             }
         }
 
-        public async Task<RequestResult> RenameTorrent(string filePath, string newName, TorrentInfo torrent)
+        public async Task<Globals.RequestResult> RenameTorrent(string filePath, string newName, TorrentInfo torrent)
         {
-            RequestResult renameResult;
+            Globals.RequestResult renameResult;
             Task<RenameTorrentInfo> renameFileTask = client.TorrentRenamePathAsync(torrent.ID, filePath, newName);
             Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
 
             await Task.Run(async () => await Task.WhenAny(renameFileTask, delayTask));
 
-
-            if (!requestCancelled)
-            {
-                if (delayTask.IsCompleted)
-                    renameResult = RequestResult.Timeout;
-                else
-                {
-                    RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
-                    if (renameTorrentInfo != null && renameTorrentInfo.Name == newName)
-                        renameResult = RequestResult.Success;
-                    else
-                        renameResult = RequestResult.Failed;
-                }
-            }
+            if (delayTask.IsCompleted)
+                renameResult = Globals.RequestResult.Timeout;
             else
-                renameResult = RequestResult.Cancelled;
+            {
+                RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
+                if (renameTorrentInfo != null && renameTorrentInfo.Name == newName)
+                    renameResult = Globals.RequestResult.Success;
+                else
+                    renameResult = Globals.RequestResult.Failed;
+            }
             return renameResult;
-
         }
 
         public void CloseConnection()

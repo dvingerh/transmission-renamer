@@ -4,7 +4,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using static transmission_renamer.Globals;
 
 namespace transmission_renamer
 {
@@ -66,7 +65,7 @@ namespace transmission_renamer
             CloseCancelButton.Text = "Cancel";
             TimeOutTimer.Enabled = true;
             TimeOutTimer.Start();
-            RequestResult connectionResult = RequestResult.Unknown;
+            Globals.RequestResult connectionResult = Globals.RequestResult.Unknown;
             try
             {
                 Globals.SessionHandler = new SessionHandler(HostTextBox.Text, (int)PortUpDown.Value, UsernameTextBox.Text, PasswordTextBox.Text);
@@ -79,12 +78,12 @@ namespace transmission_renamer
                     if (ex is WebException we)
                     {
                         if (we.Response is HttpWebResponse webResponse && webResponse.StatusCode == HttpStatusCode.Unauthorized)
-                            connectionResult = RequestResult.Unauthorized;
+                            connectionResult = Globals.RequestResult.Unauthorized;
                         else
-                            connectionResult = RequestResult.Unknown;
+                            connectionResult = Globals.RequestResult.Unknown;
                     }
                     else if (ex is NullReferenceException)
-                        connectionResult = RequestResult.InvalidUrl;
+                        connectionResult = Globals.RequestResult.InvalidUrl;
                     return ex is WebException || ex is NullReferenceException;
                 });
             }
@@ -93,29 +92,29 @@ namespace transmission_renamer
                 bool revertUi = true;
                 switch (connectionResult)
                 {
-                    case RequestResult.Success:
+                    case Globals.RequestResult.Success:
                         Hide();
                         SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm();
                         selectTorrentFilesForm.ShowDialog();
                         Show();
                         break;
-                    case RequestResult.Timeout:
+                    case Globals.RequestResult.Timeout:
                         MessageBox.Show("The connection to the host has timed out.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case RequestResult.InvalidResp:
+                    case Globals.RequestResult.InvalidResp:
                         MessageBox.Show("The host returned an invalid response.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case RequestResult.InvalidUrl:
+                    case Globals.RequestResult.InvalidUrl:
                         MessageBox.Show("The specified host address is invalid.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case RequestResult.Unauthorized:
+                    case Globals.RequestResult.Unauthorized:
                         MessageBox.Show("The host rejected the login credentials.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case RequestResult.Cancelled:
+                    case Globals.RequestResult.Cancelled:
                         // show no message but keep UI controls and behavior intact
                         revertUi = false;
                         break;
-                    case RequestResult.Unknown:
+                    case Globals.RequestResult.Unknown:
                         MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     default:
