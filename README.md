@@ -4,21 +4,16 @@ Bulk torrent file renamer using Transmission's RPC protocol. Upon completion of 
 Currently this project is **unfinished**, not all core functionality has been implemented and there are still a large amount of bugs to fix.
 An overview of implemented and planned functionality can be found below, as well as some screenshots showcasing the user interface.
 
-
-#### Note
-When (eventually) all functionalities and rules are implemented in this project I may start doing a .NET Core rewrite of this application with the aim of providing cross-platform support and improved code overall. Very little planning was done for this particular project, but should I one day start with the full rewrite preparations will be made where they are most important.
-
-
 ![](/Screenshots/spacer.png?raw=true)
 
 ## Project plans
 
 The current plans for this project and its progress can be found on the [Projects](/projects) page.
 
+![](/Screenshots/spacer.png?raw=true)
+
 ### Screenshots
 *The interface is subject to change and does not represent the final product.*
-
-![](/Screenshots/spacer.png?raw=true)
 
 ##### Connect to session
 
