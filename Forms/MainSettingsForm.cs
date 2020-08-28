@@ -44,6 +44,10 @@ namespace transmission_renamer
             };
             torrentFilesImageList.Images.Add(Properties.Resources.file);
             torrentFilesImageList.Images.Add(Properties.Resources.folder);
+            torrentFilesImageList.Images.Add(Properties.Resources.pending);
+            torrentFilesImageList.Images.Add(Properties.Resources.success);
+            torrentFilesImageList.Images.Add(Properties.Resources.warning);
+            torrentFilesImageList.Images.Add(Properties.Resources.error);
             TorrentFileListTreeView.ImageList = torrentFilesImageList;
             FileNamesOldNewListView.SmallImageList = torrentFilesImageList;
         }
@@ -626,9 +630,13 @@ namespace transmission_renamer
 
         private async void RenameButtonClick(object sender, EventArgs e)
         {
-            ToggleLoadingPanels(true);
-            await Task.Run(async () => { await RenameTorrentFiles(); });
-            ToggleLoadingPanels(false);
+            //RenameButton.Enabled = false;
+            //RefreshTorrentListButton.Enabled = false;
+            //ToggleLoadingPanels(true);
+            //await Task.Run(async () => { await RenameTorrentFiles(); });
+            //ToggleLoadingPanels(false);
+            //RenameButton.Enabled = false;
+            //RefreshTorrentListButton.Enabled = true;
         }
 
         private async Task RenameTorrentFiles()
@@ -640,10 +648,6 @@ namespace transmission_renamer
                 Globals.RequestResult renameResult = Globals.RequestResult.Unknown;
                 Invoke((MethodInvoker)delegate
                 {
-                    FileNamesOldNewListView.Items[i].Selected = true;
-                    FileNamesOldNewListView.Items[i].Focused = true;
-                    FileNamesOldNewListView.Focus();
-                    FileNamesOldNewListView.EnsureVisible(i);
                     ListViewItem fileItem = FileNamesOldNewListView.Items[i];
                     FriendlyTorrentFileInfo friendlyTorrentFileInfo = (FriendlyTorrentFileInfo)fileItem.Tag;
                     curFilePath = friendlyTorrentFileInfo.InitialPath;
@@ -652,29 +656,34 @@ namespace transmission_renamer
                 });
                 if (curFilePath != null && newFileName != null && torrent != null)
                 {
-                    renameResult = await Globals.SessionHandler.RenameTorrent(curFilePath, newFileName, torrent);
+                    renameResult = Globals.RequestResult.Success;
+                    await Task.Delay(100);
+                    //renameResult = await Globals.SessionHandler.RenameTorrent(curFilePath, newFileName, torrent);
 
                     switch (renameResult)
                     {
                         case Globals.RequestResult.Success:
                             Invoke((MethodInvoker)delegate
                             {
-                                FileNamesOldNewListView.Items[i].ForeColor = Color.Green;
+                                FileNamesOldNewListView.Items[i].ImageIndex = 3;
                             });
                             break;
                         case Globals.RequestResult.Timeout:
                             Invoke((MethodInvoker)delegate
                             {
-                                FileNamesOldNewListView.Items[i].ForeColor = Color.Yellow;
+                                FileNamesOldNewListView.Items[i].ImageIndex = 4;
                             }); break;
                         case Globals.RequestResult.Failed:
                             Invoke((MethodInvoker)delegate
                             {
-                                FileNamesOldNewListView.Items[i].ForeColor = Color.Red;
+                                FileNamesOldNewListView.Items[i].ImageIndex = 5;
                             }); break;
                         case Globals.RequestResult.Unknown:
                             MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
+                            Invoke((MethodInvoker)delegate
+                            {
+                                FileNamesOldNewListView.Items[i].ImageIndex = 5;
+                            }); break;
                         default:
                             MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
