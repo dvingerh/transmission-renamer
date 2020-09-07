@@ -29,15 +29,50 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RenamerForm));
+            this.StatisticsGroupBox = new System.Windows.Forms.GroupBox();
+            this.DoneButton = new System.Windows.Forms.Button();
+            this.RenamingProgressBar = new System.Windows.Forms.ProgressBar();
             this.FileNamesOldNewListView = new BufferedListView();
             this.CFOldName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CFNewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.StatisticsGroupBox = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.TotalFilesLabel = new System.Windows.Forms.Label();
+            this.SuccessFilesLabel = new System.Windows.Forms.Label();
+            this.FailedFilesLabel = new System.Windows.Forms.Label();
+            this.TimedOutFilesLabel = new System.Windows.Forms.Label();
+            this.CurrentFileRenameLabel = new System.Windows.Forms.Label();
             this.StatisticsGroupBox.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // StatisticsGroupBox
+            // 
+            this.StatisticsGroupBox.Controls.Add(this.TimedOutFilesLabel);
+            this.StatisticsGroupBox.Controls.Add(this.FailedFilesLabel);
+            this.StatisticsGroupBox.Controls.Add(this.SuccessFilesLabel);
+            this.StatisticsGroupBox.Controls.Add(this.TotalFilesLabel);
+            this.StatisticsGroupBox.Location = new System.Drawing.Point(17, 521);
+            this.StatisticsGroupBox.Name = "StatisticsGroupBox";
+            this.StatisticsGroupBox.Size = new System.Drawing.Size(227, 78);
+            this.StatisticsGroupBox.TabIndex = 13;
+            this.StatisticsGroupBox.TabStop = false;
+            this.StatisticsGroupBox.Text = "Statistics";
+            // 
+            // DoneButton
+            // 
+            this.DoneButton.Enabled = false;
+            this.DoneButton.Location = new System.Drawing.Point(797, 576);
+            this.DoneButton.Name = "DoneButton";
+            this.DoneButton.Size = new System.Drawing.Size(75, 23);
+            this.DoneButton.TabIndex = 14;
+            this.DoneButton.Text = "Done";
+            this.DoneButton.UseVisualStyleBackColor = true;
+            this.DoneButton.Click += new System.EventHandler(this.DoneButtonClick);
+            // 
+            // RenamingProgressBar
+            // 
+            this.RenamingProgressBar.Location = new System.Drawing.Point(17, 500);
+            this.RenamingProgressBar.Name = "RenamingProgressBar";
+            this.RenamingProgressBar.Size = new System.Drawing.Size(855, 15);
+            this.RenamingProgressBar.TabIndex = 15;
             // 
             // FileNamesOldNewListView
             // 
@@ -45,6 +80,7 @@
             this.FileNamesOldNewListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.CFOldName,
             this.CFNewName});
+            this.FileNamesOldNewListView.Enabled = false;
             this.FileNamesOldNewListView.FullRowSelect = true;
             this.FileNamesOldNewListView.HideSelection = false;
             this.FileNamesOldNewListView.Location = new System.Drawing.Point(17, 12);
@@ -67,62 +103,70 @@
             this.CFNewName.Text = "New name";
             this.CFNewName.Width = 415;
             // 
-            // StatisticsGroupBox
-            // 
-            this.StatisticsGroupBox.Controls.Add(this.label2);
-            this.StatisticsGroupBox.Controls.Add(this.label1);
-            this.StatisticsGroupBox.Controls.Add(this.TotalFilesLabel);
-            this.StatisticsGroupBox.Location = new System.Drawing.Point(17, 487);
-            this.StatisticsGroupBox.Name = "StatisticsGroupBox";
-            this.StatisticsGroupBox.Size = new System.Drawing.Size(203, 112);
-            this.StatisticsGroupBox.TabIndex = 13;
-            this.StatisticsGroupBox.TabStop = false;
-            this.StatisticsGroupBox.Text = "Statistics";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 78);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Success:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Success:";
-            // 
             // TotalFilesLabel
             // 
-            this.TotalFilesLabel.AutoSize = true;
-            this.TotalFilesLabel.Location = new System.Drawing.Point(17, 28);
+            this.TotalFilesLabel.Location = new System.Drawing.Point(9, 24);
             this.TotalFilesLabel.Name = "TotalFilesLabel";
-            this.TotalFilesLabel.Size = new System.Drawing.Size(59, 13);
+            this.TotalFilesLabel.Size = new System.Drawing.Size(90, 13);
             this.TotalFilesLabel.TabIndex = 0;
-            this.TotalFilesLabel.Text = "Total files:";
+            this.TotalFilesLabel.Text = "Total files: 0";
+            // 
+            // SuccessFilesLabel
+            // 
+            this.SuccessFilesLabel.Location = new System.Drawing.Point(19, 47);
+            this.SuccessFilesLabel.Name = "SuccessFilesLabel";
+            this.SuccessFilesLabel.Size = new System.Drawing.Size(80, 13);
+            this.SuccessFilesLabel.TabIndex = 1;
+            this.SuccessFilesLabel.Text = "Success: 0";
+            // 
+            // FailedFilesLabel
+            // 
+            this.FailedFilesLabel.Location = new System.Drawing.Point(146, 24);
+            this.FailedFilesLabel.Name = "FailedFilesLabel";
+            this.FailedFilesLabel.Size = new System.Drawing.Size(72, 13);
+            this.FailedFilesLabel.TabIndex = 2;
+            this.FailedFilesLabel.Text = "Failed: 0";
+            // 
+            // TimedOutFilesLabel
+            // 
+            this.TimedOutFilesLabel.Location = new System.Drawing.Point(125, 47);
+            this.TimedOutFilesLabel.Name = "TimedOutFilesLabel";
+            this.TimedOutFilesLabel.Size = new System.Drawing.Size(93, 13);
+            this.TimedOutFilesLabel.TabIndex = 3;
+            this.TimedOutFilesLabel.Text = "Timed out: 0";
+            // 
+            // CurrentFileRenameLabel
+            // 
+            this.CurrentFileRenameLabel.AutoSize = true;
+            this.CurrentFileRenameLabel.Location = new System.Drawing.Point(14, 484);
+            this.CurrentFileRenameLabel.Name = "CurrentFileRenameLabel";
+            this.CurrentFileRenameLabel.Size = new System.Drawing.Size(116, 13);
+            this.CurrentFileRenameLabel.TabIndex = 17;
+            this.CurrentFileRenameLabel.Text = "Renaming file 0 of 0: ";
             // 
             // RenamerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.CurrentFileRenameLabel);
+            this.Controls.Add(this.RenamingProgressBar);
+            this.Controls.Add(this.DoneButton);
             this.Controls.Add(this.StatisticsGroupBox);
             this.Controls.Add(this.FileNamesOldNewListView);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "RenamerForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rename Selected Files";
+            this.Load += new System.EventHandler(this.OnFormLoad);
             this.StatisticsGroupBox.ResumeLayout(false);
-            this.StatisticsGroupBox.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -132,8 +176,12 @@
         private System.Windows.Forms.ColumnHeader CFOldName;
         private System.Windows.Forms.ColumnHeader CFNewName;
         private System.Windows.Forms.GroupBox StatisticsGroupBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button DoneButton;
+        private System.Windows.Forms.ProgressBar RenamingProgressBar;
+        private System.Windows.Forms.Label TimedOutFilesLabel;
+        private System.Windows.Forms.Label FailedFilesLabel;
+        private System.Windows.Forms.Label SuccessFilesLabel;
         private System.Windows.Forms.Label TotalFilesLabel;
+        private System.Windows.Forms.Label CurrentFileRenameLabel;
     }
 }

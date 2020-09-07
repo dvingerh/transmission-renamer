@@ -628,68 +628,19 @@ namespace transmission_renamer
         }
         #endregion
 
-        private async void RenameButtonClick(object sender, EventArgs e)
+        private void RenameButtonClick(object sender, EventArgs e)
         {
-            //RenameButton.Enabled = false;
-            //RefreshTorrentListButton.Enabled = false;
-            //ToggleLoadingPanels(true);
-            //await Task.Run(async () => { await RenameTorrentFiles(); });
-            //ToggleLoadingPanels(false);
-            //RenameButton.Enabled = false;
-            //RefreshTorrentListButton.Enabled = true;
-        }
 
-        private async Task RenameTorrentFiles()
-        {
-            for (int i = 0; i < FileNamesOldNewListView.Items.Count; i++)
+            Hide();
+            List<ListViewItem> items = new List<ListViewItem>();
+            foreach(ListViewItem item in FileNamesOldNewListView.Items)
             {
-                string curFilePath = null, newFileName = null;
-                TorrentInfo torrent = null;
-                Globals.RequestResult renameResult = Globals.RequestResult.Unknown;
-                Invoke((MethodInvoker)delegate
-                {
-                    ListViewItem fileItem = FileNamesOldNewListView.Items[i];
-                    FriendlyTorrentFileInfo friendlyTorrentFileInfo = (FriendlyTorrentFileInfo)fileItem.Tag;
-                    curFilePath = friendlyTorrentFileInfo.InitialPath;
-                    newFileName = friendlyTorrentFileInfo.NewestName;
-                    torrent = friendlyTorrentFileInfo.ParentTorrent;
-                });
-                if (curFilePath != null && newFileName != null && torrent != null)
-                {
-                    renameResult = Globals.RequestResult.Success;
-                    await Task.Delay(100);
-                    //renameResult = await Globals.SessionHandler.RenameTorrent(curFilePath, newFileName, torrent);
-
-                    switch (renameResult)
-                    {
-                        case Globals.RequestResult.Success:
-                            Invoke((MethodInvoker)delegate
-                            {
-                                FileNamesOldNewListView.Items[i].ImageIndex = 3;
-                            });
-                            break;
-                        case Globals.RequestResult.Timeout:
-                            Invoke((MethodInvoker)delegate
-                            {
-                                FileNamesOldNewListView.Items[i].ImageIndex = 4;
-                            }); break;
-                        case Globals.RequestResult.Failed:
-                            Invoke((MethodInvoker)delegate
-                            {
-                                FileNamesOldNewListView.Items[i].ImageIndex = 5;
-                            }); break;
-                        case Globals.RequestResult.Unknown:
-                            MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            Invoke((MethodInvoker)delegate
-                            {
-                                FileNamesOldNewListView.Items[i].ImageIndex = 5;
-                            }); break;
-                        default:
-                            MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                    }
-                }
+                items.Add((ListViewItem)item.Clone());
             }
+            RenamerForm renamerForm = new RenamerForm(items);
+            renamerForm.ShowDialog();
+            Show();
+            RefreshTorrentListButton.PerformClick();
         }
 
         private void FocusTorrentSearchBoxShortcut(object sender, KeyEventArgs e)
