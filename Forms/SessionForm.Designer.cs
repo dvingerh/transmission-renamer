@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SessionForm));
             this.RemoteGroupBox = new System.Windows.Forms.GroupBox();
+            this.RPCPathLabel = new System.Windows.Forms.Label();
+            this.RPCPathTextBox = new System.Windows.Forms.TextBox();
+            this.AuthenticationRequiredCheckBox = new System.Windows.Forms.CheckBox();
             this.PasswordLabel = new System.Windows.Forms.Label();
             this.UsernameLabel = new System.Windows.Forms.Label();
             this.PortLabel = new System.Windows.Forms.Label();
@@ -48,6 +51,9 @@
             // 
             // RemoteGroupBox
             // 
+            this.RemoteGroupBox.Controls.Add(this.RPCPathLabel);
+            this.RemoteGroupBox.Controls.Add(this.RPCPathTextBox);
+            this.RemoteGroupBox.Controls.Add(this.AuthenticationRequiredCheckBox);
             this.RemoteGroupBox.Controls.Add(this.PasswordLabel);
             this.RemoteGroupBox.Controls.Add(this.UsernameLabel);
             this.RemoteGroupBox.Controls.Add(this.PortLabel);
@@ -58,15 +64,44 @@
             this.RemoteGroupBox.Controls.Add(this.HostTextBox);
             this.RemoteGroupBox.Location = new System.Drawing.Point(12, 12);
             this.RemoteGroupBox.Name = "RemoteGroupBox";
-            this.RemoteGroupBox.Size = new System.Drawing.Size(185, 141);
-            this.RemoteGroupBox.TabIndex = 2;
+            this.RemoteGroupBox.Size = new System.Drawing.Size(210, 183);
+            this.RemoteGroupBox.TabIndex = 4;
             this.RemoteGroupBox.TabStop = false;
             this.RemoteGroupBox.Text = "Session settings";
+            // 
+            // RPCPathLabel
+            // 
+            this.RPCPathLabel.AutoSize = true;
+            this.RPCPathLabel.Location = new System.Drawing.Point(6, 50);
+            this.RPCPathLabel.Name = "RPCPathLabel";
+            this.RPCPathLabel.Size = new System.Drawing.Size(57, 13);
+            this.RPCPathLabel.TabIndex = 10;
+            this.RPCPathLabel.Text = "RPC path:";
+            // 
+            // RPCPathTextBox
+            // 
+            this.RPCPathTextBox.Location = new System.Drawing.Point(68, 47);
+            this.RPCPathTextBox.Name = "RPCPathTextBox";
+            this.RPCPathTextBox.Size = new System.Drawing.Size(136, 22);
+            this.RPCPathTextBox.TabIndex = 1;
+            this.RPCPathTextBox.Text = "/transmission/rpc";
+            // 
+            // AuthenticationRequiredCheckBox
+            // 
+            this.AuthenticationRequiredCheckBox.AutoSize = true;
+            this.AuthenticationRequiredCheckBox.Location = new System.Drawing.Point(9, 106);
+            this.AuthenticationRequiredCheckBox.Name = "AuthenticationRequiredCheckBox";
+            this.AuthenticationRequiredCheckBox.Size = new System.Drawing.Size(150, 17);
+            this.AuthenticationRequiredCheckBox.TabIndex = 3;
+            this.AuthenticationRequiredCheckBox.Text = "Authentication required";
+            this.AuthenticationRequiredCheckBox.UseVisualStyleBackColor = true;
+            this.AuthenticationRequiredCheckBox.CheckedChanged += new System.EventHandler(this.AuthenticationRequiredCheckBoxCheckedChanged);
             // 
             // PasswordLabel
             // 
             this.PasswordLabel.AutoSize = true;
-            this.PasswordLabel.Location = new System.Drawing.Point(6, 118);
+            this.PasswordLabel.Enabled = false;
+            this.PasswordLabel.Location = new System.Drawing.Point(6, 158);
             this.PasswordLabel.Name = "PasswordLabel";
             this.PasswordLabel.Size = new System.Drawing.Size(59, 13);
             this.PasswordLabel.TabIndex = 7;
@@ -75,7 +110,8 @@
             // UsernameLabel
             // 
             this.UsernameLabel.AutoSize = true;
-            this.UsernameLabel.Location = new System.Drawing.Point(6, 92);
+            this.UsernameLabel.Enabled = false;
+            this.UsernameLabel.Location = new System.Drawing.Point(6, 132);
             this.UsernameLabel.Name = "UsernameLabel";
             this.UsernameLabel.Size = new System.Drawing.Size(61, 13);
             this.UsernameLabel.TabIndex = 6;
@@ -84,7 +120,7 @@
             // PortLabel
             // 
             this.PortLabel.AutoSize = true;
-            this.PortLabel.Location = new System.Drawing.Point(6, 47);
+            this.PortLabel.Location = new System.Drawing.Point(6, 77);
             this.PortLabel.Name = "PortLabel";
             this.PortLabel.Size = new System.Drawing.Size(31, 13);
             this.PortLabel.TabIndex = 5;
@@ -101,22 +137,24 @@
             // 
             // PasswordTextBox
             // 
-            this.PasswordTextBox.Location = new System.Drawing.Point(68, 115);
+            this.PasswordTextBox.Enabled = false;
+            this.PasswordTextBox.Location = new System.Drawing.Point(68, 155);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '●';
-            this.PasswordTextBox.Size = new System.Drawing.Size(111, 22);
-            this.PasswordTextBox.TabIndex = 3;
+            this.PasswordTextBox.Size = new System.Drawing.Size(136, 22);
+            this.PasswordTextBox.TabIndex = 5;
             // 
             // UsernameTextBox
             // 
-            this.UsernameTextBox.Location = new System.Drawing.Point(68, 89);
+            this.UsernameTextBox.Enabled = false;
+            this.UsernameTextBox.Location = new System.Drawing.Point(68, 129);
             this.UsernameTextBox.Name = "UsernameTextBox";
-            this.UsernameTextBox.Size = new System.Drawing.Size(111, 22);
-            this.UsernameTextBox.TabIndex = 2;
+            this.UsernameTextBox.Size = new System.Drawing.Size(136, 22);
+            this.UsernameTextBox.TabIndex = 4;
             // 
             // PortUpDown
             // 
-            this.PortUpDown.Location = new System.Drawing.Point(68, 45);
+            this.PortUpDown.Location = new System.Drawing.Point(68, 75);
             this.PortUpDown.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -128,8 +166,8 @@
             0,
             0});
             this.PortUpDown.Name = "PortUpDown";
-            this.PortUpDown.Size = new System.Drawing.Size(111, 22);
-            this.PortUpDown.TabIndex = 1;
+            this.PortUpDown.Size = new System.Drawing.Size(136, 22);
+            this.PortUpDown.TabIndex = 2;
             this.PortUpDown.Value = new decimal(new int[] {
             9091,
             0,
@@ -140,15 +178,15 @@
             // 
             this.HostTextBox.Location = new System.Drawing.Point(68, 19);
             this.HostTextBox.Name = "HostTextBox";
-            this.HostTextBox.Size = new System.Drawing.Size(111, 22);
+            this.HostTextBox.Size = new System.Drawing.Size(136, 22);
             this.HostTextBox.TabIndex = 0;
             // 
             // ConnectButton
             // 
-            this.ConnectButton.Location = new System.Drawing.Point(12, 159);
+            this.ConnectButton.Location = new System.Drawing.Point(12, 201);
             this.ConnectButton.Name = "ConnectButton";
-            this.ConnectButton.Size = new System.Drawing.Size(85, 23);
-            this.ConnectButton.TabIndex = 3;
+            this.ConnectButton.Size = new System.Drawing.Size(98, 23);
+            this.ConnectButton.TabIndex = 6;
             this.ConnectButton.Text = "Connect";
             this.ConnectButton.UseVisualStyleBackColor = true;
             this.ConnectButton.Click += new System.EventHandler(this.ConnectButtonClicked);
@@ -156,10 +194,10 @@
             // CloseCancelButton
             // 
             this.CloseCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CloseCancelButton.Location = new System.Drawing.Point(112, 159);
+            this.CloseCancelButton.Location = new System.Drawing.Point(124, 201);
             this.CloseCancelButton.Name = "CloseCancelButton";
-            this.CloseCancelButton.Size = new System.Drawing.Size(85, 23);
-            this.CloseCancelButton.TabIndex = 4;
+            this.CloseCancelButton.Size = new System.Drawing.Size(98, 23);
+            this.CloseCancelButton.TabIndex = 7;
             this.CloseCancelButton.Text = "Close";
             this.CloseCancelButton.UseVisualStyleBackColor = true;
             this.CloseCancelButton.Click += new System.EventHandler(this.CloseCancelButtonPressed);
@@ -167,7 +205,7 @@
             // TimeOutTimer
             // 
             this.TimeOutTimer.Interval = 1000;
-            this.TimeOutTimer.Tag = "10";
+            this.TimeOutTimer.Tag = "5";
             this.TimeOutTimer.Tick += new System.EventHandler(this.TimeOutTimerTick);
             // 
             // SessionForm
@@ -177,10 +215,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.CloseCancelButton;
-            this.ClientSize = new System.Drawing.Size(209, 194);
+            this.ClientSize = new System.Drawing.Size(234, 236);
             this.Controls.Add(this.CloseCancelButton);
-            this.Controls.Add(this.ConnectButton);
             this.Controls.Add(this.RemoteGroupBox);
+            this.Controls.Add(this.ConnectButton);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -197,15 +235,19 @@
         }
 
         #endregion
+
         private System.Windows.Forms.GroupBox RemoteGroupBox;
-        private System.Windows.Forms.TextBox HostTextBox;
-        private System.Windows.Forms.NumericUpDown PortUpDown;
-        private System.Windows.Forms.TextBox PasswordTextBox;
-        private System.Windows.Forms.TextBox UsernameTextBox;
+        private System.Windows.Forms.Label RPCPathLabel;
+        private System.Windows.Forms.TextBox RPCPathTextBox;
+        private System.Windows.Forms.CheckBox AuthenticationRequiredCheckBox;
+        private System.Windows.Forms.Label PasswordLabel;
+        private System.Windows.Forms.Label UsernameLabel;
         private System.Windows.Forms.Label PortLabel;
         private System.Windows.Forms.Label HostLabel;
-        private System.Windows.Forms.Label UsernameLabel;
-        private System.Windows.Forms.Label PasswordLabel;
+        private System.Windows.Forms.TextBox PasswordTextBox;
+        private System.Windows.Forms.TextBox UsernameTextBox;
+        private System.Windows.Forms.NumericUpDown PortUpDown;
+        private System.Windows.Forms.TextBox HostTextBox;
         private System.Windows.Forms.Button ConnectButton;
         private System.Windows.Forms.Button CloseCancelButton;
         private System.Windows.Forms.Timer TimeOutTimer;

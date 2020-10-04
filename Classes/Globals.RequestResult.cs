@@ -6,12 +6,11 @@
         {
             Success,
             Timeout,
-            InvalidResp,
-            InvalidUrl,
+            InvalidResponse,
             Unauthorized,
             Cancelled,
-            Unknown,
-            Failed
+            Failed,
+            Unknown
         }
     }
 }
