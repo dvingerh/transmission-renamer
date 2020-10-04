@@ -14,6 +14,7 @@ namespace transmission_renamer
     {
         public string Host { get; set; }
         public string RpcPath { get; set; }
+        public string SessionUrl { get; set; }
         public int Port { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
@@ -28,6 +29,8 @@ namespace transmission_renamer
             Port = port;
             Username = username;
             Password = password;
+
+            SessionUrl = $"http://{Host}:{Port}{RpcPath}";
         }
 
         public async Task<RequestResult> TestConnection()
@@ -36,11 +39,11 @@ namespace transmission_renamer
             {
                 if (client != null)
                     client.CloseSessionAsync();
-                client = new Client(url: $"http://{Host}:{Port}{RpcPath}", login: Username, password: Password);
+                client = new Client(url: SessionUrl, login: Username, password: Password);
 
                 RequestResult connectionResult;
                 Task<SessionInfo> sessionInfoTask = client.GetSessionInformationAsync();
-                Task delayTask = Task.Delay(TimeSpan.FromSeconds(5));
+                Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
 
                 await Task.Run(async () => await Task.WhenAny(sessionInfoTask, delayTask));
 
@@ -75,7 +78,7 @@ namespace transmission_renamer
             try
             {
                 Task<TransmissionTorrents> getTorrentsTask = client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
-                Task delayTask = Task.Delay(TimeSpan.FromSeconds(5));
+                Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
                 await Task.WhenAny(getTorrentsTask, delayTask);
                 if (!requestCancelled)
                 {
@@ -106,7 +109,7 @@ namespace transmission_renamer
             {
                 RequestResult renameResult;
                 Task<RenameTorrentInfo> renameFileTask = client.TorrentRenamePathAsync(torrent.ID, filePath, newName);
-                Task delayTask = Task.Delay(TimeSpan.FromSeconds(5));
+                Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
 
                 await Task.Run(async () => await Task.WhenAny(renameFileTask, delayTask));
 

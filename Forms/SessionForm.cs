@@ -14,11 +14,11 @@ namespace transmission_renamer
         public SessionForm()
         {
             InitializeComponent();
-            if (debug && File.Exists("DebugSettings.xml"))
+            if (debug && File.Exists("Settings.xml"))
             {
                 XmlDocument debugXmlDoc = new XmlDocument();
-                debugXmlDoc.Load("DebugSettings.xml");
-                XmlNode loginNodes = debugXmlDoc.SelectSingleNode("/Debug/Login");
+                debugXmlDoc.Load("Settings.xml");
+                XmlNode loginNodes = debugXmlDoc.SelectSingleNode("/Login");
                 HostTextBox.Text = loginNodes["Host"].InnerText;
                 PortUpDown.Value = decimal.Parse(loginNodes["Port"].InnerText);
                 UsernameTextBox.Text = loginNodes["Username"].InnerText;
@@ -82,6 +82,7 @@ namespace transmission_renamer
                     case Globals.RequestResult.Success:
                         Hide();
                         SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm();
+                        selectTorrentFilesForm.Text = $"Transmission Renamer - {Globals.SessionHandler.SessionUrl}";
                         selectTorrentFilesForm.ShowDialog();
                         Show();
                         break;
