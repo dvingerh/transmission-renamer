@@ -137,14 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="FodyWeavers.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -153,6 +148,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -172,6 +172,15 @@
     <None Include="file.png" />
     <None Include="folder.png" />
     <None Include="error.png" />
+    <None Include="AppImages\error.png" />
+    <None Include="AppImages\file.png" />
+    <None Include="AppImages\folder.png" />
+    <None Include="AppImages\pending.png" />
+    <None Include="AppImages\rules.png" />
+    <None Include="AppImages\spinner.gif" />
+    <None Include="AppImages\success.png" />
+    <None Include="AppImages\transmission.png" />
+    <None Include="AppImages\warning.png" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
