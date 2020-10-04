@@ -20,6 +20,7 @@ namespace transmission_renamer
         private readonly ListViewColumnSorter lvwColumnSorter;
         private ListViewItem currentTorrentListViewItem;
         private TreeNode rootNode;
+        private List<ListViewItem> allItems = new List<ListViewItem>();
 
         public SelectTorrentFilesForm()
         {
@@ -172,6 +173,8 @@ namespace transmission_renamer
                 else
                     MessageBox.Show("The torrent list could not be retrieved.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                allItems.Clear();
+                allItems.AddRange(TorrentsListView.Items.Cast<ListViewItem>());
                 ToggleLoadingPanels(false);
                 RefreshTorrentListButton.Text = "Refresh Torrent List";
                 RefreshTorrentListButton.Enabled = true;
@@ -197,42 +200,11 @@ namespace transmission_renamer
             TorrentsListView.EndUpdate();
         }
 
-        // find first occurrence of string in a torrent
-        private void SearchTorrent(string query)
-        {
-            foreach (ListViewItem torrentItem in TorrentsListView.Items)
-            {
-                if (torrentItem.SubItems[1].Text.ToLower().IndexOf(query.ToLower()) != -1)
-                {
-                    TorrentsListView.Items[torrentItem.Index].Focused = true;
-                    TorrentsListView.Items[torrentItem.Index].Selected = true;
-                    TorrentsListView.Items[torrentItem.Index].EnsureVisible();
-                    TorrentsListView.Focus();
-                    break;
-                }
-            }
-        }
-
-        // override some of the default textbox behavior 
-        private void HandleSearchTorrentListTextBoxBehavior(object sender, KeyEventArgs e)
-        {
-            // remove word on ctrl+backspace, default behavior is inserting delete character
-            if (e.Control & e.KeyCode == Keys.Back)
-                SendKeys.SendWait("^+{LEFT}{BACKSPACE}");
-
-            // suppress 'ding' sound on Enter keypress
-            if (e.KeyCode == Keys.Enter)
-            {
-                SearchTorrent(SearchTorrentListTextBox.Text);
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-        }
-
         // handle user selected a torrent from the torrent list
         private async void SelectedTorrentChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
             DialogResult dialogResult;
+            bool doUpdateFileList = false;
             if (TorrentsListView.SelectedItems.Count > 0)
             {
                 if (Globals.SelectedTorrent != null)
@@ -245,31 +217,42 @@ namespace transmission_renamer
                     {
                         dialogResult = MessageBox.Show("Changing the selected torrent will cause the current file selection to be lost.\r\n\r\nDo you want to continue?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         if (dialogResult == DialogResult.Yes)
+                        {
                             Globals.SelectedTorrent = Globals.TorrentsInfo.Find(torrent => torrent.Torrent.ID == newTorrentId);
+                            doUpdateFileList = true;
+                        }
                         else
                             return;
                     }
                     else if (TorrentFileListTreeView.TotalFilesSelected == 0)
+                    {
                         Globals.SelectedTorrent = Globals.TorrentsInfo[TorrentsListView.SelectedItems[0].Index];
+                        doUpdateFileList = true;
+                    }
                 }
                 else
                 {
                     TorrentInfo newSelectedTorrent = (TorrentInfo)e.Item.Tag;
                     int newTorrentId = newSelectedTorrent.ID;
                     Globals.SelectedTorrent = Globals.TorrentsInfo.Find(torrent => torrent.Torrent.ID == newTorrentId);
-
+                    doUpdateFileList = true;
                 }
+            }
+            TorrentsListView.BeginUpdate();
+
+            if (doUpdateFileList)
+            {
                 // update UI state, load the file list of newly selected torrent
                 SelectedTorrentLabel.Text = $"Selected torrent: {TorrentsListView.SelectedItems[0].SubItems[1].Text}";
                 RenameButton.Enabled = false;
                 currentTorrentListViewItem = TorrentsListView.SelectedItems[0];
                 await LoadTorrentFilesList();
             }
-            TorrentsListView.BeginUpdate();
 
             // make current torrent selection easier to find in TorrentsListView
             foreach (ListViewItem torrentItem in TorrentsListView.Items)
-                torrentItem.ForeColor = (torrentItem != currentTorrentListViewItem) ? Color.Black : Color.Blue;
+                if (torrentItem != null)
+                    torrentItem.ForeColor = (torrentItem != currentTorrentListViewItem) ? Color.Black : Color.Blue;
 
             TorrentsListView.EndUpdate();
         }
@@ -494,7 +477,7 @@ namespace transmission_renamer
             RulesListView.Items.Clear();
             for (int i = 0; i < Globals.RenameRules.Count; i++)
             {
-                RenameRule rule = Globals.RenameRules[i];
+                IRenameRule rule = Globals.RenameRules[i];
                 ListViewItem ruleLVItem = new ListViewItem
                 {
                     Text = (i + 1).ToString()
@@ -527,7 +510,7 @@ namespace transmission_renamer
             if (Globals.RenameRules.Count > 0)
             {
                 FileNamesOldNewListView.BeginUpdate();
-                foreach (RenameRule renameRule in Globals.RenameRules)
+                foreach (IRenameRule renameRule in Globals.RenameRules)
                 {
                     foreach (ListViewItem torrentFileItem in FileNamesOldNewListView.Items)
                     {
@@ -544,7 +527,7 @@ namespace transmission_renamer
         // move selected rule up in the RulesListView item order
         private void MoveRuleUpButtonClick(object sender, EventArgs e)
         {
-            RenameRule currentSelectedRule = (RenameRule)RulesListView.SelectedItems[0].Tag;
+            IRenameRule currentSelectedRule = (IRenameRule)RulesListView.SelectedItems[0].Tag;
             int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentSelectedRule.Id));
             int newRuleIndex = oldRuleIndex - 1;
             Globals.RenameRules.RemoveAt(oldRuleIndex);
@@ -559,7 +542,7 @@ namespace transmission_renamer
         // move selected rule down in the RulesListView item order
         private void MoveRuleDownButtonClick(object sender, EventArgs e)
         {
-            RenameRule currentSelectedRule = (RenameRule)RulesListView.SelectedItems[0].Tag;
+            IRenameRule currentSelectedRule = (IRenameRule)RulesListView.SelectedItems[0].Tag;
             int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentSelectedRule.Id));
             int newRuleIndex = oldRuleIndex + 1;
             Globals.RenameRules.RemoveAt(oldRuleIndex);
@@ -592,7 +575,7 @@ namespace transmission_renamer
         // remove selected rule from the list of rules, update UI state
         private void DeleteRuleButtonClick(object sender, EventArgs e)
         {
-            RenameRule currentSelectedRule = (RenameRule)RulesListView.SelectedItems[0].Tag;
+            IRenameRule currentSelectedRule = (IRenameRule)RulesListView.SelectedItems[0].Tag;
             int ruleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentSelectedRule.Id));
             Globals.RenameRules.RemoveAt(ruleIndex);
             UpdateRulesListView();
@@ -613,7 +596,7 @@ namespace transmission_renamer
         // edit selected rule from the list of rules, update UI state
         private void EditRuleButtonClick(object sender, EventArgs e)
         {
-            RenameRule currentSelectedRule = (RenameRule)RulesListView.SelectedItems[0].Tag;
+            IRenameRule currentSelectedRule = (IRenameRule)RulesListView.SelectedItems[0].Tag;
             int currentRuleIndex = RulesListView.SelectedItems[0].Index;
             RulesForm rulesForm = new RulesForm(editMode: true, currentSelectedRule);
             DialogResult dialogResult = rulesForm.ShowDialog();
@@ -633,7 +616,7 @@ namespace transmission_renamer
 
             Hide();
             List<ListViewItem> items = new List<ListViewItem>();
-            foreach(ListViewItem item in FileNamesOldNewListView.Items)
+            foreach (ListViewItem item in FileNamesOldNewListView.Items)
             {
                 items.Add((ListViewItem)item.Clone());
             }
@@ -649,6 +632,24 @@ namespace transmission_renamer
             {
                 SearchTorrentListTextBox.Focus();
             }
+        }
+
+        private void SearchTorrentListTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (TorrentsListView.SelectedItems.Count > 0)
+            {
+                TorrentsListView.SelectedItems[0].Focused = false;
+                TorrentsListView.SelectedItems[0].Selected = false;
+            }
+            string query = SearchTorrentListTextBox.Text.ToLower();
+            TorrentsListView.Items.Clear();
+            if (query == "")
+            {
+                TorrentsListView.Items.AddRange(allItems.ToArray());
+                return;
+            }
+            var list = allItems.Cast<ListViewItem>().Where(x => x.SubItems[1].Text.ToLower().Contains(query)).ToArray();
+            TorrentsListView.Items.AddRange(list);
         }
     }
 }
