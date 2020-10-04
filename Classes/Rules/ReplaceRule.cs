@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace transmission_renamer.Classes.Rules
 {
-    class RemoveRule : IRenameRule
+    class ReplaceRule : IRenameRule
     {
-        public string Name { get; } = "Remove";
+        public string Name { get; } = "Replace";
         public string Description { get; }
         public string Id { get; } = Guid.NewGuid().ToString();
 
-        public string RemoveText { get; set; }
+        public string FindText { get; set; }
+        public string ReplaceText { get; set; }
         public bool AllOccurrences { get; set; }
         public bool FirstOccurrence { get; set; }
         public bool LastOccurrence { get; set; }
@@ -22,9 +23,10 @@ namespace transmission_renamer.Classes.Rules
         public bool InterpretWildCards { get; set; }
         public bool IgnoreExtension { get; set; }
 
-        public RemoveRule(string removeText, bool allOccurrences, bool firstOccurrence, bool lastOccurrence, bool caseSensitive, bool interpretWildCards, bool ignoreExtension)
+        public ReplaceRule(string findText, string replaceText, bool allOccurrences, bool firstOccurrence, bool lastOccurrence, bool caseSensitive, bool interpretWildCards, bool ignoreExtension)
         {
-            this.RemoveText = removeText;
+            this.FindText = findText;
+            this.ReplaceText = replaceText;
             this.AllOccurrences = allOccurrences;
             this.FirstOccurrence = firstOccurrence;
             this.LastOccurrence = lastOccurrence;
@@ -37,7 +39,7 @@ namespace transmission_renamer.Classes.Rules
 
         private string GenerateDescription()
         {
-            StringBuilder descriptionSb = new StringBuilder($"Remove");
+            StringBuilder descriptionSb = new StringBuilder($"Replace");
             if (AllOccurrences)
             {
                 descriptionSb.Append(" All occurrences of text ");
@@ -51,7 +53,7 @@ namespace transmission_renamer.Classes.Rules
                 descriptionSb.Append(" Last occurrence of text ");
             }
 
-            descriptionSb.Append($"'{RemoveText}' ");
+            descriptionSb.Append($"'{FindText}' with text '{ReplaceText}' ");
 
             if (CaseSensitive && IgnoreExtension && InterpretWildCards)
                 descriptionSb.Append("(case sensitive, ignoring extension, interpreting wildcards)");
@@ -96,13 +98,13 @@ namespace transmission_renamer.Classes.Rules
                 Wildcard wildcard;
                 if (InterpretWildCards)
                 {
-                    int lastIndex = newNameSb.ToString().LastIndexOf(RemoveText, StringComparison.Ordinal);
+                    int lastIndex = newNameSb.ToString().LastIndexOf(FindText, StringComparison.Ordinal);
                     if (CaseSensitive)
-                        wildcard = new Wildcard(RemoveText);
+                        wildcard = new Wildcard(FindText);
                     else
-                        wildcard = new Wildcard(RemoveText, RegexOptions.IgnoreCase);
+                        wildcard = new Wildcard(FindText, RegexOptions.IgnoreCase);
 
-                    result = Regex.Unescape(wildcard.Replace(Regex.Escape(newNameSb.ToString()), "", FirstOccurrence ? 1 : 255, LastOccurrence ? lastIndex : 0));
+                    result = Regex.Unescape(wildcard.Replace(Regex.Escape(newNameSb.ToString()), ReplaceText, FirstOccurrence ? 1 : 255, LastOccurrence ? lastIndex : 0));
                     newNameSb = new StringBuilder(result);
                 }
                 else
@@ -110,10 +112,10 @@ namespace transmission_renamer.Classes.Rules
                     if (AllOccurrences)
                     {
                         if (CaseSensitive)
-                            newNameSb.Replace(RemoveText, "");
+                            newNameSb.Replace(FindText, ReplaceText);
                         else
                         {
-                            result = Regex.Unescape(Regex.Replace(newNameSb.ToString(), Regex.Escape(RemoveText), "", RegexOptions.IgnoreCase));
+                            result = Regex.Unescape(Regex.Replace(newNameSb.ToString(), Regex.Escape(FindText), ReplaceText, RegexOptions.IgnoreCase));
                             newNameSb = new StringBuilder(result);
                         }
                     }
@@ -121,23 +123,24 @@ namespace transmission_renamer.Classes.Rules
                     {
                         int index;
                         if (CaseSensitive)
-                            index = newNameSb.ToString().IndexOf(RemoveText, StringComparison.Ordinal);
+                            index = newNameSb.ToString().IndexOf(FindText, StringComparison.Ordinal);
                         else
-                            index = newNameSb.ToString().IndexOf(RemoveText, StringComparison.OrdinalIgnoreCase);
+                            index = newNameSb.ToString().IndexOf(FindText, StringComparison.OrdinalIgnoreCase);
                         if (index != -1)
-                            newNameSb = (index < 0) ? newNameSb : newNameSb.Remove(index, RemoveText.Length);
+                            newNameSb = (index < 0) ? newNameSb : newNameSb.Replace(FindText, ReplaceText, index, 1);
                     }
                     else if (LastOccurrence)
                     {
                         int index;
                         if (CaseSensitive)
-                            index = newNameSb.ToString().LastIndexOf(RemoveText, StringComparison.Ordinal);
+                            index = newNameSb.ToString().LastIndexOf(FindText, StringComparison.Ordinal);
                         else
-                            index = newNameSb.ToString().LastIndexOf(RemoveText, StringComparison.OrdinalIgnoreCase);
+                            index = newNameSb.ToString().LastIndexOf(FindText, StringComparison.OrdinalIgnoreCase);
                         if (index != -1)
-                            newNameSb = (index < 0) ? newNameSb : newNameSb.Remove(index, RemoveText.Length);
+                            newNameSb = (index < 0) ? newNameSb : newNameSb.Replace(FindText, ReplaceText, index, 1);
                     }
                 }
+
 
                 if (IgnoreExtension)
                     newNameSb.Append(extension);

@@ -66,12 +66,23 @@ namespace transmission_renamer.Forms
                 case RemoveRule removeRule:
                     RuleTypeListBox.SelectedIndex = 2;
                     RemoveTextTextBox.Text = removeRule.RemoveText;
-                    AllOccurrencesRadioButton.Checked = removeRule.AllOccurrences;
-                    FirstOccurrenceRadioButton.Checked = removeRule.FirstOccurrence;
-                    LastOccurrenceRadioButton.Checked = removeRule.LastOccurrence;
-                    CaseSensitiveCheckBox.Checked = removeRule.CaseSensitive;
-                    IgnoreExtensionCheckBox.Checked = removeRule.IgnoreExtension;
-                    InterpretWildcardsCheckBox.Checked = removeRule.InterpretWildCards;
+                    RemoveAllOccurrencesRadioButton.Checked = removeRule.AllOccurrences;
+                    RemoveFirstOccurrenceRadioButton.Checked = removeRule.FirstOccurrence;
+                    RemoveLastOccurrenceRadioButton.Checked = removeRule.LastOccurrence;
+                    RemoveCaseSensitiveCheckBox.Checked = removeRule.CaseSensitive;
+                    RemoveIgnoreExtensionCheckBox.Checked = removeRule.IgnoreExtension;
+                    RemoveInterpretWildcardsCheckBox.Checked = removeRule.InterpretWildCards;
+                    break;
+                case ReplaceRule replaceRule:
+                    RuleTypeListBox.SelectedIndex = 3;
+                    ReplaceFindTextBox.Text = replaceRule.FindText;
+                    ReplaceTextTextBox.Text = replaceRule.ReplaceText;
+                    ReplaceAllOccurrencesRadioButton.Checked = replaceRule.AllOccurrences;
+                    ReplaceFirstOccurrenceRadioButton.Checked = replaceRule.FirstOccurrence;
+                    ReplaceLastOccurrenceRadioButton.Checked = replaceRule.LastOccurrence;
+                    ReplaceCaseSensitiveCheckBox.Checked = replaceRule.CaseSensitive;
+                    ReplaceIgnoreExtensionCheckBox.Checked = replaceRule.IgnoreExtension;
+                    ReplaceInterpretWildcardsCheckBox.Checked = replaceRule.InterpretWildCards;
                     break;
             }
         }
@@ -160,12 +171,12 @@ namespace transmission_renamer.Forms
                     break;
                 case 2:
                     RemoveRule removeRule = new RemoveRule(removeText: RemoveTextTextBox.Text,
-                        allOccurrences: AllOccurrencesRadioButton.Checked,
-                        firstOccurrence: FirstOccurrenceRadioButton.Checked,
-                        lastOccurrence: LastOccurrenceRadioButton.Checked,
-                        caseSensitive: CaseSensitiveCheckBox.Checked,
-                        interpretWildCards: InterpretWildcardsCheckBox.Checked,
-                        ignoreExtension: IgnoreExtensionCheckBox.Checked
+                        allOccurrences: RemoveAllOccurrencesRadioButton.Checked,
+                        firstOccurrence: RemoveFirstOccurrenceRadioButton.Checked,
+                        lastOccurrence: RemoveLastOccurrenceRadioButton.Checked,
+                        caseSensitive: RemoveCaseSensitiveCheckBox.Checked,
+                        interpretWildCards: RemoveInterpretWildcardsCheckBox.Checked,
+                        ignoreExtension: RemoveIgnoreExtensionCheckBox.Checked
                         );
 
                     if (editMode)
@@ -176,6 +187,29 @@ namespace transmission_renamer.Forms
                     else
                     {
                         Globals.RenameRules.Add(removeRule);
+                    }
+
+                    DialogResult = DialogResult.OK;
+                    break;
+                case 3:
+                    ReplaceRule replaceRule = new ReplaceRule(findText: ReplaceFindTextBox.Text,
+                        replaceText: ReplaceTextTextBox.Text,
+                        allOccurrences: ReplaceAllOccurrencesRadioButton.Checked,
+                        firstOccurrence: ReplaceFirstOccurrenceRadioButton.Checked,
+                        lastOccurrence: ReplaceLastOccurrenceRadioButton.Checked,
+                        caseSensitive: ReplaceCaseSensitiveCheckBox.Checked,
+                        interpretWildCards: ReplaceInterpretWildcardsCheckBox.Checked,
+                        ignoreExtension: ReplaceIgnoreExtensionCheckBox.Checked
+                        );
+
+                    if (editMode)
+                    {
+                        int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentlyEditedRule.Id));
+                        Globals.RenameRules[oldRuleIndex] = replaceRule;
+                    }
+                    else
+                    {
+                        Globals.RenameRules.Add(replaceRule);
                     }
 
                     DialogResult = DialogResult.OK;

@@ -87,13 +87,14 @@
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\Globals.RequestResult.cs" />
     <Compile Include="Classes\Rules\DeleteRule.cs" />
+    <Compile Include="Classes\Rules\ReplaceRule.cs" />
     <Compile Include="Classes\Rules\RemoveRule.cs" />
     <Compile Include="Classes\TransmissionHelper\FriendlyTorrentFileInfo.cs" />
     <Compile Include="Classes\TransmissionHelper\FriendlyTorrentInfo.cs" />
     <Compile Include="Classes\Globals.cs" />
     <Compile Include="Classes\Rules\InsertRule.cs" />
     <Compile Include="Classes\Rules\IRenameRule.cs" />
-    <Compile Include="Classes\Wildcard.cs" />
+    <Compile Include="Classes\Rules\Wildcard.cs" />
     <Compile Include="Forms\MainSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>

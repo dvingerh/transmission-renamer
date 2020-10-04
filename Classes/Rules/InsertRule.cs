@@ -43,7 +43,7 @@ namespace transmission_renamer.Classes.Rules
 
         private string GenerateDescription()
         {
-            StringBuilder descriptionSb = new StringBuilder($"Insert '{InsertText}'");
+            StringBuilder descriptionSb = new StringBuilder($"Insert text '{InsertText}'");
             if (Prefix)
             {
                 descriptionSb.Append(" as Prefix ");
