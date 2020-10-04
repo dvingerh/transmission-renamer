@@ -205,7 +205,7 @@
             // TimeOutTimer
             // 
             this.TimeOutTimer.Interval = 1000;
-            this.TimeOutTimer.Tag = "5";
+            this.TimeOutTimer.Tag = "10";
             this.TimeOutTimer.Tick += new System.EventHandler(this.TimeOutTimerTick);
             // 
             // SessionForm

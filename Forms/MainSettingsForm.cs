@@ -66,10 +66,13 @@ namespace transmission_renamer
         // view or hide loading panels, update UI state accordingly
         private void ToggleLoadingPanels(bool state)
         {
-            foreach (Control control in PagesTabControl.SelectedTab.Controls)
+            foreach(TabPage tabPage in PagesTabControl.TabPages)
             {
-                if (control.Name.IndexOf("Loading") == -1)
-                    control.Enabled = !state;
+                foreach (Control control in tabPage.Controls)
+                {
+                    if (control.Name.IndexOf("Loading") == -1)
+                        control.Enabled = !state;
+                }
             }
             RetrievingInformationLoadingPanel.Visible = state;
             ProcessingRulesFilesLoadingPanel.Visible = state;

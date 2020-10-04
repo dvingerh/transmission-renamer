@@ -35,7 +35,7 @@ namespace transmission_renamer
             {
                 TimeOutTimer.Stop();
                 TimeOutTimer.Enabled = false;
-                TimeOutTimer.Tag = "5";
+                TimeOutTimer.Tag = "10";
                 ConnectButton.Text = "Connect";
                 CloseCancelButton.Text = "Close";
                 RemoteGroupBox.Enabled = true;
@@ -62,7 +62,7 @@ namespace transmission_renamer
             isConnecting = true;
             RemoteGroupBox.Enabled = false;
             ConnectButton.Enabled = false;
-            ConnectButton.Text = "Waiting (5)";
+            ConnectButton.Text = "Waiting (10)";
             CloseCancelButton.Text = "Cancel";
             TimeOutTimer.Enabled = true;
             TimeOutTimer.Start();
@@ -117,7 +117,7 @@ namespace transmission_renamer
                     isConnecting = false;
                     TimeOutTimer.Stop();
                     TimeOutTimer.Enabled = false;
-                    TimeOutTimer.Tag = "5";
+                    TimeOutTimer.Tag = "10";
                 }
             }
         }
