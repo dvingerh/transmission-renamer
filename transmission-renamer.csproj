@@ -163,15 +163,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="warning.png" />
-    <None Include="success.png" />
-    <None Include="pending.png" />
-    <None Include="spinner.gif" />
-    <None Include="rules.png" />
-    <None Include="transmission.png" />
-    <None Include="file.png" />
-    <None Include="folder.png" />
-    <None Include="error.png" />
     <None Include="AppImages\error.png" />
     <None Include="AppImages\file.png" />
     <None Include="AppImages\folder.png" />
