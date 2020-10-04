@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Transmission.API.RPC;
 using Transmission.API.RPC.Entity;
 using static transmission_renamer.Globals;
@@ -11,90 +13,91 @@ namespace transmission_renamer
     public class SessionHandler
     {
         public string Host { get; set; }
+        public string RpcPath { get; set; }
+        public string SessionUrl { get; set; }
         public int Port { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Url { get; set; }
 
         private Client client;
         private bool requestCancelled = false;
 
-        public SessionHandler(string host, int port, string username, string password)
+        public SessionHandler(string host, string rpcPath, int port, string username, string password)
         {
             Host = host;
+            RpcPath = rpcPath;
             Port = port;
             Username = username;
             Password = password;
-        }
 
-        private bool ValidateUrl()
-        {
-            try
-            {
-                Url = new Uri("http://" + Host + ":" + Port + Constants.RPC_PATH).ToString();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            SessionUrl = $"http://{Host}:{Port}{RpcPath}";
         }
 
         public async Task<RequestResult> TestConnection()
         {
-            if (client != null)
-                client.CloseSessionAsync();
-            if (ValidateUrl())
+            try
             {
-                client = new Client(url: Url, login: Username, password: Password);
-            }
-            else
-            {
-                return RequestResult.InvalidUrl;
-            }
+                if (client != null)
+                    client.CloseSessionAsync();
+                client = new Client(url: SessionUrl, login: Username, password: Password);
 
-            RequestResult connectionResult;
-            Task<SessionInfo> sessionInfoTask = client.GetSessionInformationAsync();
-            Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
+                RequestResult connectionResult;
+                Task<SessionInfo> sessionInfoTask = client.GetSessionInformationAsync();
+                Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
 
-            await Task.Run(async () => await Task.WhenAny(sessionInfoTask, delayTask));
+                await Task.Run(async () => await Task.WhenAny(sessionInfoTask, delayTask));
 
 
-            if (!requestCancelled)
-            {
-                if (delayTask.IsCompleted)
+                if (!requestCancelled)
                 {
-                    connectionResult = RequestResult.Timeout;
+                    if (delayTask.IsCompleted)
+                        connectionResult = RequestResult.Timeout;
+                    else
+                    {
+                        SessionInfo sessionInfo = sessionInfoTask.Result;
+                        connectionResult = sessionInfo != null && sessionInfo.Version != null ? RequestResult.Success : RequestResult.InvalidResponse;
+                    }
                 }
                 else
-                {
-                    SessionInfo sessionInfo = sessionInfoTask.Result;
-                    connectionResult = sessionInfo != null && sessionInfo.Version != null ? RequestResult.Success : RequestResult.InvalidResp;
-                }
+                    connectionResult = RequestResult.Cancelled;
+                return connectionResult;
             }
-            else
-                connectionResult = RequestResult.Cancelled;
-            return connectionResult;
+            catch (AggregateException ae)
+            {
+                WebException exception = (WebException)ae.GetBaseException();
+                HttpWebResponse httpWebResponse = (HttpWebResponse)exception.Response;
+                if (httpWebResponse.StatusCode == HttpStatusCode.Unauthorized)
+                    return RequestResult.Unauthorized;
+                else
+                    return RequestResult.Failed;
+            }
         }
 
         public async Task<List<TorrentInfo>> GetTorrents()
         {
-            Task<TransmissionTorrents> getTorrentsTask = client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
-            Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
-            await Task.WhenAny(getTorrentsTask, delayTask);
-            if (!requestCancelled)
+            try
             {
-                if (delayTask.IsCompleted)
+                Task<TransmissionTorrents> getTorrentsTask = client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
+                Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
+                await Task.WhenAny(getTorrentsTask, delayTask);
+                if (!requestCancelled)
                 {
-                    return null;
+                    if (delayTask.IsCompleted)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        TransmissionTorrents torrentsList = getTorrentsTask.Result;
+                        return torrentsList != null && torrentsList.Torrents != null ? torrentsList.Torrents.ToList() : new List<TorrentInfo>();
+                    }
                 }
                 else
                 {
-                    TransmissionTorrents torrentsList = getTorrentsTask.Result;
-                    return torrentsList != null && torrentsList.Torrents != null ? torrentsList.Torrents.ToList() : new List<TorrentInfo>();
+                    return null;
                 }
             }
-            else
+            catch (AggregateException)
             {
                 return null;
             }
@@ -102,20 +105,27 @@ namespace transmission_renamer
 
         public async Task<RequestResult> RenameTorrent(string filePath, string newName, TorrentInfo torrent)
         {
-            RequestResult renameResult;
-            Task<RenameTorrentInfo> renameFileTask = client.TorrentRenamePathAsync(torrent.ID, filePath, newName);
-            Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
-
-            await Task.Run(async () => await Task.WhenAny(renameFileTask, delayTask));
-
-            if (delayTask.IsCompleted)
-                renameResult = RequestResult.Timeout;
-            else
+            try
             {
-                RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
-                renameResult = renameTorrentInfo != null && renameTorrentInfo.Name == newName ? RequestResult.Success : RequestResult.Failed;
+                RequestResult renameResult;
+                Task<RenameTorrentInfo> renameFileTask = client.TorrentRenamePathAsync(torrent.ID, filePath, newName);
+                Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
+
+                await Task.Run(async () => await Task.WhenAny(renameFileTask, delayTask));
+
+                if (delayTask.IsCompleted)
+                    renameResult = RequestResult.Timeout;
+                else
+                {
+                    RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
+                    renameResult = renameTorrentInfo != null && renameTorrentInfo.Name == newName ? RequestResult.Success : RequestResult.Failed;
+                }
+                return renameResult;
             }
-            return renameResult;
+            catch (AggregateException)
+            {
+                return RequestResult.Failed;
+            }
         }
 
         public void CloseConnection() => client.CloseSessionAsync();

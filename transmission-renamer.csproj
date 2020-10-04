@@ -86,17 +86,27 @@
     <Compile Include="Classes\ColumnSorter.cs" />
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\Globals.RequestResult.cs" />
+    <Compile Include="Classes\Rules\CleanRule.cs" />
     <Compile Include="Classes\Rules\DeleteRule.cs" />
+    <Compile Include="Classes\Rules\ReplaceRule.cs" />
+    <Compile Include="Classes\Rules\RemoveRule.cs" />
     <Compile Include="Classes\TransmissionHelper\FriendlyTorrentFileInfo.cs" />
     <Compile Include="Classes\TransmissionHelper\FriendlyTorrentInfo.cs" />
     <Compile Include="Classes\Globals.cs" />
     <Compile Include="Classes\Rules\InsertRule.cs" />
-    <Compile Include="Classes\Rules\RenameRule.cs" />
+    <Compile Include="Classes\Rules\IRenameRule.cs" />
+    <Compile Include="Classes\Rules\Wildcard.cs" />
     <Compile Include="Forms\MainSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\MainSettingsForm.Designer.cs">
       <DependentUpon>MainSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RenamerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RenamerForm.Designer.cs">
+      <DependentUpon>RenamerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RulesForm.cs">
       <SubType>Form</SubType>
@@ -115,6 +125,9 @@
     <Compile Include="Classes\TransmissionHelper\SessionHandler.cs" />
     <EmbeddedResource Include="Forms\MainSettingsForm.resx">
       <DependentUpon>MainSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RenamerForm.resx">
+      <DependentUpon>RenamerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RulesForm.resx">
       <DependentUpon>RulesForm.cs</DependentUpon>
@@ -150,11 +163,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="warning.png" />
+    <None Include="success.png" />
+    <None Include="pending.png" />
     <None Include="spinner.gif" />
     <None Include="rules.png" />
     <None Include="transmission.png" />
     <None Include="file.png" />
     <None Include="folder.png" />
+    <None Include="error.png" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

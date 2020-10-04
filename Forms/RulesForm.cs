@@ -14,9 +14,10 @@ namespace transmission_renamer.Forms
     public partial class RulesForm : Form
     {
         private readonly bool editMode = false;
-        private RenameRule currentlyEditedRule;
+        private IRenameRule currentlyEditedRule;
 
-        public RulesForm(bool editMode = false, RenameRule rule = null)
+
+        public RulesForm(bool editMode = false, IRenameRule rule = null)
         {
             InitializeComponent();
             this.editMode = editMode;
@@ -26,7 +27,7 @@ namespace transmission_renamer.Forms
                 RuleTypeListBox.SelectedIndex = 0;
         }
 
-        private void ApplyEditingState(RenameRule rule)
+        private void ApplyEditingState(IRenameRule rule)
         {
             Text = "Edit Rule";
             currentlyEditedRule = rule;
@@ -62,6 +63,38 @@ namespace transmission_renamer.Forms
                     DeleteKeepDelimitersCheckBox.Checked = deleteRule.KeepDelimiters;
                     DeleteIgnoreExtensionCheckBox.Checked = deleteRule.IgnoreExtension;
                     break;
+                case RemoveRule removeRule:
+                    RuleTypeListBox.SelectedIndex = 2;
+                    RemoveTextTextBox.Text = removeRule.RemoveText;
+                    RemoveAllOccurrencesRadioButton.Checked = removeRule.AllOccurrences;
+                    RemoveFirstOccurrenceRadioButton.Checked = removeRule.FirstOccurrence;
+                    RemoveLastOccurrenceRadioButton.Checked = removeRule.LastOccurrence;
+                    RemoveCaseSensitiveCheckBox.Checked = removeRule.CaseSensitive;
+                    RemoveIgnoreExtensionCheckBox.Checked = removeRule.IgnoreExtension;
+                    RemoveInterpretWildcardsCheckBox.Checked = removeRule.InterpretWildCards;
+                    break;
+                case ReplaceRule replaceRule:
+                    RuleTypeListBox.SelectedIndex = 3;
+                    ReplaceFindTextBox.Text = replaceRule.FindText;
+                    ReplaceTextTextBox.Text = replaceRule.ReplaceText;
+                    ReplaceAllOccurrencesRadioButton.Checked = replaceRule.AllOccurrences;
+                    ReplaceFirstOccurrenceRadioButton.Checked = replaceRule.FirstOccurrence;
+                    ReplaceLastOccurrenceRadioButton.Checked = replaceRule.LastOccurrence;
+                    ReplaceCaseSensitiveCheckBox.Checked = replaceRule.CaseSensitive;
+                    ReplaceIgnoreExtensionCheckBox.Checked = replaceRule.IgnoreExtension;
+                    ReplaceInterpretWildcardsCheckBox.Checked = replaceRule.InterpretWildCards;
+                    break;
+                case CleanRule cleanRule:
+                    RuleTypeListBox.SelectedIndex = 4;
+                    CleanLatinAlphabetCheckBox.Checked = cleanRule.CleanLatinAlphabet;
+                    CleanDigitsCheckBox.Checked = cleanRule.CleanDigits;
+                    CleanBracketsCheckBox.Checked = cleanRule.CleanBrackets;
+                    CleanSymbolsCheckBox.Checked = cleanRule.CleanSymbols;
+                    CleanUserDefinedCheckBox.Checked = cleanRule.CleanUserDefined;
+                    CleanUserDefinedTextBox.Text = cleanRule.CleanUserDefinedText;
+                    CleanCaseSensitiveCheckBox.Checked = cleanRule.CaseSensitive;
+                    CleanIgnoreExtensionCheckBox.Checked = cleanRule.IgnoreExtension;
+                    break;
             }
         }
 
@@ -76,6 +109,9 @@ namespace transmission_renamer.Forms
                 case 1:
                     DeleteFromDelimiterTextBox.Focus();
                     break;
+                case 2:
+                    RemoveTextTextBox.Focus();
+                    break;
                 default:
                     break;
             }
@@ -89,7 +125,7 @@ namespace transmission_renamer.Forms
         private void ConfirmButtonClick(object sender, EventArgs e)
         {
             if (Globals.RenameRules == null)
-                Globals.RenameRules = new List<RenameRule>();
+                Globals.RenameRules = new List<IRenameRule>();
             switch (RuleTypeTabControl.SelectedIndex)
             {
                 case 0:
@@ -144,6 +180,74 @@ namespace transmission_renamer.Forms
 
                     DialogResult = DialogResult.OK;
                     break;
+                case 2:
+                    RemoveRule removeRule = new RemoveRule(removeText: RemoveTextTextBox.Text,
+                        allOccurrences: RemoveAllOccurrencesRadioButton.Checked,
+                        firstOccurrence: RemoveFirstOccurrenceRadioButton.Checked,
+                        lastOccurrence: RemoveLastOccurrenceRadioButton.Checked,
+                        caseSensitive: RemoveCaseSensitiveCheckBox.Checked,
+                        interpretWildCards: RemoveInterpretWildcardsCheckBox.Checked,
+                        ignoreExtension: RemoveIgnoreExtensionCheckBox.Checked
+                        );
+
+                    if (editMode)
+                    {
+                        int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentlyEditedRule.Id));
+                        Globals.RenameRules[oldRuleIndex] = removeRule;
+                    }
+                    else
+                    {
+                        Globals.RenameRules.Add(removeRule);
+                    }
+
+                    DialogResult = DialogResult.OK;
+                    break;
+                case 3:
+                    ReplaceRule replaceRule = new ReplaceRule(findText: ReplaceFindTextBox.Text,
+                        replaceText: ReplaceTextTextBox.Text,
+                        allOccurrences: ReplaceAllOccurrencesRadioButton.Checked,
+                        firstOccurrence: ReplaceFirstOccurrenceRadioButton.Checked,
+                        lastOccurrence: ReplaceLastOccurrenceRadioButton.Checked,
+                        caseSensitive: ReplaceCaseSensitiveCheckBox.Checked,
+                        interpretWildCards: ReplaceInterpretWildcardsCheckBox.Checked,
+                        ignoreExtension: ReplaceIgnoreExtensionCheckBox.Checked
+                        );
+
+                    if (editMode)
+                    {
+                        int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentlyEditedRule.Id));
+                        Globals.RenameRules[oldRuleIndex] = replaceRule;
+                    }
+                    else
+                    {
+                        Globals.RenameRules.Add(replaceRule);
+                    }
+
+                    DialogResult = DialogResult.OK;
+                    break;
+                case 4:
+                    CleanRule cleanRule = new CleanRule(cleanLatinAlphabet: CleanLatinAlphabetCheckBox.Checked,
+                        cleanDigits: CleanDigitsCheckBox.Checked,
+                        cleanBrackets: CleanBracketsCheckBox.Checked,
+                        cleanSymbols: CleanSymbolsCheckBox.Checked,
+                        cleanUserDefined: CleanUserDefinedCheckBox.Checked,
+                        cleanUserDefinedText: CleanUserDefinedTextBox.Text,
+                        caseSensitive: CleanCaseSensitiveCheckBox.Checked,
+                        ignoreExtension: CleanIgnoreExtensionCheckBox.Checked
+                        );
+
+                    if (editMode)
+                    {
+                        int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentlyEditedRule.Id));
+                        Globals.RenameRules[oldRuleIndex] = cleanRule;
+                    }
+                    else
+                    {
+                        Globals.RenameRules.Add(cleanRule);
+                    }
+
+                    DialogResult = DialogResult.OK;
+                    break;
                 default:
                     MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DialogResult = DialogResult.Cancel;
@@ -151,6 +255,21 @@ namespace transmission_renamer.Forms
             }
         }
 
-        private void RulesForm_Shown(object sender, EventArgs e) => SelectRuleTab(null, null);
+        private void RulesFormShown(object sender, EventArgs e) => SelectRuleTab(null, null);
+
+        #region Insert Rule
+        #endregion
+
+        #region Delete Rule
+        private void DeleteFromPositionNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            DeleteToPositionNumericUpDown.Minimum = DeleteFromPositionNumericUpDown.Value;
+        }
+        #endregion
+
+        private void CleanUserDefinedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CleanUserDefinedTextBox.Enabled = CleanUserDefinedCheckBox.Checked;
+        }
     }
 }

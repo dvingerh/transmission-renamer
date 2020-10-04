@@ -35,12 +35,6 @@
             this.RetrievingInformationLoadingPanel = new System.Windows.Forms.Panel();
             this.RetrievingInformationLoadingLabel = new System.Windows.Forms.Label();
             this.RetrievingSpinnerLoadingPictureBox = new System.Windows.Forms.PictureBox();
-            this.TorrentsListView = new BufferedListView();
-            this.CTQueuePosition = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CTName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CTStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CTSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CTProgress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SearchTorrentListLabel = new System.Windows.Forms.Label();
             this.SearchTorrentListTextBox = new System.Windows.Forms.TextBox();
             this.FilesTabPage = new System.Windows.Forms.TabPage();
@@ -52,14 +46,10 @@
             this.ExpandAllButton = new System.Windows.Forms.Button();
             this.InverseButton = new System.Windows.Forms.Button();
             this.SelectAllButton = new System.Windows.Forms.Button();
-            this.TorrentFileListTreeView = new BufferedTreeView();
             this.RulesTabPage = new System.Windows.Forms.TabPage();
             this.ProcessingRulesFilesLoadingPanel = new System.Windows.Forms.Panel();
             this.ProcessingRulesFilesLoadingLabel = new System.Windows.Forms.Label();
             this.ProcessingRulesFilesSpinnerLoadingPictureBox = new System.Windows.Forms.PictureBox();
-            this.FileNamesOldNewListView = new BufferedListView();
-            this.CFOldName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CFNewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DeleteRuleButton = new System.Windows.Forms.Button();
             this.MoveRuleDownButton = new System.Windows.Forms.Button();
             this.MoveRuleUpButton = new System.Windows.Forms.Button();
@@ -76,6 +66,16 @@
             this.RenameButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
             this.TimeOutTimer = new System.Windows.Forms.Timer(this.components);
+            this.TorrentsListView = new BufferedListView();
+            this.CTQueuePosition = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CTName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CTStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CTSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CTProgress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TorrentFileListTreeView = new BufferedTreeView();
+            this.FileNamesOldNewListView = new BufferedListView();
+            this.CFOldName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CFNewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.PagesTabControl.SuspendLayout();
             this.TorrentTabPage.SuspendLayout();
             this.RetrievingInformationLoadingPanel.SuspendLayout();
@@ -146,52 +146,6 @@
             this.RetrievingSpinnerLoadingPictureBox.TabIndex = 0;
             this.RetrievingSpinnerLoadingPictureBox.TabStop = false;
             // 
-            // TorrentsListView
-            // 
-            this.TorrentsListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TorrentsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.CTQueuePosition,
-            this.CTName,
-            this.CTStatus,
-            this.CTSize,
-            this.CTProgress});
-            this.TorrentsListView.FullRowSelect = true;
-            this.TorrentsListView.HideSelection = false;
-            this.TorrentsListView.Location = new System.Drawing.Point(3, 35);
-            this.TorrentsListView.MultiSelect = false;
-            this.TorrentsListView.Name = "TorrentsListView";
-            this.TorrentsListView.Size = new System.Drawing.Size(850, 557);
-            this.TorrentsListView.TabIndex = 11;
-            this.TorrentsListView.UseCompatibleStateImageBehavior = false;
-            this.TorrentsListView.View = System.Windows.Forms.View.Details;
-            this.TorrentsListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.SortTorrentsListView);
-            this.TorrentsListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.SelectedTorrentChanged);
-            // 
-            // CTQueuePosition
-            // 
-            this.CTQueuePosition.Text = "#";
-            this.CTQueuePosition.Width = 40;
-            // 
-            // CTName
-            // 
-            this.CTName.Text = "Name";
-            this.CTName.Width = 575;
-            // 
-            // CTStatus
-            // 
-            this.CTStatus.Text = "Status";
-            this.CTStatus.Width = 70;
-            // 
-            // CTSize
-            // 
-            this.CTSize.Text = "Size";
-            this.CTSize.Width = 70;
-            // 
-            // CTProgress
-            // 
-            this.CTProgress.Text = "Progress";
-            this.CTProgress.Width = 70;
-            // 
             // SearchTorrentListLabel
             // 
             this.SearchTorrentListLabel.AutoSize = true;
@@ -208,7 +162,7 @@
             this.SearchTorrentListTextBox.Name = "SearchTorrentListTextBox";
             this.SearchTorrentListTextBox.Size = new System.Drawing.Size(760, 22);
             this.SearchTorrentListTextBox.TabIndex = 0;
-            this.SearchTorrentListTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.HandleSearchTorrentListTextBoxBehavior);
+            this.SearchTorrentListTextBox.TextChanged += new System.EventHandler(this.SearchTorrentListTextBox_TextChanged);
             // 
             // FilesTabPage
             // 
@@ -315,17 +269,6 @@
             this.SelectAllButton.UseVisualStyleBackColor = true;
             this.SelectAllButton.Click += new System.EventHandler(this.SelectAllButtonClick);
             // 
-            // TorrentFileListTreeView
-            // 
-            this.TorrentFileListTreeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TorrentFileListTreeView.Location = new System.Drawing.Point(3, 35);
-            this.TorrentFileListTreeView.Name = "TorrentFileListTreeView";
-            this.TorrentFileListTreeView.PathSeparator = "/";
-            this.TorrentFileListTreeView.ShowNodeToolTips = true;
-            this.TorrentFileListTreeView.Size = new System.Drawing.Size(850, 557);
-            this.TorrentFileListTreeView.TabIndex = 0;
-            this.TorrentFileListTreeView.TriStateStyleProperty = BufferedTreeView.TriStateStyles.Standard;
-            // 
             // RulesTabPage
             // 
             this.RulesTabPage.BackColor = System.Drawing.SystemColors.Control;
@@ -374,34 +317,6 @@
             this.ProcessingRulesFilesSpinnerLoadingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.ProcessingRulesFilesSpinnerLoadingPictureBox.TabIndex = 0;
             this.ProcessingRulesFilesSpinnerLoadingPictureBox.TabStop = false;
-            // 
-            // FileNamesOldNewListView
-            // 
-            this.FileNamesOldNewListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.FileNamesOldNewListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.CFOldName,
-            this.CFNewName});
-            this.FileNamesOldNewListView.FullRowSelect = true;
-            this.FileNamesOldNewListView.HideSelection = false;
-            this.FileNamesOldNewListView.Location = new System.Drawing.Point(3, 241);
-            this.FileNamesOldNewListView.MultiSelect = false;
-            this.FileNamesOldNewListView.Name = "FileNamesOldNewListView";
-            this.FileNamesOldNewListView.ShowItemToolTips = true;
-            this.FileNamesOldNewListView.Size = new System.Drawing.Size(850, 351);
-            this.FileNamesOldNewListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.FileNamesOldNewListView.TabIndex = 11;
-            this.FileNamesOldNewListView.UseCompatibleStateImageBehavior = false;
-            this.FileNamesOldNewListView.View = System.Windows.Forms.View.Details;
-            // 
-            // CFOldName
-            // 
-            this.CFOldName.Text = "Old name";
-            this.CFOldName.Width = 415;
-            // 
-            // CFNewName
-            // 
-            this.CFNewName.Text = "New name";
-            this.CFNewName.Width = 415;
             // 
             // DeleteRuleButton
             // 
@@ -554,6 +469,91 @@
             this.TimeOutTimer.Interval = 1000;
             this.TimeOutTimer.Tag = "10";
             this.TimeOutTimer.Tick += new System.EventHandler(this.TimeOutTimerTick);
+            // 
+            // TorrentsListView
+            // 
+            this.TorrentsListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TorrentsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.CTQueuePosition,
+            this.CTName,
+            this.CTStatus,
+            this.CTSize,
+            this.CTProgress});
+            this.TorrentsListView.FullRowSelect = true;
+            this.TorrentsListView.HideSelection = false;
+            this.TorrentsListView.Location = new System.Drawing.Point(3, 35);
+            this.TorrentsListView.MultiSelect = false;
+            this.TorrentsListView.Name = "TorrentsListView";
+            this.TorrentsListView.Size = new System.Drawing.Size(850, 557);
+            this.TorrentsListView.TabIndex = 11;
+            this.TorrentsListView.UseCompatibleStateImageBehavior = false;
+            this.TorrentsListView.View = System.Windows.Forms.View.Details;
+            this.TorrentsListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.SortTorrentsListView);
+            this.TorrentsListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.SelectedTorrentChanged);
+            // 
+            // CTQueuePosition
+            // 
+            this.CTQueuePosition.Text = "#";
+            this.CTQueuePosition.Width = 40;
+            // 
+            // CTName
+            // 
+            this.CTName.Text = "Name";
+            this.CTName.Width = 575;
+            // 
+            // CTStatus
+            // 
+            this.CTStatus.Text = "Status";
+            this.CTStatus.Width = 70;
+            // 
+            // CTSize
+            // 
+            this.CTSize.Text = "Size";
+            this.CTSize.Width = 70;
+            // 
+            // CTProgress
+            // 
+            this.CTProgress.Text = "Progress";
+            this.CTProgress.Width = 70;
+            // 
+            // TorrentFileListTreeView
+            // 
+            this.TorrentFileListTreeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TorrentFileListTreeView.Location = new System.Drawing.Point(3, 35);
+            this.TorrentFileListTreeView.Name = "TorrentFileListTreeView";
+            this.TorrentFileListTreeView.PathSeparator = "/";
+            this.TorrentFileListTreeView.ShowNodeToolTips = true;
+            this.TorrentFileListTreeView.Size = new System.Drawing.Size(850, 557);
+            this.TorrentFileListTreeView.TabIndex = 0;
+            this.TorrentFileListTreeView.TriStateStyleProperty = BufferedTreeView.TriStateStyles.Standard;
+            // 
+            // FileNamesOldNewListView
+            // 
+            this.FileNamesOldNewListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.FileNamesOldNewListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.CFOldName,
+            this.CFNewName});
+            this.FileNamesOldNewListView.FullRowSelect = true;
+            this.FileNamesOldNewListView.HideSelection = false;
+            this.FileNamesOldNewListView.Location = new System.Drawing.Point(3, 241);
+            this.FileNamesOldNewListView.MultiSelect = false;
+            this.FileNamesOldNewListView.Name = "FileNamesOldNewListView";
+            this.FileNamesOldNewListView.ShowItemToolTips = true;
+            this.FileNamesOldNewListView.Size = new System.Drawing.Size(850, 351);
+            this.FileNamesOldNewListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.FileNamesOldNewListView.TabIndex = 11;
+            this.FileNamesOldNewListView.UseCompatibleStateImageBehavior = false;
+            this.FileNamesOldNewListView.View = System.Windows.Forms.View.Details;
+            // 
+            // CFOldName
+            // 
+            this.CFOldName.Text = "Old name";
+            this.CFOldName.Width = 415;
+            // 
+            // CFNewName
+            // 
+            this.CFNewName.Text = "New name";
+            this.CFNewName.Width = 415;
             // 
             // SelectTorrentFilesForm
             // 

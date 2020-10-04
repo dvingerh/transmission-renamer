@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Net;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -14,15 +14,17 @@ namespace transmission_renamer
         public SessionForm()
         {
             InitializeComponent();
-            if (debug)
+            if (debug && File.Exists("Settings.xml"))
             {
                 XmlDocument debugXmlDoc = new XmlDocument();
-                debugXmlDoc.Load("DebugSettings.xml");
-                XmlNode loginNodes = debugXmlDoc.SelectSingleNode("/Debug/Login");
+                debugXmlDoc.Load("Settings.xml");
+                XmlNode loginNodes = debugXmlDoc.SelectSingleNode("/Login");
                 HostTextBox.Text = loginNodes["Host"].InnerText;
                 PortUpDown.Value = decimal.Parse(loginNodes["Port"].InnerText);
                 UsernameTextBox.Text = loginNodes["Username"].InnerText;
                 PasswordTextBox.Text = loginNodes["Password"].InnerText;
+                RPCPathTextBox.Text = loginNodes["RPCPath"].InnerText;
+                AuthenticationRequiredCheckBox.Checked = loginNodes["Authentication"].InnerText.ToLower() == "true";
             }
 
         }
@@ -65,27 +67,13 @@ namespace transmission_renamer
             TimeOutTimer.Enabled = true;
             TimeOutTimer.Start();
             Globals.RequestResult connectionResult = Globals.RequestResult.Unknown;
-            try
-            {
-                Globals.SessionHandler = new SessionHandler(HostTextBox.Text, (int)PortUpDown.Value, UsernameTextBox.Text, PasswordTextBox.Text);
-                await Task.Run(async () => { connectionResult = await Globals.SessionHandler.TestConnection(); }); 
-            }
-            catch (AggregateException ae)
-            {
-                ae.Handle(ex =>
-                {
-                    if (ex is WebException we)
-                    {
-                        if (we.Response is HttpWebResponse webResponse && webResponse.StatusCode == HttpStatusCode.Unauthorized)
-                            connectionResult = Globals.RequestResult.Unauthorized;
-                        else
-                            connectionResult = Globals.RequestResult.Unknown;
-                    }
-                    else if (ex is NullReferenceException)
-                        connectionResult = Globals.RequestResult.InvalidUrl;
-                    return ex is WebException || ex is NullReferenceException;
-                });
-            }
+
+            if (AuthenticationRequiredCheckBox.Checked)
+                Globals.SessionHandler = new SessionHandler(HostTextBox.Text, RPCPathTextBox.Text, (int)PortUpDown.Value, UsernameTextBox.Text, PasswordTextBox.Text);
+            else
+                Globals.SessionHandler = new SessionHandler(HostTextBox.Text, RPCPathTextBox.Text, (int)PortUpDown.Value, null, null);
+            await Task.Run(async () => { connectionResult = await Globals.SessionHandler.TestConnection(); });
+
             if (isConnecting)
             {
                 bool revertUi = true;
@@ -94,20 +82,21 @@ namespace transmission_renamer
                     case Globals.RequestResult.Success:
                         Hide();
                         SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm();
+                        selectTorrentFilesForm.Text = $"Transmission Renamer - {Globals.SessionHandler.SessionUrl}";
                         selectTorrentFilesForm.ShowDialog();
                         Show();
                         break;
                     case Globals.RequestResult.Timeout:
                         MessageBox.Show("The connection to the host has timed out.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case Globals.RequestResult.InvalidResp:
+                    case Globals.RequestResult.InvalidResponse:
                         MessageBox.Show("The host returned an invalid response.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case Globals.RequestResult.InvalidUrl:
-                        MessageBox.Show("The specified host address is invalid.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    case Globals.RequestResult.Failed:
+                        MessageBox.Show("The specified host or RPC path is invalid.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case Globals.RequestResult.Unauthorized:
-                        MessageBox.Show("The host rejected the login credentials.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The specified port or login credentials are invalid.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case Globals.RequestResult.Cancelled:
                         // show no message but keep UI controls and behavior intact
@@ -136,9 +125,17 @@ namespace transmission_renamer
 
         private void TimeOutTimerTick(object sender, EventArgs e)
         {
-                int secondsLeft = int.Parse(TimeOutTimer.Tag.ToString()) - 1;
-                ConnectButton.Text = $"Waiting ({secondsLeft})";
-                TimeOutTimer.Tag = secondsLeft--.ToString();
+            int secondsLeft = int.Parse(TimeOutTimer.Tag.ToString()) - 1;
+            ConnectButton.Text = $"Waiting ({secondsLeft})";
+            TimeOutTimer.Tag = secondsLeft--.ToString();
+        }
+
+        private void AuthenticationRequiredCheckBoxCheckedChanged(object sender, EventArgs e)
+        {
+            UsernameLabel.Enabled = AuthenticationRequiredCheckBox.Checked;
+            UsernameTextBox.Enabled = AuthenticationRequiredCheckBox.Checked;
+            PasswordLabel.Enabled = AuthenticationRequiredCheckBox.Checked;
+            PasswordTextBox.Enabled = AuthenticationRequiredCheckBox.Checked;
         }
     }
 }

@@ -4,13 +4,12 @@ using System.Text;
 
 namespace transmission_renamer.Classes.Rules
 {
-    public class InsertRule : RenameRule
+    public class InsertRule : IRenameRule
     {
         public string Name { get; } = "Insert";
-
         public string Description { get; }
-
         public string Id { get; } = Guid.NewGuid().ToString();
+
         public string InsertText { get; set; }
         public string BeforeTextStr { get; set; }
         public string AfterTextStr { get; set; }
@@ -44,7 +43,7 @@ namespace transmission_renamer.Classes.Rules
 
         private string GenerateDescription()
         {
-            StringBuilder descriptionSb = new StringBuilder($"Insert '{InsertText}'");
+            StringBuilder descriptionSb = new StringBuilder($"Insert text '{InsertText}'");
             if (Prefix)
             {
                 descriptionSb.Append(" as Prefix ");
