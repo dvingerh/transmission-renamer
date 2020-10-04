@@ -15,10 +15,13 @@ namespace transmission_renamer.Forms
     public partial class RenamerForm : Form
     {
         private readonly List<ListViewItem> torrentRenameItems = new List<ListViewItem>();
+        private bool isCancelled = false;
 
         public RenamerForm(List<ListViewItem> items)
         {
             torrentRenameItems = items;
+            foreach(ListViewItem torrentItem in torrentRenameItems)
+                torrentItem.ImageIndex = 2;
             InitializeComponent();
             // programatically load file, folder icons list to bypass transparency loss bug if done in Designer instead
             ImageList torrentFilesImageList = new ImageList
@@ -41,6 +44,7 @@ namespace transmission_renamer.Forms
             await Task.Run(async () => { await RenameTorrentFiles(); });
 
             CurrentFileRenameLabel.Text = "Renaming finished.";
+            CancelButton.Enabled = false;
             DoneButton.Enabled = true;
         }
 
@@ -54,86 +58,96 @@ namespace transmission_renamer.Forms
             });
             for (int i = 0; i < FileNamesOldNewListView.Items.Count; i++)
             {
-                string curFilePath = null, newFileName = null;
-                TorrentInfo torrent = null;
-                Globals.RequestResult renameResult = Globals.RequestResult.Unknown;
-                Invoke((MethodInvoker)delegate
+                if (!isCancelled)
                 {
-                    ListViewItem fileItem = FileNamesOldNewListView.Items[i];
-                    FileNamesOldNewListView.Items[i].EnsureVisible();
-                    FriendlyTorrentFileInfo friendlyTorrentFileInfo = (FriendlyTorrentFileInfo)fileItem.Tag;
-                    curFilePath = friendlyTorrentFileInfo.InitialPath;
-                    newFileName = friendlyTorrentFileInfo.NewestName;
-                    torrent = friendlyTorrentFileInfo.ParentTorrent;
-                    CurrentFileRenameLabel.Text = $"File {current} of {total}: {FileNamesOldNewListView.Items[i].Text}";
-                    if (RenamingProgressBar.Value + 2 <= RenamingProgressBar.Maximum)
+                    string curFilePath = null, newFileName = null;
+                    TorrentInfo torrent = null;
+                    Globals.RequestResult renameResult = Globals.RequestResult.Unknown;
+                    Invoke((MethodInvoker)delegate
                     {
-                        RenamingProgressBar.Value += 2;
-                        RenamingProgressBar.Value--;
+                        ListViewItem fileItem = FileNamesOldNewListView.Items[i];
+                        FileNamesOldNewListView.Items[i].EnsureVisible();
+                        FriendlyTorrentFileInfo friendlyTorrentFileInfo = (FriendlyTorrentFileInfo)fileItem.Tag;
+                        curFilePath = friendlyTorrentFileInfo.InitialPath;
+                        newFileName = friendlyTorrentFileInfo.NewestName;
+                        torrent = friendlyTorrentFileInfo.ParentTorrent;
+                        CurrentFileRenameLabel.Text = $"File {current} of {total}: {FileNamesOldNewListView.Items[i].Text}";
+                        if (RenamingProgressBar.Value + 2 <= RenamingProgressBar.Maximum)
+                        {
+                            RenamingProgressBar.Value += 2;
+                            RenamingProgressBar.Value--;
+                        }
+                        else
+                        {
+                            RenamingProgressBar.Maximum++;
+                            RenamingProgressBar.Value += 2;
+                            RenamingProgressBar.Value--;
+                            RenamingProgressBar.Maximum--;
+                        }
+                    });
+                    if (curFilePath != null && newFileName != null && torrent != null && (curFilePath != newFileName))
+                    {
+                        renameResult = await Globals.SessionHandler.RenameTorrent(curFilePath, newFileName, torrent);
+
+                        switch (renameResult)
+                        {
+                            case Globals.RequestResult.Success:
+                                success++;
+                                Invoke((MethodInvoker)delegate
+                                {
+                                    FileNamesOldNewListView.Items[i].ImageIndex = 3;
+                                    SuccessFilesLabel.Text = $"Success: {success}";
+                                });
+                                break;
+                            case Globals.RequestResult.Timeout:
+                                timeout++;
+                                Invoke((MethodInvoker)delegate
+                                {
+                                    FileNamesOldNewListView.Items[i].ImageIndex = 4;
+                                    TimedOutFilesLabel.Text = $"Timed out: {timeout}";
+                                }); break;
+                            case Globals.RequestResult.Failed:
+                                failed++;
+                                Invoke((MethodInvoker)delegate
+                                {
+                                    FileNamesOldNewListView.Items[i].ImageIndex = 5;
+                                    FailedFilesLabel.Text = $"Failed: {failed}";
+                                }); break;
+                            case Globals.RequestResult.Unknown:
+                                Invoke((MethodInvoker)delegate
+                                {
+                                    FileNamesOldNewListView.Items[i].ImageIndex = 5;
+                                }); break;
+                            default:
+                                MessageBox.Show("An unknown error has occurred. The renaming process will be cancelled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                isCancelled = true;
+                                break;
+                        }
                     }
                     else
                     {
-                        RenamingProgressBar.Maximum++;
-                        RenamingProgressBar.Value += 2;
-                        RenamingProgressBar.Value--;
-                        RenamingProgressBar.Maximum--;
+                        success++;
+                        Invoke((MethodInvoker)delegate
+                        {
+                            FileNamesOldNewListView.Items[i].ImageIndex = 3;
+                            SuccessFilesLabel.Text = $"Success: {success}";
+                        });
                     }
-                });
-                if (curFilePath != null && newFileName != null && torrent != null && (curFilePath != newFileName))
-                {
-                    renameResult = await Globals.SessionHandler.RenameTorrent(curFilePath, newFileName, torrent);
-
-                    switch (renameResult)
-                    {
-                        case Globals.RequestResult.Success:
-                            success++;
-                            Invoke((MethodInvoker)delegate
-                            {
-                                FileNamesOldNewListView.Items[i].ImageIndex = 3;
-                                SuccessFilesLabel.Text = $"Success: {success}";
-                            });
-                            break;
-                        case Globals.RequestResult.Timeout:
-                            timeout++;
-                            Invoke((MethodInvoker)delegate
-                            {
-                                FileNamesOldNewListView.Items[i].ImageIndex = 4;
-                                TimedOutFilesLabel.Text = $"Timed out: {timeout}";
-                            }); break;
-                        case Globals.RequestResult.Failed:
-                            failed++;
-                            Invoke((MethodInvoker)delegate
-                            {
-                                FileNamesOldNewListView.Items[i].ImageIndex = 5;
-                                FailedFilesLabel.Text = $"Failed: {failed}";
-                            }); break;
-                        case Globals.RequestResult.Unknown:
-                            MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            Invoke((MethodInvoker)delegate
-                            {
-                                FileNamesOldNewListView.Items[i].ImageIndex = 5;
-                            }); break;
-                        default:
-                            MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                    }
+                    current++;
                 }
                 else
-                {
-                    success++;
-                    Invoke((MethodInvoker)delegate
-                    {
-                        FileNamesOldNewListView.Items[i].ImageIndex = 3;
-                        SuccessFilesLabel.Text = $"Success: {success}";
-                    });
-                }
-                current++;
+                    break;
             }
         }
 
         private void DoneButtonClick(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void CancelButtonClick(object sender, EventArgs e)
+        {
+            isCancelled = true;
         }
     }
 }

@@ -40,6 +40,7 @@
             this.CFOldName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CFNewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CurrentFileRenameLabel = new System.Windows.Forms.Label();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.StatisticsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -144,12 +145,24 @@
             this.CurrentFileRenameLabel.TabIndex = 17;
             this.CurrentFileRenameLabel.Text = "Renaming file 0 of 0: ";
             // 
+            // CancelButton
+            // 
+            this.CancelButton.Enabled = false;
+            this.CancelButton.Location = new System.Drawing.Point(716, 576);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(75, 23);
+            this.CancelButton.TabIndex = 18;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButtonClick);
+            // 
             // RenamerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
             this.ControlBox = false;
+            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.CurrentFileRenameLabel);
             this.Controls.Add(this.RenamingProgressBar);
             this.Controls.Add(this.DoneButton);
@@ -184,5 +197,6 @@
         private System.Windows.Forms.Label SuccessFilesLabel;
         private System.Windows.Forms.Label TotalFilesLabel;
         private System.Windows.Forms.Label CurrentFileRenameLabel;
+        private System.Windows.Forms.Button CancelButton;
     }
 }
