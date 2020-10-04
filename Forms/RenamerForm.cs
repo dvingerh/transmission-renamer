@@ -38,14 +38,8 @@ namespace transmission_renamer.Forms
         private async void OnFormLoad(object sender, EventArgs e)
         {
             FileNamesOldNewListView.Items.AddRange(torrentRenameItems.ToArray());
-            try
-            {
-                await RenameTorrentFiles();
-            }
-            catch (AggregateException ae)
-            {
-                MessageBox.Show(ae.GetBaseException().ToString());
-            }
+            await Task.Run(async () => { await RenameTorrentFiles(); });
+
             CurrentFileRenameLabel.Text = "Renaming finished.";
             DoneButton.Enabled = true;
         }
@@ -72,9 +66,18 @@ namespace transmission_renamer.Forms
                     newFileName = friendlyTorrentFileInfo.NewestName;
                     torrent = friendlyTorrentFileInfo.ParentTorrent;
                     CurrentFileRenameLabel.Text = $"File {current} of {total}: {FileNamesOldNewListView.Items[i].Text}";
-                    if (current + 1 <= total)
-                        RenamingProgressBar.Value = current + 1;
-                    RenamingProgressBar.Value = current;
+                    if (RenamingProgressBar.Value + 2 <= RenamingProgressBar.Maximum)
+                    {
+                        RenamingProgressBar.Value += 2;
+                        RenamingProgressBar.Value--;
+                    }
+                    else
+                    {
+                        RenamingProgressBar.Maximum++;
+                        RenamingProgressBar.Value += 2;
+                        RenamingProgressBar.Value--;
+                        RenamingProgressBar.Maximum--;
+                    }
                 });
                 if (curFilePath != null && newFileName != null && torrent != null && (curFilePath != newFileName))
                 {
@@ -102,7 +105,7 @@ namespace transmission_renamer.Forms
                             Invoke((MethodInvoker)delegate
                             {
                                 FileNamesOldNewListView.Items[i].ImageIndex = 5;
-                                FailedFilesLabel.Text = $"Failed: {success}";
+                                FailedFilesLabel.Text = $"Failed: {failed}";
                             }); break;
                         case Globals.RequestResult.Unknown:
                             MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);

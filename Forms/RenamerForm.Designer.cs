@@ -30,15 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RenamerForm));
             this.StatisticsGroupBox = new System.Windows.Forms.GroupBox();
+            this.TimedOutFilesLabel = new System.Windows.Forms.Label();
+            this.FailedFilesLabel = new System.Windows.Forms.Label();
+            this.SuccessFilesLabel = new System.Windows.Forms.Label();
+            this.TotalFilesLabel = new System.Windows.Forms.Label();
             this.DoneButton = new System.Windows.Forms.Button();
             this.RenamingProgressBar = new System.Windows.Forms.ProgressBar();
             this.FileNamesOldNewListView = new BufferedListView();
             this.CFOldName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CFNewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.TotalFilesLabel = new System.Windows.Forms.Label();
-            this.SuccessFilesLabel = new System.Windows.Forms.Label();
-            this.FailedFilesLabel = new System.Windows.Forms.Label();
-            this.TimedOutFilesLabel = new System.Windows.Forms.Label();
             this.CurrentFileRenameLabel = new System.Windows.Forms.Label();
             this.StatisticsGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +55,38 @@
             this.StatisticsGroupBox.TabIndex = 13;
             this.StatisticsGroupBox.TabStop = false;
             this.StatisticsGroupBox.Text = "Statistics";
+            // 
+            // TimedOutFilesLabel
+            // 
+            this.TimedOutFilesLabel.Location = new System.Drawing.Point(125, 47);
+            this.TimedOutFilesLabel.Name = "TimedOutFilesLabel";
+            this.TimedOutFilesLabel.Size = new System.Drawing.Size(93, 13);
+            this.TimedOutFilesLabel.TabIndex = 3;
+            this.TimedOutFilesLabel.Text = "Timed out: 0";
+            // 
+            // FailedFilesLabel
+            // 
+            this.FailedFilesLabel.Location = new System.Drawing.Point(146, 24);
+            this.FailedFilesLabel.Name = "FailedFilesLabel";
+            this.FailedFilesLabel.Size = new System.Drawing.Size(72, 13);
+            this.FailedFilesLabel.TabIndex = 2;
+            this.FailedFilesLabel.Text = "Failed: 0";
+            // 
+            // SuccessFilesLabel
+            // 
+            this.SuccessFilesLabel.Location = new System.Drawing.Point(19, 47);
+            this.SuccessFilesLabel.Name = "SuccessFilesLabel";
+            this.SuccessFilesLabel.Size = new System.Drawing.Size(80, 13);
+            this.SuccessFilesLabel.TabIndex = 1;
+            this.SuccessFilesLabel.Text = "Success: 0";
+            // 
+            // TotalFilesLabel
+            // 
+            this.TotalFilesLabel.Location = new System.Drawing.Point(9, 24);
+            this.TotalFilesLabel.Name = "TotalFilesLabel";
+            this.TotalFilesLabel.Size = new System.Drawing.Size(90, 13);
+            this.TotalFilesLabel.TabIndex = 0;
+            this.TotalFilesLabel.Text = "Total files: 0";
             // 
             // DoneButton
             // 
@@ -103,38 +135,6 @@
             this.CFNewName.Text = "New name";
             this.CFNewName.Width = 415;
             // 
-            // TotalFilesLabel
-            // 
-            this.TotalFilesLabel.Location = new System.Drawing.Point(9, 24);
-            this.TotalFilesLabel.Name = "TotalFilesLabel";
-            this.TotalFilesLabel.Size = new System.Drawing.Size(90, 13);
-            this.TotalFilesLabel.TabIndex = 0;
-            this.TotalFilesLabel.Text = "Total files: 0";
-            // 
-            // SuccessFilesLabel
-            // 
-            this.SuccessFilesLabel.Location = new System.Drawing.Point(19, 47);
-            this.SuccessFilesLabel.Name = "SuccessFilesLabel";
-            this.SuccessFilesLabel.Size = new System.Drawing.Size(80, 13);
-            this.SuccessFilesLabel.TabIndex = 1;
-            this.SuccessFilesLabel.Text = "Success: 0";
-            // 
-            // FailedFilesLabel
-            // 
-            this.FailedFilesLabel.Location = new System.Drawing.Point(146, 24);
-            this.FailedFilesLabel.Name = "FailedFilesLabel";
-            this.FailedFilesLabel.Size = new System.Drawing.Size(72, 13);
-            this.FailedFilesLabel.TabIndex = 2;
-            this.FailedFilesLabel.Text = "Failed: 0";
-            // 
-            // TimedOutFilesLabel
-            // 
-            this.TimedOutFilesLabel.Location = new System.Drawing.Point(125, 47);
-            this.TimedOutFilesLabel.Name = "TimedOutFilesLabel";
-            this.TimedOutFilesLabel.Size = new System.Drawing.Size(93, 13);
-            this.TimedOutFilesLabel.TabIndex = 3;
-            this.TimedOutFilesLabel.Text = "Timed out: 0";
-            // 
             // CurrentFileRenameLabel
             // 
             this.CurrentFileRenameLabel.AutoSize = true;
@@ -149,6 +149,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.ControlBox = false;
             this.Controls.Add(this.CurrentFileRenameLabel);
             this.Controls.Add(this.RenamingProgressBar);
             this.Controls.Add(this.DoneButton);
