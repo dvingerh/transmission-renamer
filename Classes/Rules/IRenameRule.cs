@@ -1,6 +1,6 @@
 ﻿namespace transmission_renamer.Classes.Rules
 {
-    public interface RenameRule
+    public interface IRenameRule
     {
 
         public string Description { get; }

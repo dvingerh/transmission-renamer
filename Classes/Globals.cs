@@ -8,7 +8,7 @@ namespace transmission_renamer
     {
         public static SessionHandler SessionHandler { get; set; }
         public static FriendlyTorrentInfo SelectedTorrent { get; set; }
-        public static List<RenameRule> RenameRules { get; set; } = new List<RenameRule>();
+        public static List<IRenameRule> RenameRules { get; set; } = new List<IRenameRule>();
         public static List<FriendlyTorrentInfo> TorrentsInfo { get; set; } = new List<FriendlyTorrentInfo>();
         public static List<FriendlyTorrentFileInfo> SelectedTorrentFiles { get; set; } = new List<FriendlyTorrentFileInfo>();
     }
