@@ -73,6 +73,8 @@ namespace transmission_renamer
                     if (control.Name.IndexOf("Loading") == -1)
                         control.Enabled = !state;
                 }
+                if (tabPage == RulesTabPage)
+                    UpdateRuleButtonStates(null, null);
             }
             RetrievingInformationLoadingPanel.Visible = state;
             ProcessingRulesFilesLoadingPanel.Visible = state;
