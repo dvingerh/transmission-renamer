@@ -84,6 +84,17 @@ namespace transmission_renamer.Forms
                     ReplaceIgnoreExtensionCheckBox.Checked = replaceRule.IgnoreExtension;
                     ReplaceInterpretWildcardsCheckBox.Checked = replaceRule.InterpretWildCards;
                     break;
+                case CleanRule cleanRule:
+                    RuleTypeListBox.SelectedIndex = 4;
+                    CleanLatinAlphabetCheckBox.Checked = cleanRule.CleanLatinAlphabet;
+                    CleanDigitsCheckBox.Checked = cleanRule.CleanDigits;
+                    CleanBracketsCheckBox.Checked = cleanRule.CleanBrackets;
+                    CleanSymbolsCheckBox.Checked = cleanRule.CleanSymbols;
+                    CleanUserDefinedCheckBox.Checked = cleanRule.CleanUserDefined;
+                    CleanUserDefinedTextBox.Text = cleanRule.CleanUserDefinedText;
+                    CleanCaseSensitiveCheckBox.Checked = cleanRule.CaseSensitive;
+                    CleanIgnoreExtensionCheckBox.Checked = cleanRule.IgnoreExtension;
+                    break;
             }
         }
 
@@ -214,6 +225,29 @@ namespace transmission_renamer.Forms
 
                     DialogResult = DialogResult.OK;
                     break;
+                case 4:
+                    CleanRule cleanRule = new CleanRule(cleanLatinAlphabet: CleanLatinAlphabetCheckBox.Checked,
+                        cleanDigits: CleanDigitsCheckBox.Checked,
+                        cleanBrackets: CleanBracketsCheckBox.Checked,
+                        cleanSymbols: CleanSymbolsCheckBox.Checked,
+                        cleanUserDefined: CleanUserDefinedCheckBox.Checked,
+                        cleanUserDefinedText: CleanUserDefinedTextBox.Text,
+                        caseSensitive: CleanCaseSensitiveCheckBox.Checked,
+                        ignoreExtension: CleanIgnoreExtensionCheckBox.Checked
+                        );
+
+                    if (editMode)
+                    {
+                        int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentlyEditedRule.Id));
+                        Globals.RenameRules[oldRuleIndex] = cleanRule;
+                    }
+                    else
+                    {
+                        Globals.RenameRules.Add(cleanRule);
+                    }
+
+                    DialogResult = DialogResult.OK;
+                    break;
                 default:
                     MessageBox.Show("An unknown error has occurred.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DialogResult = DialogResult.Cancel;
@@ -232,5 +266,10 @@ namespace transmission_renamer.Forms
             DeleteToPositionNumericUpDown.Minimum = DeleteFromPositionNumericUpDown.Value;
         }
         #endregion
+
+        private void CleanUserDefinedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CleanUserDefinedTextBox.Enabled = CleanUserDefinedCheckBox.Checked;
+        }
     }
 }

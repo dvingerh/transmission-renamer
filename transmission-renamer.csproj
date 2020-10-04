@@ -86,6 +86,7 @@
     <Compile Include="Classes\ColumnSorter.cs" />
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\Globals.RequestResult.cs" />
+    <Compile Include="Classes\Rules\CleanRule.cs" />
     <Compile Include="Classes\Rules\DeleteRule.cs" />
     <Compile Include="Classes\Rules\ReplaceRule.cs" />
     <Compile Include="Classes\Rules\RemoveRule.cs" />
