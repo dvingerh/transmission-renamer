@@ -105,7 +105,7 @@ namespace transmission_renamer.Classes.Rules
             return descriptionSb.ToString();
         }
 
-        public string DoRename(FriendlyTorrentFileInfo torrentFileInfo)
+        public string DoRename(FriendlyTorrentFileInfo torrentFileInfo, int itemIndex = 0)
         {
             try
             {

@@ -7,6 +7,6 @@
         public string Name { get;}
         public string Id { get; }
 
-        public string DoRename(FriendlyTorrentFileInfo friendlyTorrentFileInfo);
+        public string DoRename(FriendlyTorrentFileInfo friendlyTorrentFileInfo, int itemIndex);
     }
 }

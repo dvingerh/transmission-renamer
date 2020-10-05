@@ -36,6 +36,10 @@ namespace transmission_renamer.Forms
                 case InsertRule insertRule:
                     RuleTypeListBox.SelectedIndex = 0;
                     InsertTextTextBox.Text = insertRule.InsertText;
+                    InsertTextRadioButton.Checked = !insertRule.NumberSequence;
+                    InsertNumberSeqRadioButton.Checked = insertRule.NumberSequence;
+                    InsertNumberSeqStartingAtNumericUpDown.Value = insertRule.NumberSequenceStart;
+                    InsertNumberSeqLeadingZeroesNumericUpDown.Value = insertRule.NumberSequenceLeadingZeroes;
                     InsertPrefixRadioButton.Checked = insertRule.Prefix;
                     InsertSuffixRadioButton.Checked = insertRule.Suffix;
                     InsertAtPositionRadioButton.Checked = insertRule.Position;
@@ -95,6 +99,12 @@ namespace transmission_renamer.Forms
                     CleanCaseSensitiveCheckBox.Checked = cleanRule.CaseSensitive;
                     CleanIgnoreExtensionCheckBox.Checked = cleanRule.IgnoreExtension;
                     break;
+                case RegexRule regexRule:
+                    RuleTypeListBox.SelectedIndex = 5;
+                    RegexFindTextTextBox.Text = regexRule.RegexFindText;
+                    RegexReplaceTextTextBox.Text = regexRule.ReplaceText;
+                    RegexIgnoreExtensionCheckBox.Checked = regexRule.IgnoreExtension;
+                    break;
             }
         }
 
@@ -118,6 +128,9 @@ namespace transmission_renamer.Forms
                 case 4:
                     CleanUserDefinedTextBox.Focus();
                     break;
+                case 5:
+                    RegexFindTextTextBox.Focus();
+                    break;
                 default:
                     break;
             }
@@ -136,6 +149,9 @@ namespace transmission_renamer.Forms
             {
                 case 0:
                     InsertRule insertRule = new InsertRule(insertText: InsertTextTextBox.Text,
+                        numberSequence: InsertNumberSeqRadioButton.Checked,
+                        numberSequenceStart: (int)InsertNumberSeqStartingAtNumericUpDown.Value,
+                        numberSequenceLeadingZeroes: (int)InsertNumberSeqLeadingZeroesNumericUpDown.Value,
                         beforeTextStr: InsertBeforeTextTextBox.Text,
                         afterTextStr: InsertAfterTextTextBox.Text,
                         prefix: InsertPrefixRadioButton.Checked,
@@ -250,6 +266,24 @@ namespace transmission_renamer.Forms
                     else
                     {
                         Globals.RenameRules.Add(cleanRule);
+                    }
+
+                    DialogResult = DialogResult.OK;
+                    break;
+                case 5:
+                    RegexRule regexRule = new RegexRule(regexFindText: RegexFindTextTextBox.Text,
+                        replaceText: RegexReplaceTextTextBox.Text,
+                        ignoreExtension: CleanIgnoreExtensionCheckBox.Checked
+                        );
+
+                    if (editMode)
+                    {
+                        int oldRuleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentlyEditedRule.Id));
+                        Globals.RenameRules[oldRuleIndex] = regexRule;
+                    }
+                    else
+                    {
+                        Globals.RenameRules.Add(regexRule);
                     }
 
                     DialogResult = DialogResult.OK;

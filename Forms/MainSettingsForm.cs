@@ -522,7 +522,7 @@ namespace transmission_renamer
                     foreach (ListViewItem torrentFileItem in FileNamesOldNewListView.Items)
                     {
                         FriendlyTorrentFileInfo torrentFileInfo = (FriendlyTorrentFileInfo)torrentFileItem.Tag;
-                        torrentFileInfo.NewestName = renameRule.DoRename(torrentFileInfo);
+                        torrentFileInfo.NewestName = renameRule.DoRename(torrentFileInfo, torrentFileItem.Index);
                         torrentFileItem.SubItems[1].Text = torrentFileInfo.NewestName;
                         torrentFileItem.Tag = torrentFileInfo;
                     }

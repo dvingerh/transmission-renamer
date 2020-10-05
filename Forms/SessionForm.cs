@@ -16,16 +16,23 @@ namespace transmission_renamer
             InitializeComponent();
             if (debug && File.Exists("Settings.xml"))
             {
-                XmlDocument debugXmlDoc = new XmlDocument();
-                debugXmlDoc.Load("Settings.xml");
-                XmlNode loginNodes = debugXmlDoc.SelectSingleNode("/Login");
-                HostTextBox.Text = loginNodes["Host"].InnerText;
-                PortUpDown.Value = decimal.Parse(loginNodes["Port"].InnerText);
-                UsernameTextBox.Text = loginNodes["Username"].InnerText;
-                PasswordTextBox.Text = loginNodes["Password"].InnerText;
-                RPCPathTextBox.Text = loginNodes["RPCPath"].InnerText;
-                AuthenticationRequiredCheckBox.Checked = loginNodes["Authentication"].InnerText.ToLower() == "true";
-            }
+                try
+                {
+                    XmlDocument debugXmlDoc = new XmlDocument();
+                    debugXmlDoc.Load("Settings.xml");
+                    XmlNode loginNodes = debugXmlDoc.SelectSingleNode("/Login");
+                    HostTextBox.Text = loginNodes["Host"].InnerText;
+                    PortUpDown.Value = decimal.Parse(loginNodes["Port"].InnerText);
+                    UsernameTextBox.Text = loginNodes["Username"].InnerText;
+                    PasswordTextBox.Text = loginNodes["Password"].InnerText;
+                    RPCPathTextBox.Text = loginNodes["RPCPath"].InnerText;
+                    AuthenticationRequiredCheckBox.Checked = loginNodes["Authentication"].InnerText.ToLower() == "true";
+                }
+                catch (XmlException)
+                {
+                    MessageBox.Show("Settings.xml file was found but does not contain a valid configuration.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                }
 
         }
 
@@ -81,8 +88,10 @@ namespace transmission_renamer
                 {
                     case Globals.RequestResult.Success:
                         Hide();
-                        SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm();
-                        selectTorrentFilesForm.Text = $"Transmission Renamer - {Globals.SessionHandler.SessionUrl}";
+                        SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm
+                        {
+                            Text = $"Transmission Renamer - {Globals.SessionHandler.SessionUrl}"
+                        };
                         selectTorrentFilesForm.ShowDialog();
                         Show();
                         break;

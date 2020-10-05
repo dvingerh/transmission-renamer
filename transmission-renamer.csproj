@@ -88,6 +88,7 @@
     <Compile Include="Classes\Globals.RequestResult.cs" />
     <Compile Include="Classes\Rules\CleanRule.cs" />
     <Compile Include="Classes\Rules\DeleteRule.cs" />
+    <Compile Include="Classes\Rules\RegexRule.cs" />
     <Compile Include="Classes\Rules\ReplaceRule.cs" />
     <Compile Include="Classes\Rules\RemoveRule.cs" />
     <Compile Include="Classes\TransmissionHelper\FriendlyTorrentFileInfo.cs" />

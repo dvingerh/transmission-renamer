@@ -20,10 +20,13 @@ namespace transmission_renamer.Classes.Rules
         public bool AfterText { get; set; }
         public bool ReplaceFileName { get; set; }
         public bool IgnoreExtension { get; set; }
+        public bool NumberSequence { get; set; }
         public bool PositionRightToLeft { get; set; }
+        public int NumberSequenceStart { get; set; }
+        public int NumberSequenceLeadingZeroes { get; set; }
         public int PositionIndex { get; set; }
 
-        public InsertRule(string insertText, string beforeTextStr = "", string afterTextStr = "", bool prefix = true, bool suffix = false, bool position = false, bool positionRightToLeft = false, bool beforeText = false, bool afterText = false, bool replaceFileName = false, bool ignoreExtension = false, int positionIndex = -1)
+        public InsertRule(string insertText, bool numberSequence, int numberSequenceStart, int numberSequenceLeadingZeroes, string beforeTextStr = "", string afterTextStr = "", bool prefix = true, bool suffix = false, bool position = false, bool positionRightToLeft = false, bool beforeText = false, bool afterText = false, bool replaceFileName = false, bool ignoreExtension = false, int positionIndex = -1)
         {
             InsertText = insertText;
             BeforeTextStr = beforeTextStr;
@@ -37,13 +40,20 @@ namespace transmission_renamer.Classes.Rules
             this.ReplaceFileName = replaceFileName;
             this.IgnoreExtension = ignoreExtension;
             this.PositionIndex = positionIndex;
+            this.NumberSequence = numberSequence;
+            this.NumberSequenceStart = numberSequenceStart;
+            this.NumberSequenceLeadingZeroes = numberSequenceLeadingZeroes;
 
             this.Description = GenerateDescription();
         }
 
         private string GenerateDescription()
         {
-            StringBuilder descriptionSb = new StringBuilder($"Insert text '{InsertText}'");
+            StringBuilder descriptionSb;
+            if (!NumberSequence)
+                descriptionSb = new StringBuilder($"Insert text '{InsertText}'");
+            else
+                descriptionSb = new StringBuilder($"Insert number sequence starting at '{NumberSequenceStart}' with {NumberSequenceLeadingZeroes} leading zeroes");
             if (Prefix)
             {
                 descriptionSb.Append(" as Prefix ");
@@ -85,7 +95,7 @@ namespace transmission_renamer.Classes.Rules
             return descriptionSb.ToString();
         }
 
-        public string DoRename(FriendlyTorrentFileInfo torrentFileInfo)
+        public string DoRename(FriendlyTorrentFileInfo torrentFileInfo, int itemIndex = 0)
         {
             try
             {
@@ -98,36 +108,38 @@ namespace transmission_renamer.Classes.Rules
 
                 string oldNameStr = newNameSb.ToString();
 
+                string insertNumber = (itemIndex + NumberSequenceStart).ToString($"D{NumberSequenceLeadingZeroes}");
+
                 if (Prefix)
                 {
-                    newNameSb.Insert(0, InsertText);
+                    newNameSb.Insert(0, NumberSequence ? insertNumber : InsertText);
                 }
                 else if (Suffix)
                 {
-                    newNameSb.Append(InsertText);
+                    newNameSb.Append(NumberSequence ? insertNumber : InsertText);
                 }
                 else if (Position && PositionIndex != -1)
                 {
                     if (PositionRightToLeft)
                     {
-                        newNameSb.Insert(newNameSb.Length - PositionIndex, InsertText);
+                        newNameSb.Insert(newNameSb.Length - PositionIndex, NumberSequence ? insertNumber : InsertText);
                     }
                     else
                     {
-                        newNameSb.Insert(PositionIndex, InsertText);
+                        newNameSb.Insert(PositionIndex, NumberSequence ? insertNumber : InsertText);
                     }
                 }
                 else if (BeforeText && !string.IsNullOrEmpty(BeforeTextStr))
                 {
-                    newNameSb.Insert(oldNameStr.IndexOf(BeforeTextStr), InsertText);
+                    newNameSb.Insert(oldNameStr.IndexOf(BeforeTextStr), NumberSequence ? insertNumber : InsertText);
                 }
                 else if (AfterText && !string.IsNullOrEmpty(AfterTextStr))
                 {
-                    newNameSb.Insert(oldNameStr.IndexOf(AfterTextStr) + AfterTextStr.Length, InsertText);
+                    newNameSb.Insert(oldNameStr.IndexOf(AfterTextStr) + AfterTextStr.Length, NumberSequence ? insertNumber : InsertText);
                 }
                 else if (ReplaceFileName)
                 {
-                    newNameSb.Clear().Append(InsertText);
+                    newNameSb.Clear().Append(NumberSequence ? insertNumber : InsertText);
                 }
 
                 if (IgnoreExtension)

@@ -44,8 +44,6 @@
             this.InsertSuffixRadioButton = new System.Windows.Forms.RadioButton();
             this.InsertPrefixRadioButton = new System.Windows.Forms.RadioButton();
             this.InsertWhereLabel = new System.Windows.Forms.Label();
-            this.InsertTextTextBox = new System.Windows.Forms.TextBox();
-            this.InsertTextLabel = new System.Windows.Forms.Label();
             this.InsertRuleTitleLabel = new System.Windows.Forms.Label();
             this.DeleteRuleTabPage = new System.Windows.Forms.TabPage();
             this.DeleteIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
@@ -105,6 +103,19 @@
             this.RegexRuleTitleLabel = new System.Windows.Forms.Label();
             this.ConfirmRuleButton = new System.Windows.Forms.Button();
             this.CancelRuleButton = new System.Windows.Forms.Button();
+            this.RegexFindTextTextBox = new System.Windows.Forms.TextBox();
+            this.RegexFindLabel = new System.Windows.Forms.Label();
+            this.RegexReplaceTextTextBox = new System.Windows.Forms.TextBox();
+            this.RegexReplaceLabel = new System.Windows.Forms.Label();
+            this.RegexIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
+            this.InsertTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.InsertNumberSeqLeadingZeroesLabel = new System.Windows.Forms.Label();
+            this.InsertNumberSeqWithLabel = new System.Windows.Forms.Label();
+            this.InsertNumberSeqLeadingZeroesNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InsertNumberSeqStartingAtNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InsertNumberSeqRadioButton = new System.Windows.Forms.RadioButton();
+            this.InsertTextRadioButton = new System.Windows.Forms.RadioButton();
+            this.InsertTextTextBox = new System.Windows.Forms.TextBox();
             this.RuleTypeTabControl.SuspendLayout();
             this.InsertRuleTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InsertPositionNumericUpDown)).BeginInit();
@@ -117,6 +128,9 @@
             this.ReplaceRuleTabPage.SuspendLayout();
             this.CleanRuleTabPage.SuspendLayout();
             this.RegexRuleTabPage.SuspendLayout();
+            this.InsertTypeGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InsertNumberSeqLeadingZeroesNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InsertNumberSeqStartingAtNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // RuleTypeListBox
@@ -171,9 +185,8 @@
             this.InsertRuleTabPage.Controls.Add(this.InsertSuffixRadioButton);
             this.InsertRuleTabPage.Controls.Add(this.InsertPrefixRadioButton);
             this.InsertRuleTabPage.Controls.Add(this.InsertWhereLabel);
-            this.InsertRuleTabPage.Controls.Add(this.InsertTextTextBox);
-            this.InsertRuleTabPage.Controls.Add(this.InsertTextLabel);
             this.InsertRuleTabPage.Controls.Add(this.InsertRuleTitleLabel);
+            this.InsertRuleTabPage.Controls.Add(this.InsertTypeGroupBox);
             this.InsertRuleTabPage.Location = new System.Drawing.Point(4, 5);
             this.InsertRuleTabPage.Name = "InsertRuleTabPage";
             this.InsertRuleTabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -187,7 +200,7 @@
             this.InsertIgnoreExtensionCheckBox.AutoSize = true;
             this.InsertIgnoreExtensionCheckBox.Checked = true;
             this.InsertIgnoreExtensionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.InsertIgnoreExtensionCheckBox.Location = new System.Drawing.Point(108, 266);
+            this.InsertIgnoreExtensionCheckBox.Location = new System.Drawing.Point(100, 291);
             this.InsertIgnoreExtensionCheckBox.Name = "InsertIgnoreExtensionCheckBox";
             this.InsertIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
             this.InsertIgnoreExtensionCheckBox.TabIndex = 14;
@@ -197,7 +210,7 @@
             // ReplaceCurrentFileNameRadioButton
             // 
             this.ReplaceCurrentFileNameRadioButton.AutoSize = true;
-            this.ReplaceCurrentFileNameRadioButton.Location = new System.Drawing.Point(108, 234);
+            this.ReplaceCurrentFileNameRadioButton.Location = new System.Drawing.Point(100, 259);
             this.ReplaceCurrentFileNameRadioButton.Name = "ReplaceCurrentFileNameRadioButton";
             this.ReplaceCurrentFileNameRadioButton.Size = new System.Drawing.Size(152, 17);
             this.ReplaceCurrentFileNameRadioButton.TabIndex = 9;
@@ -206,7 +219,7 @@
             // 
             // InsertAfterTextTextBox
             // 
-            this.InsertAfterTextTextBox.Location = new System.Drawing.Point(197, 199);
+            this.InsertAfterTextTextBox.Location = new System.Drawing.Point(189, 224);
             this.InsertAfterTextTextBox.Name = "InsertAfterTextTextBox";
             this.InsertAfterTextTextBox.Size = new System.Drawing.Size(259, 22);
             this.InsertAfterTextTextBox.TabIndex = 13;
@@ -214,7 +227,7 @@
             // InsertAfterTextRadioButton
             // 
             this.InsertAfterTextRadioButton.AutoSize = true;
-            this.InsertAfterTextRadioButton.Location = new System.Drawing.Point(108, 200);
+            this.InsertAfterTextRadioButton.Location = new System.Drawing.Point(100, 225);
             this.InsertAfterTextRadioButton.Name = "InsertAfterTextRadioButton";
             this.InsertAfterTextRadioButton.Size = new System.Drawing.Size(75, 17);
             this.InsertAfterTextRadioButton.TabIndex = 8;
@@ -223,7 +236,7 @@
             // 
             // InsertBeforeTextTextBox
             // 
-            this.InsertBeforeTextTextBox.Location = new System.Drawing.Point(197, 171);
+            this.InsertBeforeTextTextBox.Location = new System.Drawing.Point(189, 196);
             this.InsertBeforeTextTextBox.Name = "InsertBeforeTextTextBox";
             this.InsertBeforeTextTextBox.Size = new System.Drawing.Size(259, 22);
             this.InsertBeforeTextTextBox.TabIndex = 12;
@@ -231,7 +244,7 @@
             // InsertBeforeTextRadioButton
             // 
             this.InsertBeforeTextRadioButton.AutoSize = true;
-            this.InsertBeforeTextRadioButton.Location = new System.Drawing.Point(108, 172);
+            this.InsertBeforeTextRadioButton.Location = new System.Drawing.Point(100, 197);
             this.InsertBeforeTextRadioButton.Name = "InsertBeforeTextRadioButton";
             this.InsertBeforeTextRadioButton.Size = new System.Drawing.Size(83, 17);
             this.InsertBeforeTextRadioButton.TabIndex = 7;
@@ -241,7 +254,7 @@
             // InsertPositionRightLeftCheckBox
             // 
             this.InsertPositionRightLeftCheckBox.AutoSize = true;
-            this.InsertPositionRightLeftCheckBox.Location = new System.Drawing.Point(256, 146);
+            this.InsertPositionRightLeftCheckBox.Location = new System.Drawing.Point(248, 171);
             this.InsertPositionRightLeftCheckBox.Name = "InsertPositionRightLeftCheckBox";
             this.InsertPositionRightLeftCheckBox.Size = new System.Drawing.Size(90, 17);
             this.InsertPositionRightLeftCheckBox.TabIndex = 11;
@@ -251,7 +264,7 @@
             // InsertPositionNumericUpDown
             // 
             this.InsertPositionNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InsertPositionNumericUpDown.Location = new System.Drawing.Point(197, 143);
+            this.InsertPositionNumericUpDown.Location = new System.Drawing.Point(189, 168);
             this.InsertPositionNumericUpDown.Name = "InsertPositionNumericUpDown";
             this.InsertPositionNumericUpDown.Size = new System.Drawing.Size(50, 22);
             this.InsertPositionNumericUpDown.TabIndex = 10;
@@ -259,7 +272,7 @@
             // InsertAtPositionRadioButton
             // 
             this.InsertAtPositionRadioButton.AutoSize = true;
-            this.InsertAtPositionRadioButton.Location = new System.Drawing.Point(108, 143);
+            this.InsertAtPositionRadioButton.Location = new System.Drawing.Point(100, 168);
             this.InsertAtPositionRadioButton.Name = "InsertAtPositionRadioButton";
             this.InsertAtPositionRadioButton.Size = new System.Drawing.Size(70, 17);
             this.InsertAtPositionRadioButton.TabIndex = 6;
@@ -269,7 +282,7 @@
             // InsertSuffixRadioButton
             // 
             this.InsertSuffixRadioButton.AutoSize = true;
-            this.InsertSuffixRadioButton.Location = new System.Drawing.Point(108, 120);
+            this.InsertSuffixRadioButton.Location = new System.Drawing.Point(100, 145);
             this.InsertSuffixRadioButton.Name = "InsertSuffixRadioButton";
             this.InsertSuffixRadioButton.Size = new System.Drawing.Size(54, 17);
             this.InsertSuffixRadioButton.TabIndex = 5;
@@ -280,7 +293,7 @@
             // 
             this.InsertPrefixRadioButton.AutoSize = true;
             this.InsertPrefixRadioButton.Checked = true;
-            this.InsertPrefixRadioButton.Location = new System.Drawing.Point(108, 97);
+            this.InsertPrefixRadioButton.Location = new System.Drawing.Point(100, 122);
             this.InsertPrefixRadioButton.Name = "InsertPrefixRadioButton";
             this.InsertPrefixRadioButton.Size = new System.Drawing.Size(53, 17);
             this.InsertPrefixRadioButton.TabIndex = 4;
@@ -291,28 +304,11 @@
             // InsertWhereLabel
             // 
             this.InsertWhereLabel.AutoSize = true;
-            this.InsertWhereLabel.Location = new System.Drawing.Point(58, 99);
+            this.InsertWhereLabel.Location = new System.Drawing.Point(50, 124);
             this.InsertWhereLabel.Name = "InsertWhereLabel";
             this.InsertWhereLabel.Size = new System.Drawing.Size(44, 13);
             this.InsertWhereLabel.TabIndex = 3;
             this.InsertWhereLabel.Text = "Where:";
-            // 
-            // InsertTextTextBox
-            // 
-            this.InsertTextTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InsertTextTextBox.Location = new System.Drawing.Point(108, 57);
-            this.InsertTextTextBox.Name = "InsertTextTextBox";
-            this.InsertTextTextBox.Size = new System.Drawing.Size(348, 22);
-            this.InsertTextTextBox.TabIndex = 2;
-            // 
-            // InsertTextLabel
-            // 
-            this.InsertTextLabel.AutoSize = true;
-            this.InsertTextLabel.Location = new System.Drawing.Point(63, 60);
-            this.InsertTextLabel.Name = "InsertTextLabel";
-            this.InsertTextLabel.Size = new System.Drawing.Size(39, 13);
-            this.InsertTextLabel.TabIndex = 1;
-            this.InsertTextLabel.Text = "Insert:";
             // 
             // InsertRuleTitleLabel
             // 
@@ -935,6 +931,11 @@
             // RegexRuleTabPage
             // 
             this.RegexRuleTabPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RegexRuleTabPage.Controls.Add(this.RegexIgnoreExtensionCheckBox);
+            this.RegexRuleTabPage.Controls.Add(this.RegexFindTextTextBox);
+            this.RegexRuleTabPage.Controls.Add(this.RegexFindLabel);
+            this.RegexRuleTabPage.Controls.Add(this.RegexReplaceTextTextBox);
+            this.RegexRuleTabPage.Controls.Add(this.RegexReplaceLabel);
             this.RegexRuleTabPage.Controls.Add(this.RegexRuleTitleLabel);
             this.RegexRuleTabPage.Location = new System.Drawing.Point(4, 5);
             this.RegexRuleTabPage.Name = "RegexRuleTabPage";
@@ -973,6 +974,132 @@
             this.CancelRuleButton.Text = "Cancel";
             this.CancelRuleButton.UseVisualStyleBackColor = true;
             this.CancelRuleButton.Click += new System.EventHandler(this.CancelButtonClick);
+            // 
+            // RegexFindTextTextBox
+            // 
+            this.RegexFindTextTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RegexFindTextTextBox.Location = new System.Drawing.Point(111, 145);
+            this.RegexFindTextTextBox.Name = "RegexFindTextTextBox";
+            this.RegexFindTextTextBox.Size = new System.Drawing.Size(348, 22);
+            this.RegexFindTextTextBox.TabIndex = 9;
+            // 
+            // RegexFindLabel
+            // 
+            this.RegexFindLabel.AutoSize = true;
+            this.RegexFindLabel.Location = new System.Drawing.Point(55, 148);
+            this.RegexFindLabel.Name = "RegexFindLabel";
+            this.RegexFindLabel.Size = new System.Drawing.Size(33, 13);
+            this.RegexFindLabel.TabIndex = 8;
+            this.RegexFindLabel.Text = "Find:";
+            // 
+            // RegexReplaceTextTextBox
+            // 
+            this.RegexReplaceTextTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RegexReplaceTextTextBox.Location = new System.Drawing.Point(111, 173);
+            this.RegexReplaceTextTextBox.Name = "RegexReplaceTextTextBox";
+            this.RegexReplaceTextTextBox.Size = new System.Drawing.Size(348, 22);
+            this.RegexReplaceTextTextBox.TabIndex = 11;
+            // 
+            // RegexReplaceLabel
+            // 
+            this.RegexReplaceLabel.AutoSize = true;
+            this.RegexReplaceLabel.Location = new System.Drawing.Point(55, 176);
+            this.RegexReplaceLabel.Name = "RegexReplaceLabel";
+            this.RegexReplaceLabel.Size = new System.Drawing.Size(50, 13);
+            this.RegexReplaceLabel.TabIndex = 10;
+            this.RegexReplaceLabel.Text = "Replace:";
+            // 
+            // RegexIgnoreExtensionCheckBox
+            // 
+            this.RegexIgnoreExtensionCheckBox.AutoSize = true;
+            this.RegexIgnoreExtensionCheckBox.Checked = true;
+            this.RegexIgnoreExtensionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.RegexIgnoreExtensionCheckBox.Location = new System.Drawing.Point(58, 201);
+            this.RegexIgnoreExtensionCheckBox.Name = "RegexIgnoreExtensionCheckBox";
+            this.RegexIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.RegexIgnoreExtensionCheckBox.TabIndex = 12;
+            this.RegexIgnoreExtensionCheckBox.Text = "Ignore extension";
+            this.RegexIgnoreExtensionCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // InsertTypeGroupBox
+            // 
+            this.InsertTypeGroupBox.Controls.Add(this.InsertNumberSeqLeadingZeroesLabel);
+            this.InsertTypeGroupBox.Controls.Add(this.InsertNumberSeqWithLabel);
+            this.InsertTypeGroupBox.Controls.Add(this.InsertNumberSeqLeadingZeroesNumericUpDown);
+            this.InsertTypeGroupBox.Controls.Add(this.InsertNumberSeqStartingAtNumericUpDown);
+            this.InsertTypeGroupBox.Controls.Add(this.InsertNumberSeqRadioButton);
+            this.InsertTypeGroupBox.Controls.Add(this.InsertTextRadioButton);
+            this.InsertTypeGroupBox.Controls.Add(this.InsertTextTextBox);
+            this.InsertTypeGroupBox.Location = new System.Drawing.Point(47, 33);
+            this.InsertTypeGroupBox.Name = "InsertTypeGroupBox";
+            this.InsertTypeGroupBox.Size = new System.Drawing.Size(418, 83);
+            this.InsertTypeGroupBox.TabIndex = 19;
+            this.InsertTypeGroupBox.TabStop = false;
+            this.InsertTypeGroupBox.Text = "Type";
+            // 
+            // InsertNumberSeqLeadingZeroesLabel
+            // 
+            this.InsertNumberSeqLeadingZeroesLabel.AutoSize = true;
+            this.InsertNumberSeqLeadingZeroesLabel.Location = new System.Drawing.Point(328, 52);
+            this.InsertNumberSeqLeadingZeroesLabel.Name = "InsertNumberSeqLeadingZeroesLabel";
+            this.InsertNumberSeqLeadingZeroesLabel.Size = new System.Drawing.Size(82, 13);
+            this.InsertNumberSeqLeadingZeroesLabel.TabIndex = 25;
+            this.InsertNumberSeqLeadingZeroesLabel.Text = "leading zeroes";
+            // 
+            // InsertNumberSeqWithLabel
+            // 
+            this.InsertNumberSeqWithLabel.AutoSize = true;
+            this.InsertNumberSeqWithLabel.Location = new System.Drawing.Point(240, 52);
+            this.InsertNumberSeqWithLabel.Name = "InsertNumberSeqWithLabel";
+            this.InsertNumberSeqWithLabel.Size = new System.Drawing.Size(30, 13);
+            this.InsertNumberSeqWithLabel.TabIndex = 24;
+            this.InsertNumberSeqWithLabel.Text = "with";
+            // 
+            // InsertNumberSeqLeadingZeroNumericUpDown
+            // 
+            this.InsertNumberSeqLeadingZeroesNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InsertNumberSeqLeadingZeroesNumericUpDown.Location = new System.Drawing.Point(274, 50);
+            this.InsertNumberSeqLeadingZeroesNumericUpDown.Name = "InsertNumberSeqLeadingZeroNumericUpDown";
+            this.InsertNumberSeqLeadingZeroesNumericUpDown.Size = new System.Drawing.Size(50, 22);
+            this.InsertNumberSeqLeadingZeroesNumericUpDown.TabIndex = 22;
+            // 
+            // InsertNumberSeqStartingAtNumericUpDown
+            // 
+            this.InsertNumberSeqStartingAtNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InsertNumberSeqStartingAtNumericUpDown.Location = new System.Drawing.Point(186, 50);
+            this.InsertNumberSeqStartingAtNumericUpDown.Name = "InsertNumberSeqStartingAtNumericUpDown";
+            this.InsertNumberSeqStartingAtNumericUpDown.Size = new System.Drawing.Size(50, 22);
+            this.InsertNumberSeqStartingAtNumericUpDown.TabIndex = 21;
+            // 
+            // InsertNumberSeqRadioButton
+            // 
+            this.InsertNumberSeqRadioButton.AutoSize = true;
+            this.InsertNumberSeqRadioButton.Location = new System.Drawing.Point(8, 50);
+            this.InsertNumberSeqRadioButton.Name = "InsertNumberSeqRadioButton";
+            this.InsertNumberSeqRadioButton.Size = new System.Drawing.Size(180, 17);
+            this.InsertNumberSeqRadioButton.TabIndex = 23;
+            this.InsertNumberSeqRadioButton.Text = "Number sequence: starting at ";
+            this.InsertNumberSeqRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // InsertTextRadioButton
+            // 
+            this.InsertTextRadioButton.AutoSize = true;
+            this.InsertTextRadioButton.Checked = true;
+            this.InsertTextRadioButton.Location = new System.Drawing.Point(8, 21);
+            this.InsertTextRadioButton.Name = "InsertTextRadioButton";
+            this.InsertTextRadioButton.Size = new System.Drawing.Size(48, 17);
+            this.InsertTextRadioButton.TabIndex = 19;
+            this.InsertTextRadioButton.TabStop = true;
+            this.InsertTextRadioButton.Text = "Text:";
+            this.InsertTextRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // InsertTextTextBox
+            // 
+            this.InsertTextTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InsertTextTextBox.Location = new System.Drawing.Point(63, 21);
+            this.InsertTextTextBox.Name = "InsertTextTextBox";
+            this.InsertTextTextBox.Size = new System.Drawing.Size(348, 22);
+            this.InsertTextTextBox.TabIndex = 20;
             // 
             // RulesForm
             // 
@@ -1013,6 +1140,10 @@
             this.CleanRuleTabPage.PerformLayout();
             this.RegexRuleTabPage.ResumeLayout(false);
             this.RegexRuleTabPage.PerformLayout();
+            this.InsertTypeGroupBox.ResumeLayout(false);
+            this.InsertTypeGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InsertNumberSeqLeadingZeroesNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InsertNumberSeqStartingAtNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1035,8 +1166,6 @@
         private System.Windows.Forms.Label ReplaceRuleTitleLabel;
         private System.Windows.Forms.Button ConfirmRuleButton;
         private System.Windows.Forms.Button CancelRuleButton;
-        private System.Windows.Forms.TextBox InsertTextTextBox;
-        private System.Windows.Forms.Label InsertTextLabel;
         private System.Windows.Forms.Label InsertWhereLabel;
         private System.Windows.Forms.RadioButton InsertPrefixRadioButton;
         private System.Windows.Forms.RadioButton InsertSuffixRadioButton;
@@ -1095,5 +1224,18 @@
         private System.Windows.Forms.CheckBox CleanUserDefinedCheckBox;
         private System.Windows.Forms.CheckBox CleanIgnoreExtensionCheckBox;
         private System.Windows.Forms.CheckBox CleanCaseSensitiveCheckBox;
+        private System.Windows.Forms.TextBox RegexFindTextTextBox;
+        private System.Windows.Forms.Label RegexFindLabel;
+        private System.Windows.Forms.TextBox RegexReplaceTextTextBox;
+        private System.Windows.Forms.Label RegexReplaceLabel;
+        private System.Windows.Forms.CheckBox RegexIgnoreExtensionCheckBox;
+        private System.Windows.Forms.GroupBox InsertTypeGroupBox;
+        private System.Windows.Forms.Label InsertNumberSeqLeadingZeroesLabel;
+        private System.Windows.Forms.Label InsertNumberSeqWithLabel;
+        private System.Windows.Forms.NumericUpDown InsertNumberSeqLeadingZeroesNumericUpDown;
+        private System.Windows.Forms.NumericUpDown InsertNumberSeqStartingAtNumericUpDown;
+        private System.Windows.Forms.RadioButton InsertNumberSeqRadioButton;
+        private System.Windows.Forms.RadioButton InsertTextRadioButton;
+        private System.Windows.Forms.TextBox InsertTextTextBox;
     }
 }

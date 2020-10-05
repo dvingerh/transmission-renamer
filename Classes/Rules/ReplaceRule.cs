@@ -83,7 +83,7 @@ namespace transmission_renamer.Classes.Rules
             return descriptionSb.ToString();
         }
 
-        public string DoRename(FriendlyTorrentFileInfo torrentFileInfo)
+        public string DoRename(FriendlyTorrentFileInfo torrentFileInfo, int itemIndex = 0)
         {
             try
             {
@@ -115,7 +115,7 @@ namespace transmission_renamer.Classes.Rules
                             newNameSb.Replace(FindText, ReplaceText);
                         else
                         {
-                            result = Regex.Unescape(Regex.Replace(newNameSb.ToString(), Regex.Escape(FindText), ReplaceText, RegexOptions.IgnoreCase));
+                            result = Regex.Unescape(Regex.Replace(Regex.Escape(newNameSb.ToString()), Regex.Escape(FindText), ReplaceText, RegexOptions.IgnoreCase));
                             newNameSb = new StringBuilder(result);
                         }
                     }
