@@ -75,36 +75,36 @@
             this.RemoveLabel = new System.Windows.Forms.Label();
             this.RemoveRuleTitleLabel = new System.Windows.Forms.Label();
             this.ReplaceRuleTabPage = new System.Windows.Forms.TabPage();
+            this.ReplaceFindTextBox = new System.Windows.Forms.TextBox();
+            this.FindLabel = new System.Windows.Forms.Label();
+            this.ReplaceInterpretWildcardsCheckBox = new System.Windows.Forms.CheckBox();
+            this.ReplaceIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
+            this.ReplaceCaseSensitiveCheckBox = new System.Windows.Forms.CheckBox();
+            this.ReplaceAllOccurrencesRadioButton = new System.Windows.Forms.RadioButton();
+            this.ReplaceLastOccurrenceRadioButton = new System.Windows.Forms.RadioButton();
+            this.ReplaceFirstOccurrenceRadioButton = new System.Windows.Forms.RadioButton();
+            this.ReplaceOccurrencesTextBox = new System.Windows.Forms.Label();
+            this.ReplaceTextTextBox = new System.Windows.Forms.TextBox();
+            this.ReplaceLabel = new System.Windows.Forms.Label();
             this.ReplaceRuleTitleLabel = new System.Windows.Forms.Label();
             this.CleanRuleTabPage = new System.Windows.Forms.TabPage();
+            this.CleanIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
+            this.CleanCaseSensitiveCheckBox = new System.Windows.Forms.CheckBox();
+            this.CleanUserDefinedTextBox = new System.Windows.Forms.TextBox();
+            this.CleanUserDefinedCheckBox = new System.Windows.Forms.CheckBox();
+            this.CleanSymbolsTextBox = new System.Windows.Forms.TextBox();
+            this.CleanSymbolsCheckBox = new System.Windows.Forms.CheckBox();
+            this.CleanBracketsTextBox = new System.Windows.Forms.TextBox();
+            this.CleanBracketsCheckBox = new System.Windows.Forms.CheckBox();
+            this.CleanDigitsTextBox = new System.Windows.Forms.TextBox();
+            this.CleanDigitsCheckBox = new System.Windows.Forms.CheckBox();
+            this.CleanLatinAlphabetTextBox = new System.Windows.Forms.TextBox();
+            this.CleanLatinAlphabetCheckBox = new System.Windows.Forms.CheckBox();
             this.CleanRuleTitleLabel = new System.Windows.Forms.Label();
             this.RegexRuleTabPage = new System.Windows.Forms.TabPage();
             this.RegexRuleTitleLabel = new System.Windows.Forms.Label();
             this.ConfirmRuleButton = new System.Windows.Forms.Button();
             this.CancelRuleButton = new System.Windows.Forms.Button();
-            this.ReplaceFindTextBox = new System.Windows.Forms.TextBox();
-            this.FindLabel = new System.Windows.Forms.Label();
-            this.ReplaceLabel = new System.Windows.Forms.Label();
-            this.ReplaceTextTextBox = new System.Windows.Forms.TextBox();
-            this.ReplaceOccurrencesTextBox = new System.Windows.Forms.Label();
-            this.ReplaceFirstOccurrenceRadioButton = new System.Windows.Forms.RadioButton();
-            this.ReplaceLastOccurrenceRadioButton = new System.Windows.Forms.RadioButton();
-            this.ReplaceAllOccurrencesRadioButton = new System.Windows.Forms.RadioButton();
-            this.ReplaceCaseSensitiveCheckBox = new System.Windows.Forms.CheckBox();
-            this.ReplaceIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
-            this.ReplaceInterpretWildcardsCheckBox = new System.Windows.Forms.CheckBox();
-            this.CleanLatinAlphabetCheckBox = new System.Windows.Forms.CheckBox();
-            this.CleanLatinAlphabetTextBox = new System.Windows.Forms.TextBox();
-            this.CleanDigitsTextBox = new System.Windows.Forms.TextBox();
-            this.CleanDigitsCheckBox = new System.Windows.Forms.CheckBox();
-            this.CleanBracketsTextBox = new System.Windows.Forms.TextBox();
-            this.CleanBracketsCheckBox = new System.Windows.Forms.CheckBox();
-            this.CleanSymbolsTextBox = new System.Windows.Forms.TextBox();
-            this.CleanSymbolsCheckBox = new System.Windows.Forms.CheckBox();
-            this.CleanUserDefinedTextBox = new System.Windows.Forms.TextBox();
-            this.CleanUserDefinedCheckBox = new System.Windows.Forms.CheckBox();
-            this.CleanIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
-            this.CleanCaseSensitiveCheckBox = new System.Windows.Forms.CheckBox();
             this.RuleTypeTabControl.SuspendLayout();
             this.InsertRuleTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InsertPositionNumericUpDown)).BeginInit();
@@ -200,7 +200,7 @@
             this.ReplaceCurrentFileNameRadioButton.Location = new System.Drawing.Point(108, 234);
             this.ReplaceCurrentFileNameRadioButton.Name = "ReplaceCurrentFileNameRadioButton";
             this.ReplaceCurrentFileNameRadioButton.Size = new System.Drawing.Size(152, 17);
-            this.ReplaceCurrentFileNameRadioButton.TabIndex = 13;
+            this.ReplaceCurrentFileNameRadioButton.TabIndex = 9;
             this.ReplaceCurrentFileNameRadioButton.Text = "Replace current filename";
             this.ReplaceCurrentFileNameRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -209,7 +209,7 @@
             this.InsertAfterTextTextBox.Location = new System.Drawing.Point(197, 199);
             this.InsertAfterTextTextBox.Name = "InsertAfterTextTextBox";
             this.InsertAfterTextTextBox.Size = new System.Drawing.Size(259, 22);
-            this.InsertAfterTextTextBox.TabIndex = 12;
+            this.InsertAfterTextTextBox.TabIndex = 13;
             // 
             // InsertAfterTextRadioButton
             // 
@@ -217,7 +217,7 @@
             this.InsertAfterTextRadioButton.Location = new System.Drawing.Point(108, 200);
             this.InsertAfterTextRadioButton.Name = "InsertAfterTextRadioButton";
             this.InsertAfterTextRadioButton.Size = new System.Drawing.Size(75, 17);
-            this.InsertAfterTextRadioButton.TabIndex = 11;
+            this.InsertAfterTextRadioButton.TabIndex = 8;
             this.InsertAfterTextRadioButton.Text = "After text:";
             this.InsertAfterTextRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -226,7 +226,7 @@
             this.InsertBeforeTextTextBox.Location = new System.Drawing.Point(197, 171);
             this.InsertBeforeTextTextBox.Name = "InsertBeforeTextTextBox";
             this.InsertBeforeTextTextBox.Size = new System.Drawing.Size(259, 22);
-            this.InsertBeforeTextTextBox.TabIndex = 10;
+            this.InsertBeforeTextTextBox.TabIndex = 12;
             // 
             // InsertBeforeTextRadioButton
             // 
@@ -234,7 +234,7 @@
             this.InsertBeforeTextRadioButton.Location = new System.Drawing.Point(108, 172);
             this.InsertBeforeTextRadioButton.Name = "InsertBeforeTextRadioButton";
             this.InsertBeforeTextRadioButton.Size = new System.Drawing.Size(83, 17);
-            this.InsertBeforeTextRadioButton.TabIndex = 9;
+            this.InsertBeforeTextRadioButton.TabIndex = 7;
             this.InsertBeforeTextRadioButton.Text = "Before text:";
             this.InsertBeforeTextRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -244,7 +244,7 @@
             this.InsertPositionRightLeftCheckBox.Location = new System.Drawing.Point(256, 146);
             this.InsertPositionRightLeftCheckBox.Name = "InsertPositionRightLeftCheckBox";
             this.InsertPositionRightLeftCheckBox.Size = new System.Drawing.Size(90, 17);
-            this.InsertPositionRightLeftCheckBox.TabIndex = 8;
+            this.InsertPositionRightLeftCheckBox.TabIndex = 11;
             this.InsertPositionRightLeftCheckBox.Text = "Right-to-left";
             this.InsertPositionRightLeftCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -254,7 +254,7 @@
             this.InsertPositionNumericUpDown.Location = new System.Drawing.Point(197, 143);
             this.InsertPositionNumericUpDown.Name = "InsertPositionNumericUpDown";
             this.InsertPositionNumericUpDown.Size = new System.Drawing.Size(50, 22);
-            this.InsertPositionNumericUpDown.TabIndex = 7;
+            this.InsertPositionNumericUpDown.TabIndex = 10;
             // 
             // InsertAtPositionRadioButton
             // 
@@ -349,7 +349,7 @@
             this.DeleteIgnoreExtensionCheckBox.Location = new System.Drawing.Point(111, 266);
             this.DeleteIgnoreExtensionCheckBox.Name = "DeleteIgnoreExtensionCheckBox";
             this.DeleteIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
-            this.DeleteIgnoreExtensionCheckBox.TabIndex = 7;
+            this.DeleteIgnoreExtensionCheckBox.TabIndex = 15;
             this.DeleteIgnoreExtensionCheckBox.Text = "Ignore extension";
             this.DeleteIgnoreExtensionCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -359,7 +359,7 @@
             this.DeleteKeepDelimitersCheckBox.Location = new System.Drawing.Point(264, 243);
             this.DeleteKeepDelimitersCheckBox.Name = "DeleteKeepDelimitersCheckBox";
             this.DeleteKeepDelimitersCheckBox.Size = new System.Drawing.Size(104, 17);
-            this.DeleteKeepDelimitersCheckBox.TabIndex = 6;
+            this.DeleteKeepDelimitersCheckBox.TabIndex = 14;
             this.DeleteKeepDelimitersCheckBox.Text = "Keep delimiters";
             this.DeleteKeepDelimitersCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -369,7 +369,7 @@
             this.DeleteEntireFileNameCheckBox.Location = new System.Drawing.Point(111, 243);
             this.DeleteEntireFileNameCheckBox.Name = "DeleteEntireFileNameCheckBox";
             this.DeleteEntireFileNameCheckBox.Size = new System.Drawing.Size(139, 17);
-            this.DeleteEntireFileNameCheckBox.TabIndex = 4;
+            this.DeleteEntireFileNameCheckBox.TabIndex = 13;
             this.DeleteEntireFileNameCheckBox.Text = "Delete entire filename";
             this.DeleteEntireFileNameCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -393,7 +393,8 @@
             this.DeleteToEndRadioButton.Location = new System.Drawing.Point(21, 87);
             this.DeleteToEndRadioButton.Name = "DeleteToEndRadioButton";
             this.DeleteToEndRadioButton.Size = new System.Drawing.Size(91, 17);
-            this.DeleteToEndRadioButton.TabIndex = 16;
+            this.DeleteToEndRadioButton.TabIndex = 10;
+            this.DeleteToEndRadioButton.TabStop = true;
             this.DeleteToEndRadioButton.Text = "End position";
             this.DeleteToEndRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -403,7 +404,7 @@
             this.DeleteToDelimiterTextBox.Location = new System.Drawing.Point(110, 59);
             this.DeleteToDelimiterTextBox.Name = "DeleteToDelimiterTextBox";
             this.DeleteToDelimiterTextBox.Size = new System.Drawing.Size(70, 22);
-            this.DeleteToDelimiterTextBox.TabIndex = 15;
+            this.DeleteToDelimiterTextBox.TabIndex = 12;
             // 
             // DeleteToPositionNumericUpDown
             // 
@@ -416,7 +417,7 @@
             0});
             this.DeleteToPositionNumericUpDown.Name = "DeleteToPositionNumericUpDown";
             this.DeleteToPositionNumericUpDown.Size = new System.Drawing.Size(70, 22);
-            this.DeleteToPositionNumericUpDown.TabIndex = 13;
+            this.DeleteToPositionNumericUpDown.TabIndex = 11;
             this.DeleteToPositionNumericUpDown.Value = new decimal(new int[] {
             1,
             0,
@@ -429,7 +430,8 @@
             this.DeleteToDelimiterRadioButton.Location = new System.Drawing.Point(21, 60);
             this.DeleteToDelimiterRadioButton.Name = "DeleteToDelimiterRadioButton";
             this.DeleteToDelimiterRadioButton.Size = new System.Drawing.Size(74, 17);
-            this.DeleteToDelimiterRadioButton.TabIndex = 14;
+            this.DeleteToDelimiterRadioButton.TabIndex = 9;
+            this.DeleteToDelimiterRadioButton.TabStop = true;
             this.DeleteToDelimiterRadioButton.Text = "Delimiter:";
             this.DeleteToDelimiterRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -440,7 +442,7 @@
             this.DeleteToPositionRadioButton.Location = new System.Drawing.Point(21, 31);
             this.DeleteToPositionRadioButton.Name = "DeleteToPositionRadioButton";
             this.DeleteToPositionRadioButton.Size = new System.Drawing.Size(70, 17);
-            this.DeleteToPositionRadioButton.TabIndex = 12;
+            this.DeleteToPositionRadioButton.TabIndex = 8;
             this.DeleteToPositionRadioButton.TabStop = true;
             this.DeleteToPositionRadioButton.Text = "Position:";
             this.DeleteToPositionRadioButton.UseVisualStyleBackColor = true;
@@ -464,7 +466,7 @@
             this.DeleteFromDelimiterTextBox.Location = new System.Drawing.Point(110, 59);
             this.DeleteFromDelimiterTextBox.Name = "DeleteFromDelimiterTextBox";
             this.DeleteFromDelimiterTextBox.Size = new System.Drawing.Size(70, 22);
-            this.DeleteFromDelimiterTextBox.TabIndex = 11;
+            this.DeleteFromDelimiterTextBox.TabIndex = 7;
             // 
             // DeleteFromDelimiterRadioButton
             // 
@@ -472,7 +474,8 @@
             this.DeleteFromDelimiterRadioButton.Location = new System.Drawing.Point(21, 60);
             this.DeleteFromDelimiterRadioButton.Name = "DeleteFromDelimiterRadioButton";
             this.DeleteFromDelimiterRadioButton.Size = new System.Drawing.Size(74, 17);
-            this.DeleteFromDelimiterRadioButton.TabIndex = 10;
+            this.DeleteFromDelimiterRadioButton.TabIndex = 5;
+            this.DeleteFromDelimiterRadioButton.TabStop = true;
             this.DeleteFromDelimiterRadioButton.Text = "Delimiter:";
             this.DeleteFromDelimiterRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -487,7 +490,7 @@
             0});
             this.DeleteFromPositionNumericUpDown.Name = "DeleteFromPositionNumericUpDown";
             this.DeleteFromPositionNumericUpDown.Size = new System.Drawing.Size(70, 22);
-            this.DeleteFromPositionNumericUpDown.TabIndex = 9;
+            this.DeleteFromPositionNumericUpDown.TabIndex = 6;
             this.DeleteFromPositionNumericUpDown.Value = new decimal(new int[] {
             1,
             0,
@@ -502,7 +505,7 @@
             this.DeleteFromPositionRadioButton.Location = new System.Drawing.Point(21, 31);
             this.DeleteFromPositionRadioButton.Name = "DeleteFromPositionRadioButton";
             this.DeleteFromPositionRadioButton.Size = new System.Drawing.Size(70, 17);
-            this.DeleteFromPositionRadioButton.TabIndex = 8;
+            this.DeleteFromPositionRadioButton.TabIndex = 4;
             this.DeleteFromPositionRadioButton.TabStop = true;
             this.DeleteFromPositionRadioButton.Text = "Position:";
             this.DeleteFromPositionRadioButton.UseVisualStyleBackColor = true;
@@ -543,7 +546,7 @@
             this.RemoveInterpretWildcardsCheckBox.Location = new System.Drawing.Point(230, 217);
             this.RemoveInterpretWildcardsCheckBox.Name = "RemoveInterpretWildcardsCheckBox";
             this.RemoveInterpretWildcardsCheckBox.Size = new System.Drawing.Size(152, 17);
-            this.RemoveInterpretWildcardsCheckBox.TabIndex = 15;
+            this.RemoveInterpretWildcardsCheckBox.TabIndex = 12;
             this.RemoveInterpretWildcardsCheckBox.Text = "Interpret [ * ] as wildcard";
             this.RemoveInterpretWildcardsCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -555,7 +558,7 @@
             this.RemoveIgnoreExtensionCheckBox.Location = new System.Drawing.Point(230, 194);
             this.RemoveIgnoreExtensionCheckBox.Name = "RemoveIgnoreExtensionCheckBox";
             this.RemoveIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
-            this.RemoveIgnoreExtensionCheckBox.TabIndex = 14;
+            this.RemoveIgnoreExtensionCheckBox.TabIndex = 11;
             this.RemoveIgnoreExtensionCheckBox.Text = "Ignore extension";
             this.RemoveIgnoreExtensionCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -565,7 +568,7 @@
             this.RemoveCaseSensitiveCheckBox.Location = new System.Drawing.Point(230, 171);
             this.RemoveCaseSensitiveCheckBox.Name = "RemoveCaseSensitiveCheckBox";
             this.RemoveCaseSensitiveCheckBox.Size = new System.Drawing.Size(97, 17);
-            this.RemoveCaseSensitiveCheckBox.TabIndex = 13;
+            this.RemoveCaseSensitiveCheckBox.TabIndex = 10;
             this.RemoveCaseSensitiveCheckBox.Text = "Case sensitive";
             this.RemoveCaseSensitiveCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -576,7 +579,7 @@
             this.RemoveAllOccurrencesRadioButton.Location = new System.Drawing.Point(64, 171);
             this.RemoveAllOccurrencesRadioButton.Name = "RemoveAllOccurrencesRadioButton";
             this.RemoveAllOccurrencesRadioButton.Size = new System.Drawing.Size(38, 17);
-            this.RemoveAllOccurrencesRadioButton.TabIndex = 12;
+            this.RemoveAllOccurrencesRadioButton.TabIndex = 7;
             this.RemoveAllOccurrencesRadioButton.TabStop = true;
             this.RemoveAllOccurrencesRadioButton.Text = "All";
             this.RemoveAllOccurrencesRadioButton.UseVisualStyleBackColor = true;
@@ -587,7 +590,8 @@
             this.RemoveLastOccurrenceRadioButton.Location = new System.Drawing.Point(64, 217);
             this.RemoveLastOccurrenceRadioButton.Name = "RemoveLastOccurrenceRadioButton";
             this.RemoveLastOccurrenceRadioButton.Size = new System.Drawing.Size(45, 17);
-            this.RemoveLastOccurrenceRadioButton.TabIndex = 11;
+            this.RemoveLastOccurrenceRadioButton.TabIndex = 9;
+            this.RemoveLastOccurrenceRadioButton.TabStop = true;
             this.RemoveLastOccurrenceRadioButton.Text = "Last";
             this.RemoveLastOccurrenceRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -597,7 +601,8 @@
             this.RemoveFirstOccurrenceRadioButton.Location = new System.Drawing.Point(64, 194);
             this.RemoveFirstOccurrenceRadioButton.Name = "RemoveFirstOccurrenceRadioButton";
             this.RemoveFirstOccurrenceRadioButton.Size = new System.Drawing.Size(47, 17);
-            this.RemoveFirstOccurrenceRadioButton.TabIndex = 10;
+            this.RemoveFirstOccurrenceRadioButton.TabIndex = 8;
+            this.RemoveFirstOccurrenceRadioButton.TabStop = true;
             this.RemoveFirstOccurrenceRadioButton.Text = "First";
             this.RemoveFirstOccurrenceRadioButton.UseVisualStyleBackColor = true;
             // 
@@ -607,7 +612,7 @@
             this.RemoveOccurrencesLabel.Location = new System.Drawing.Point(61, 149);
             this.RemoveOccurrencesLabel.Name = "RemoveOccurrencesLabel";
             this.RemoveOccurrencesLabel.Size = new System.Drawing.Size(73, 13);
-            this.RemoveOccurrencesLabel.TabIndex = 9;
+            this.RemoveOccurrencesLabel.TabIndex = 6;
             this.RemoveOccurrencesLabel.Text = "Occurrences:";
             // 
             // RemoveTextTextBox
@@ -616,7 +621,7 @@
             this.RemoveTextTextBox.Location = new System.Drawing.Point(111, 107);
             this.RemoveTextTextBox.Name = "RemoveTextTextBox";
             this.RemoveTextTextBox.Size = new System.Drawing.Size(348, 22);
-            this.RemoveTextTextBox.TabIndex = 8;
+            this.RemoveTextTextBox.TabIndex = 5;
             // 
             // RemoveLabel
             // 
@@ -624,7 +629,7 @@
             this.RemoveLabel.Location = new System.Drawing.Point(55, 110);
             this.RemoveLabel.Name = "RemoveLabel";
             this.RemoveLabel.Size = new System.Drawing.Size(50, 13);
-            this.RemoveLabel.TabIndex = 7;
+            this.RemoveLabel.TabIndex = 4;
             this.RemoveLabel.Text = "Remove:";
             // 
             // RemoveRuleTitleLabel
@@ -659,6 +664,115 @@
             this.ReplaceRuleTabPage.Text = "Replace";
             this.ReplaceRuleTabPage.UseVisualStyleBackColor = true;
             // 
+            // ReplaceFindTextBox
+            // 
+            this.ReplaceFindTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ReplaceFindTextBox.Location = new System.Drawing.Point(111, 93);
+            this.ReplaceFindTextBox.Name = "ReplaceFindTextBox";
+            this.ReplaceFindTextBox.Size = new System.Drawing.Size(348, 22);
+            this.ReplaceFindTextBox.TabIndex = 5;
+            // 
+            // FindLabel
+            // 
+            this.FindLabel.AutoSize = true;
+            this.FindLabel.Location = new System.Drawing.Point(55, 96);
+            this.FindLabel.Name = "FindLabel";
+            this.FindLabel.Size = new System.Drawing.Size(33, 13);
+            this.FindLabel.TabIndex = 4;
+            this.FindLabel.Text = "Find:";
+            // 
+            // ReplaceInterpretWildcardsCheckBox
+            // 
+            this.ReplaceInterpretWildcardsCheckBox.AutoSize = true;
+            this.ReplaceInterpretWildcardsCheckBox.Location = new System.Drawing.Point(230, 231);
+            this.ReplaceInterpretWildcardsCheckBox.Name = "ReplaceInterpretWildcardsCheckBox";
+            this.ReplaceInterpretWildcardsCheckBox.Size = new System.Drawing.Size(152, 17);
+            this.ReplaceInterpretWildcardsCheckBox.TabIndex = 13;
+            this.ReplaceInterpretWildcardsCheckBox.Text = "Interpret [ * ] as wildcard";
+            this.ReplaceInterpretWildcardsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ReplaceIgnoreExtensionCheckBox
+            // 
+            this.ReplaceIgnoreExtensionCheckBox.AutoSize = true;
+            this.ReplaceIgnoreExtensionCheckBox.Checked = true;
+            this.ReplaceIgnoreExtensionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ReplaceIgnoreExtensionCheckBox.Location = new System.Drawing.Point(230, 208);
+            this.ReplaceIgnoreExtensionCheckBox.Name = "ReplaceIgnoreExtensionCheckBox";
+            this.ReplaceIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.ReplaceIgnoreExtensionCheckBox.TabIndex = 12;
+            this.ReplaceIgnoreExtensionCheckBox.Text = "Ignore extension";
+            this.ReplaceIgnoreExtensionCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ReplaceCaseSensitiveCheckBox
+            // 
+            this.ReplaceCaseSensitiveCheckBox.AutoSize = true;
+            this.ReplaceCaseSensitiveCheckBox.Location = new System.Drawing.Point(230, 185);
+            this.ReplaceCaseSensitiveCheckBox.Name = "ReplaceCaseSensitiveCheckBox";
+            this.ReplaceCaseSensitiveCheckBox.Size = new System.Drawing.Size(97, 17);
+            this.ReplaceCaseSensitiveCheckBox.TabIndex = 11;
+            this.ReplaceCaseSensitiveCheckBox.Text = "Case sensitive";
+            this.ReplaceCaseSensitiveCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ReplaceAllOccurrencesRadioButton
+            // 
+            this.ReplaceAllOccurrencesRadioButton.AutoSize = true;
+            this.ReplaceAllOccurrencesRadioButton.Checked = true;
+            this.ReplaceAllOccurrencesRadioButton.Location = new System.Drawing.Point(64, 185);
+            this.ReplaceAllOccurrencesRadioButton.Name = "ReplaceAllOccurrencesRadioButton";
+            this.ReplaceAllOccurrencesRadioButton.Size = new System.Drawing.Size(38, 17);
+            this.ReplaceAllOccurrencesRadioButton.TabIndex = 8;
+            this.ReplaceAllOccurrencesRadioButton.TabStop = true;
+            this.ReplaceAllOccurrencesRadioButton.Text = "All";
+            this.ReplaceAllOccurrencesRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ReplaceLastOccurrenceRadioButton
+            // 
+            this.ReplaceLastOccurrenceRadioButton.AutoSize = true;
+            this.ReplaceLastOccurrenceRadioButton.Location = new System.Drawing.Point(64, 231);
+            this.ReplaceLastOccurrenceRadioButton.Name = "ReplaceLastOccurrenceRadioButton";
+            this.ReplaceLastOccurrenceRadioButton.Size = new System.Drawing.Size(45, 17);
+            this.ReplaceLastOccurrenceRadioButton.TabIndex = 10;
+            this.ReplaceLastOccurrenceRadioButton.TabStop = true;
+            this.ReplaceLastOccurrenceRadioButton.Text = "Last";
+            this.ReplaceLastOccurrenceRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ReplaceFirstOccurrenceRadioButton
+            // 
+            this.ReplaceFirstOccurrenceRadioButton.AutoSize = true;
+            this.ReplaceFirstOccurrenceRadioButton.Location = new System.Drawing.Point(64, 208);
+            this.ReplaceFirstOccurrenceRadioButton.Name = "ReplaceFirstOccurrenceRadioButton";
+            this.ReplaceFirstOccurrenceRadioButton.Size = new System.Drawing.Size(47, 17);
+            this.ReplaceFirstOccurrenceRadioButton.TabIndex = 9;
+            this.ReplaceFirstOccurrenceRadioButton.TabStop = true;
+            this.ReplaceFirstOccurrenceRadioButton.Text = "First";
+            this.ReplaceFirstOccurrenceRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ReplaceOccurrencesTextBox
+            // 
+            this.ReplaceOccurrencesTextBox.AutoSize = true;
+            this.ReplaceOccurrencesTextBox.Location = new System.Drawing.Point(61, 163);
+            this.ReplaceOccurrencesTextBox.Name = "ReplaceOccurrencesTextBox";
+            this.ReplaceOccurrencesTextBox.Size = new System.Drawing.Size(73, 13);
+            this.ReplaceOccurrencesTextBox.TabIndex = 18;
+            this.ReplaceOccurrencesTextBox.Text = "Occurrences:";
+            // 
+            // ReplaceTextTextBox
+            // 
+            this.ReplaceTextTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ReplaceTextTextBox.Location = new System.Drawing.Point(111, 121);
+            this.ReplaceTextTextBox.Name = "ReplaceTextTextBox";
+            this.ReplaceTextTextBox.Size = new System.Drawing.Size(348, 22);
+            this.ReplaceTextTextBox.TabIndex = 7;
+            // 
+            // ReplaceLabel
+            // 
+            this.ReplaceLabel.AutoSize = true;
+            this.ReplaceLabel.Location = new System.Drawing.Point(55, 124);
+            this.ReplaceLabel.Name = "ReplaceLabel";
+            this.ReplaceLabel.Size = new System.Drawing.Size(50, 13);
+            this.ReplaceLabel.TabIndex = 6;
+            this.ReplaceLabel.Text = "Replace:";
+            // 
             // ReplaceRuleTitleLabel
             // 
             this.ReplaceRuleTitleLabel.AutoSize = true;
@@ -691,6 +805,122 @@
             this.CleanRuleTabPage.TabIndex = 4;
             this.CleanRuleTabPage.Text = "Clean";
             this.CleanRuleTabPage.UseVisualStyleBackColor = true;
+            // 
+            // CleanIgnoreExtensionCheckBox
+            // 
+            this.CleanIgnoreExtensionCheckBox.AutoSize = true;
+            this.CleanIgnoreExtensionCheckBox.Checked = true;
+            this.CleanIgnoreExtensionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CleanIgnoreExtensionCheckBox.Location = new System.Drawing.Point(92, 252);
+            this.CleanIgnoreExtensionCheckBox.Name = "CleanIgnoreExtensionCheckBox";
+            this.CleanIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.CleanIgnoreExtensionCheckBox.TabIndex = 14;
+            this.CleanIgnoreExtensionCheckBox.Text = "Ignore extension";
+            this.CleanIgnoreExtensionCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // CleanCaseSensitiveCheckBox
+            // 
+            this.CleanCaseSensitiveCheckBox.AutoSize = true;
+            this.CleanCaseSensitiveCheckBox.Location = new System.Drawing.Point(92, 229);
+            this.CleanCaseSensitiveCheckBox.Name = "CleanCaseSensitiveCheckBox";
+            this.CleanCaseSensitiveCheckBox.Size = new System.Drawing.Size(97, 17);
+            this.CleanCaseSensitiveCheckBox.TabIndex = 13;
+            this.CleanCaseSensitiveCheckBox.Text = "Case sensitive";
+            this.CleanCaseSensitiveCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // CleanUserDefinedTextBox
+            // 
+            this.CleanUserDefinedTextBox.Location = new System.Drawing.Point(201, 183);
+            this.CleanUserDefinedTextBox.Name = "CleanUserDefinedTextBox";
+            this.CleanUserDefinedTextBox.Size = new System.Drawing.Size(222, 22);
+            this.CleanUserDefinedTextBox.TabIndex = 12;
+            // 
+            // CleanUserDefinedCheckBox
+            // 
+            this.CleanUserDefinedCheckBox.AutoSize = true;
+            this.CleanUserDefinedCheckBox.Location = new System.Drawing.Point(92, 185);
+            this.CleanUserDefinedCheckBox.Name = "CleanUserDefinedCheckBox";
+            this.CleanUserDefinedCheckBox.Size = new System.Drawing.Size(95, 17);
+            this.CleanUserDefinedCheckBox.TabIndex = 11;
+            this.CleanUserDefinedCheckBox.Text = "User defined:";
+            this.CleanUserDefinedCheckBox.UseVisualStyleBackColor = true;
+            this.CleanUserDefinedCheckBox.CheckedChanged += new System.EventHandler(this.CleanUserDefinedCheckBox_CheckedChanged);
+            // 
+            // CleanSymbolsTextBox
+            // 
+            this.CleanSymbolsTextBox.Location = new System.Drawing.Point(201, 155);
+            this.CleanSymbolsTextBox.Name = "CleanSymbolsTextBox";
+            this.CleanSymbolsTextBox.ReadOnly = true;
+            this.CleanSymbolsTextBox.Size = new System.Drawing.Size(222, 22);
+            this.CleanSymbolsTextBox.TabIndex = 10;
+            this.CleanSymbolsTextBox.Text = "!?@#$%^&*_+-=.,";
+            // 
+            // CleanSymbolsCheckBox
+            // 
+            this.CleanSymbolsCheckBox.AutoSize = true;
+            this.CleanSymbolsCheckBox.Location = new System.Drawing.Point(92, 157);
+            this.CleanSymbolsCheckBox.Name = "CleanSymbolsCheckBox";
+            this.CleanSymbolsCheckBox.Size = new System.Drawing.Size(71, 17);
+            this.CleanSymbolsCheckBox.TabIndex = 9;
+            this.CleanSymbolsCheckBox.Text = "Symbols:";
+            this.CleanSymbolsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // CleanBracketsTextBox
+            // 
+            this.CleanBracketsTextBox.Location = new System.Drawing.Point(201, 127);
+            this.CleanBracketsTextBox.Name = "CleanBracketsTextBox";
+            this.CleanBracketsTextBox.ReadOnly = true;
+            this.CleanBracketsTextBox.Size = new System.Drawing.Size(222, 22);
+            this.CleanBracketsTextBox.TabIndex = 8;
+            this.CleanBracketsTextBox.Text = "()[]{}";
+            // 
+            // CleanBracketsCheckBox
+            // 
+            this.CleanBracketsCheckBox.AutoSize = true;
+            this.CleanBracketsCheckBox.Location = new System.Drawing.Point(92, 129);
+            this.CleanBracketsCheckBox.Name = "CleanBracketsCheckBox";
+            this.CleanBracketsCheckBox.Size = new System.Drawing.Size(71, 17);
+            this.CleanBracketsCheckBox.TabIndex = 7;
+            this.CleanBracketsCheckBox.Text = "Brackets:";
+            this.CleanBracketsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // CleanDigitsTextBox
+            // 
+            this.CleanDigitsTextBox.Location = new System.Drawing.Point(201, 99);
+            this.CleanDigitsTextBox.Name = "CleanDigitsTextBox";
+            this.CleanDigitsTextBox.ReadOnly = true;
+            this.CleanDigitsTextBox.Size = new System.Drawing.Size(222, 22);
+            this.CleanDigitsTextBox.TabIndex = 6;
+            this.CleanDigitsTextBox.Text = "1234567890";
+            // 
+            // CleanDigitsCheckBox
+            // 
+            this.CleanDigitsCheckBox.AutoSize = true;
+            this.CleanDigitsCheckBox.Location = new System.Drawing.Point(92, 101);
+            this.CleanDigitsCheckBox.Name = "CleanDigitsCheckBox";
+            this.CleanDigitsCheckBox.Size = new System.Drawing.Size(59, 17);
+            this.CleanDigitsCheckBox.TabIndex = 5;
+            this.CleanDigitsCheckBox.Text = "Digits:";
+            this.CleanDigitsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // CleanLatinAlphabetTextBox
+            // 
+            this.CleanLatinAlphabetTextBox.Location = new System.Drawing.Point(201, 71);
+            this.CleanLatinAlphabetTextBox.Name = "CleanLatinAlphabetTextBox";
+            this.CleanLatinAlphabetTextBox.ReadOnly = true;
+            this.CleanLatinAlphabetTextBox.Size = new System.Drawing.Size(222, 22);
+            this.CleanLatinAlphabetTextBox.TabIndex = 4;
+            this.CleanLatinAlphabetTextBox.Text = "abcdefghijklmnopqrstuvwxyz";
+            // 
+            // CleanLatinAlphabetCheckBox
+            // 
+            this.CleanLatinAlphabetCheckBox.AutoSize = true;
+            this.CleanLatinAlphabetCheckBox.Location = new System.Drawing.Point(92, 73);
+            this.CleanLatinAlphabetCheckBox.Name = "CleanLatinAlphabetCheckBox";
+            this.CleanLatinAlphabetCheckBox.Size = new System.Drawing.Size(103, 17);
+            this.CleanLatinAlphabetCheckBox.TabIndex = 3;
+            this.CleanLatinAlphabetCheckBox.Text = "Latin alphabet:";
+            this.CleanLatinAlphabetCheckBox.UseVisualStyleBackColor = true;
             // 
             // CleanRuleTitleLabel
             // 
@@ -728,7 +958,7 @@
             this.ConfirmRuleButton.Location = new System.Drawing.Point(593, 376);
             this.ConfirmRuleButton.Name = "ConfirmRuleButton";
             this.ConfirmRuleButton.Size = new System.Drawing.Size(75, 23);
-            this.ConfirmRuleButton.TabIndex = 1000;
+            this.ConfirmRuleButton.TabIndex = 1001;
             this.ConfirmRuleButton.Text = "Confirm";
             this.ConfirmRuleButton.UseVisualStyleBackColor = true;
             this.ConfirmRuleButton.Click += new System.EventHandler(this.ConfirmButtonClick);
@@ -739,233 +969,10 @@
             this.CancelRuleButton.Location = new System.Drawing.Point(512, 376);
             this.CancelRuleButton.Name = "CancelRuleButton";
             this.CancelRuleButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelRuleButton.TabIndex = 1001;
+            this.CancelRuleButton.TabIndex = 1000;
             this.CancelRuleButton.Text = "Cancel";
             this.CancelRuleButton.UseVisualStyleBackColor = true;
             this.CancelRuleButton.Click += new System.EventHandler(this.CancelButtonClick);
-            // 
-            // ReplaceFindTextBox
-            // 
-            this.ReplaceFindTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ReplaceFindTextBox.Location = new System.Drawing.Point(111, 93);
-            this.ReplaceFindTextBox.Name = "ReplaceFindTextBox";
-            this.ReplaceFindTextBox.Size = new System.Drawing.Size(348, 22);
-            this.ReplaceFindTextBox.TabIndex = 26;
-            // 
-            // FindLabel
-            // 
-            this.FindLabel.AutoSize = true;
-            this.FindLabel.Location = new System.Drawing.Point(55, 96);
-            this.FindLabel.Name = "FindLabel";
-            this.FindLabel.Size = new System.Drawing.Size(33, 13);
-            this.FindLabel.TabIndex = 25;
-            this.FindLabel.Text = "Find:";
-            // 
-            // ReplaceLabel
-            // 
-            this.ReplaceLabel.AutoSize = true;
-            this.ReplaceLabel.Location = new System.Drawing.Point(55, 124);
-            this.ReplaceLabel.Name = "ReplaceLabel";
-            this.ReplaceLabel.Size = new System.Drawing.Size(50, 13);
-            this.ReplaceLabel.TabIndex = 16;
-            this.ReplaceLabel.Text = "Replace:";
-            // 
-            // ReplaceTextTextBox
-            // 
-            this.ReplaceTextTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ReplaceTextTextBox.Location = new System.Drawing.Point(111, 121);
-            this.ReplaceTextTextBox.Name = "ReplaceTextTextBox";
-            this.ReplaceTextTextBox.Size = new System.Drawing.Size(348, 22);
-            this.ReplaceTextTextBox.TabIndex = 17;
-            // 
-            // ReplaceOccurrencesTextBox
-            // 
-            this.ReplaceOccurrencesTextBox.AutoSize = true;
-            this.ReplaceOccurrencesTextBox.Location = new System.Drawing.Point(61, 163);
-            this.ReplaceOccurrencesTextBox.Name = "ReplaceOccurrencesTextBox";
-            this.ReplaceOccurrencesTextBox.Size = new System.Drawing.Size(73, 13);
-            this.ReplaceOccurrencesTextBox.TabIndex = 18;
-            this.ReplaceOccurrencesTextBox.Text = "Occurrences:";
-            // 
-            // ReplaceFirstOccurrenceRadioButton
-            // 
-            this.ReplaceFirstOccurrenceRadioButton.AutoSize = true;
-            this.ReplaceFirstOccurrenceRadioButton.Location = new System.Drawing.Point(64, 208);
-            this.ReplaceFirstOccurrenceRadioButton.Name = "ReplaceFirstOccurrenceRadioButton";
-            this.ReplaceFirstOccurrenceRadioButton.Size = new System.Drawing.Size(47, 17);
-            this.ReplaceFirstOccurrenceRadioButton.TabIndex = 19;
-            this.ReplaceFirstOccurrenceRadioButton.Text = "First";
-            this.ReplaceFirstOccurrenceRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // ReplaceLastOccurrenceRadioButton
-            // 
-            this.ReplaceLastOccurrenceRadioButton.AutoSize = true;
-            this.ReplaceLastOccurrenceRadioButton.Location = new System.Drawing.Point(64, 231);
-            this.ReplaceLastOccurrenceRadioButton.Name = "ReplaceLastOccurrenceRadioButton";
-            this.ReplaceLastOccurrenceRadioButton.Size = new System.Drawing.Size(45, 17);
-            this.ReplaceLastOccurrenceRadioButton.TabIndex = 20;
-            this.ReplaceLastOccurrenceRadioButton.Text = "Last";
-            this.ReplaceLastOccurrenceRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // ReplaceAllOccurrencesRadioButton
-            // 
-            this.ReplaceAllOccurrencesRadioButton.AutoSize = true;
-            this.ReplaceAllOccurrencesRadioButton.Checked = true;
-            this.ReplaceAllOccurrencesRadioButton.Location = new System.Drawing.Point(64, 185);
-            this.ReplaceAllOccurrencesRadioButton.Name = "ReplaceAllOccurrencesRadioButton";
-            this.ReplaceAllOccurrencesRadioButton.Size = new System.Drawing.Size(38, 17);
-            this.ReplaceAllOccurrencesRadioButton.TabIndex = 21;
-            this.ReplaceAllOccurrencesRadioButton.TabStop = true;
-            this.ReplaceAllOccurrencesRadioButton.Text = "All";
-            this.ReplaceAllOccurrencesRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // ReplaceCaseSensitiveCheckBox
-            // 
-            this.ReplaceCaseSensitiveCheckBox.AutoSize = true;
-            this.ReplaceCaseSensitiveCheckBox.Location = new System.Drawing.Point(230, 185);
-            this.ReplaceCaseSensitiveCheckBox.Name = "ReplaceCaseSensitiveCheckBox";
-            this.ReplaceCaseSensitiveCheckBox.Size = new System.Drawing.Size(97, 17);
-            this.ReplaceCaseSensitiveCheckBox.TabIndex = 22;
-            this.ReplaceCaseSensitiveCheckBox.Text = "Case sensitive";
-            this.ReplaceCaseSensitiveCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ReplaceIgnoreExtensionCheckBox
-            // 
-            this.ReplaceIgnoreExtensionCheckBox.AutoSize = true;
-            this.ReplaceIgnoreExtensionCheckBox.Checked = true;
-            this.ReplaceIgnoreExtensionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ReplaceIgnoreExtensionCheckBox.Location = new System.Drawing.Point(230, 208);
-            this.ReplaceIgnoreExtensionCheckBox.Name = "ReplaceIgnoreExtensionCheckBox";
-            this.ReplaceIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
-            this.ReplaceIgnoreExtensionCheckBox.TabIndex = 23;
-            this.ReplaceIgnoreExtensionCheckBox.Text = "Ignore extension";
-            this.ReplaceIgnoreExtensionCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ReplaceInterpretWildcardsCheckBox
-            // 
-            this.ReplaceInterpretWildcardsCheckBox.AutoSize = true;
-            this.ReplaceInterpretWildcardsCheckBox.Location = new System.Drawing.Point(230, 231);
-            this.ReplaceInterpretWildcardsCheckBox.Name = "ReplaceInterpretWildcardsCheckBox";
-            this.ReplaceInterpretWildcardsCheckBox.Size = new System.Drawing.Size(152, 17);
-            this.ReplaceInterpretWildcardsCheckBox.TabIndex = 24;
-            this.ReplaceInterpretWildcardsCheckBox.Text = "Interpret [ * ] as wildcard";
-            this.ReplaceInterpretWildcardsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // CleanLatinAlphabetCheckBox
-            // 
-            this.CleanLatinAlphabetCheckBox.AutoSize = true;
-            this.CleanLatinAlphabetCheckBox.Location = new System.Drawing.Point(92, 73);
-            this.CleanLatinAlphabetCheckBox.Name = "CleanLatinAlphabetCheckBox";
-            this.CleanLatinAlphabetCheckBox.Size = new System.Drawing.Size(103, 17);
-            this.CleanLatinAlphabetCheckBox.TabIndex = 3;
-            this.CleanLatinAlphabetCheckBox.Text = "Latin alphabet:";
-            this.CleanLatinAlphabetCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // CleanLatinAlphabetTextBox
-            // 
-            this.CleanLatinAlphabetTextBox.Location = new System.Drawing.Point(201, 71);
-            this.CleanLatinAlphabetTextBox.Name = "CleanLatinAlphabetTextBox";
-            this.CleanLatinAlphabetTextBox.ReadOnly = true;
-            this.CleanLatinAlphabetTextBox.Size = new System.Drawing.Size(222, 22);
-            this.CleanLatinAlphabetTextBox.TabIndex = 4;
-            this.CleanLatinAlphabetTextBox.Text = "abcdefghijklmnopqrstuvwxyz";
-            // 
-            // CleanDigitsTextBox
-            // 
-            this.CleanDigitsTextBox.Location = new System.Drawing.Point(201, 99);
-            this.CleanDigitsTextBox.Name = "CleanDigitsTextBox";
-            this.CleanDigitsTextBox.ReadOnly = true;
-            this.CleanDigitsTextBox.Size = new System.Drawing.Size(222, 22);
-            this.CleanDigitsTextBox.TabIndex = 6;
-            this.CleanDigitsTextBox.Text = "1234567890";
-            // 
-            // CleanDigitsCheckBox
-            // 
-            this.CleanDigitsCheckBox.AutoSize = true;
-            this.CleanDigitsCheckBox.Location = new System.Drawing.Point(92, 101);
-            this.CleanDigitsCheckBox.Name = "CleanDigitsCheckBox";
-            this.CleanDigitsCheckBox.Size = new System.Drawing.Size(59, 17);
-            this.CleanDigitsCheckBox.TabIndex = 5;
-            this.CleanDigitsCheckBox.Text = "Digits:";
-            this.CleanDigitsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // CleanBracketsTextBox
-            // 
-            this.CleanBracketsTextBox.Location = new System.Drawing.Point(201, 127);
-            this.CleanBracketsTextBox.Name = "CleanBracketsTextBox";
-            this.CleanBracketsTextBox.ReadOnly = true;
-            this.CleanBracketsTextBox.Size = new System.Drawing.Size(222, 22);
-            this.CleanBracketsTextBox.TabIndex = 8;
-            this.CleanBracketsTextBox.Text = "()[]{}";
-            // 
-            // CleanBracketsCheckBox
-            // 
-            this.CleanBracketsCheckBox.AutoSize = true;
-            this.CleanBracketsCheckBox.Location = new System.Drawing.Point(92, 129);
-            this.CleanBracketsCheckBox.Name = "CleanBracketsCheckBox";
-            this.CleanBracketsCheckBox.Size = new System.Drawing.Size(71, 17);
-            this.CleanBracketsCheckBox.TabIndex = 7;
-            this.CleanBracketsCheckBox.Text = "Brackets:";
-            this.CleanBracketsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // CleanSymbolsTextBox
-            // 
-            this.CleanSymbolsTextBox.Location = new System.Drawing.Point(201, 155);
-            this.CleanSymbolsTextBox.Name = "CleanSymbolsTextBox";
-            this.CleanSymbolsTextBox.ReadOnly = true;
-            this.CleanSymbolsTextBox.Size = new System.Drawing.Size(222, 22);
-            this.CleanSymbolsTextBox.TabIndex = 10;
-            this.CleanSymbolsTextBox.Text = "!?@#$%^&*_+-=.,";
-            // 
-            // CleanSymbolsCheckBox
-            // 
-            this.CleanSymbolsCheckBox.AutoSize = true;
-            this.CleanSymbolsCheckBox.Location = new System.Drawing.Point(92, 157);
-            this.CleanSymbolsCheckBox.Name = "CleanSymbolsCheckBox";
-            this.CleanSymbolsCheckBox.Size = new System.Drawing.Size(71, 17);
-            this.CleanSymbolsCheckBox.TabIndex = 9;
-            this.CleanSymbolsCheckBox.Text = "Symbols:";
-            this.CleanSymbolsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // CleanUserDefinedTextBox
-            // 
-            this.CleanUserDefinedTextBox.Location = new System.Drawing.Point(201, 183);
-            this.CleanUserDefinedTextBox.Name = "CleanUserDefinedTextBox";
-            this.CleanUserDefinedTextBox.Size = new System.Drawing.Size(222, 22);
-            this.CleanUserDefinedTextBox.TabIndex = 12;
-            // 
-            // CleanUserDefinedCheckBox
-            // 
-            this.CleanUserDefinedCheckBox.AutoSize = true;
-            this.CleanUserDefinedCheckBox.Location = new System.Drawing.Point(92, 185);
-            this.CleanUserDefinedCheckBox.Name = "CleanUserDefinedCheckBox";
-            this.CleanUserDefinedCheckBox.Size = new System.Drawing.Size(95, 17);
-            this.CleanUserDefinedCheckBox.TabIndex = 11;
-            this.CleanUserDefinedCheckBox.Text = "User defined:";
-            this.CleanUserDefinedCheckBox.UseVisualStyleBackColor = true;
-            this.CleanUserDefinedCheckBox.CheckedChanged += new System.EventHandler(this.CleanUserDefinedCheckBox_CheckedChanged);
-            // 
-            // CleanIgnoreExtensionCheckBox
-            // 
-            this.CleanIgnoreExtensionCheckBox.AutoSize = true;
-            this.CleanIgnoreExtensionCheckBox.Checked = true;
-            this.CleanIgnoreExtensionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CleanIgnoreExtensionCheckBox.Location = new System.Drawing.Point(92, 252);
-            this.CleanIgnoreExtensionCheckBox.Name = "CleanIgnoreExtensionCheckBox";
-            this.CleanIgnoreExtensionCheckBox.Size = new System.Drawing.Size(113, 17);
-            this.CleanIgnoreExtensionCheckBox.TabIndex = 25;
-            this.CleanIgnoreExtensionCheckBox.Text = "Ignore extension";
-            this.CleanIgnoreExtensionCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // CleanCaseSensitiveCheckBox
-            // 
-            this.CleanCaseSensitiveCheckBox.AutoSize = true;
-            this.CleanCaseSensitiveCheckBox.Location = new System.Drawing.Point(92, 229);
-            this.CleanCaseSensitiveCheckBox.Name = "CleanCaseSensitiveCheckBox";
-            this.CleanCaseSensitiveCheckBox.Size = new System.Drawing.Size(97, 17);
-            this.CleanCaseSensitiveCheckBox.TabIndex = 24;
-            this.CleanCaseSensitiveCheckBox.Text = "Case sensitive";
-            this.CleanCaseSensitiveCheckBox.UseVisualStyleBackColor = true;
             // 
             // RulesForm
             // 

@@ -112,6 +112,12 @@ namespace transmission_renamer.Forms
                 case 2:
                     RemoveTextTextBox.Focus();
                     break;
+                case 3:
+                    ReplaceFindTextBox.Focus();
+                    break;
+                case 4:
+                    CleanUserDefinedTextBox.Focus();
+                    break;
                 default:
                     break;
             }
