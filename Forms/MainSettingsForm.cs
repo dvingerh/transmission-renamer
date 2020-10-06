@@ -130,6 +130,8 @@ namespace transmission_renamer
                 TorrentFileListTreeView.TotalFiles = 0;
                 SelectedTorrentLabel.Text = "Selected torrent: None selected";
                 SelectedFileCountLabel.Text = "Selected files: 0 (total file count not yet known)";
+                TorrentTabPage.Text = "Torrents";
+                FilesTabPage.Text = "Files";
                 TorrentFileListTreeView.Nodes.Clear();
                 TorrentsListView.Items.Clear();
                 FileNamesOldNewListView.Items.Clear();
@@ -623,7 +625,6 @@ namespace transmission_renamer
         private void RenameButtonClick(object sender, EventArgs e)
         {
 
-            Hide();
             bool doInformOfRenameCount = false;
             List<ListViewItem> items = new List<ListViewItem>();
             foreach (ListViewItem item in FileNamesOldNewListView.Items)
@@ -634,7 +635,8 @@ namespace transmission_renamer
                     doInformOfRenameCount = true;
             }
             if (doInformOfRenameCount)
-                MessageBox.Show($"Only {items.Count} of {FileNamesOldNewListView.Items.Count} files will be renamed. The specified rules do not affect all selected files.", "Information", MessageBoxButtons.OK);
+                MessageBox.Show($"Only {items.Count} of {FileNamesOldNewListView.Items.Count} files will be renamed. The specified rules do not affect all selected files.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Hide();
             RenamerForm renamerForm = new RenamerForm(items);
             renamerForm.ShowDialog();
             Show();

@@ -15,7 +15,7 @@ namespace transmission_renamer.Forms
     public partial class RenamerForm : Form
     {
         private readonly List<ListViewItem> torrentRenameItems = new List<ListViewItem>();
-        private bool isAborted = false;
+        private bool isAbortedOrFinished = false;
 
         public RenamerForm(List<ListViewItem> items)
         {
@@ -42,7 +42,7 @@ namespace transmission_renamer.Forms
         {
             FileNamesOldNewListView.Items.AddRange(torrentRenameItems.ToArray());
             await Task.Run(async () => { await RenameTorrentFiles(); });
-
+            isAbortedOrFinished = true;
             CurrentFileRenameLabel.Text = "Renaming finished.";
             Abortutton.Enabled = false;
             DoneButton.Enabled = true;
@@ -58,7 +58,7 @@ namespace transmission_renamer.Forms
             });
             for (int i = 0; i < FileNamesOldNewListView.Items.Count; i++)
             {
-                if (!isAborted)
+                if (!isAbortedOrFinished)
                 {
                     string curFilePath = null, newFileName = null;
                     TorrentInfo torrent = null;
@@ -120,7 +120,7 @@ namespace transmission_renamer.Forms
                                 }); break;
                             default:
                                 MessageBox.Show("An unknown error has occurred. The renaming process will be cancelled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                isAborted = true;
+                                isAbortedOrFinished = true;
                                 break;
                         }
                     }
@@ -147,18 +147,18 @@ namespace transmission_renamer.Forms
 
         private void AbortButtonClick(object sender, EventArgs e)
         {
-            isAborted = true;
+            isAbortedOrFinished = true;
         }
 
         private void CloseFormCancel(object sender, FormClosingEventArgs e)
         {
-            if (!isAborted)
+            if (!isAbortedOrFinished)
             {
-                DialogResult cancelResult = MessageBox.Show("The renaming process will be aborted.\n\nDo you want to continue?", "Information", MessageBoxButtons.YesNo);
+                DialogResult cancelResult = MessageBox.Show("The renaming process will be aborted.\n\nDo you want to continue?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (cancelResult == DialogResult.Yes)
-                    isAborted = true;
-                else
-                    e.Cancel = true;
+                    isAbortedOrFinished = true;
+
+                e.Cancel = true;
             }
         }
     }
