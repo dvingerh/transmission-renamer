@@ -108,7 +108,7 @@ namespace transmission_renamer.Classes.Rules
 
                 string oldNameStr = newNameSb.ToString();
 
-                string insertNumber = (itemIndex + NumberSequenceStart).ToString($"D{NumberSequenceLeadingZeroes}");
+                string insertNumber = (itemIndex + NumberSequenceStart).ToString($"D{NumberSequenceLeadingZeroes + 1}");
 
                 if (Prefix)
                 {
