@@ -520,6 +520,7 @@ namespace transmission_renamer
             ResetOldNewFileNameValues();
             if (Globals.RenameRules.Count > 0)
             {
+                ToggleLoadingPanels(true);
                 FileNamesOldNewListView.BeginUpdate();
                 foreach (IRenameRule renameRule in Globals.RenameRules)
                 {
@@ -532,6 +533,8 @@ namespace transmission_renamer
                     }
                 }
                 FileNamesOldNewListView.EndUpdate();
+                ToggleLoadingPanels(false);
+
             }
         }
 
