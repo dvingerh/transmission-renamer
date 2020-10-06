@@ -5,7 +5,7 @@ Currently this project is **usable** but still **unfinished**, the core function
 An overview of implemented and planned functionality can be found on the [Projects](https://github.com/dvingerh/transmission-renamer/projects) page, as well as some screenshots showcasing the user interface further down this README file.
 
 #### Warning
-Because of this project's unfinished state it is recommended to make a backup copy of any torrent files you wish to rename before renaming any files. By using this project you agree you are responsible for any changes made to the torrent filenames.
+Because of this project's unfinished state it is recommended to make a backup copy of any torrent files you wish to rename before renaming them. By using this project you agree you are responsible for any changes made to the torrent filenames.
 
 ![](/Screenshots/spacer.png?raw=true)
 
