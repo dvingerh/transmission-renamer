@@ -311,6 +311,17 @@ class BufferedTreeView : TreeView
 	{
 		base.OnNodeMouseClick(e);
 
+		if (e.Button == MouseButtons.Right)
+		{
+			System.Windows.Forms.TreeViewHitTestInfo info = HitTest(e.X, e.Y);
+			if (info.Location == TreeViewHitTestLocations.Label || info.Location == TreeViewHitTestLocations.RightOfLabel)
+            {
+				this.SelectedNode = e.Node;
+				return;
+            }
+
+		}
+
 		// toggle the node's checked status.  This will then fire OnAfterCheck
 		System.Windows.Forms.TreeNode tn = e.Node;
 		if (tn.Tag.ToString() != "Folder")

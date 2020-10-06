@@ -184,6 +184,7 @@ namespace transmission_renamer
                 allItems.AddRange(TorrentsListView.Items.Cast<ListViewItem>());
                 ToggleLoadingPanels(false);
                 RefreshTorrentListButton.Text = "Refresh Torrent List";
+                TorrentTabPage.Text = $"Torrents ({Globals.TorrentsInfo.Count})";
                 RefreshTorrentListButton.Enabled = true;
                 SearchTorrentListTextBox.Focus();
             }
@@ -349,6 +350,7 @@ namespace transmission_renamer
         {
             RenameButton.Enabled = TorrentFileListTreeView.TotalFilesSelected > 0;
             SelectedFileCountLabel.Text = $"Selected files: {TorrentFileListTreeView.TotalFilesSelected} of {TorrentFileListTreeView.TotalFiles} files currently selected";
+            FilesTabPage.Text = $"Files ({TorrentFileListTreeView.TotalFilesSelected})";
 
             // one liner with conditional determination if the buttons should be enabled or not.
             FilesTabPage.Controls.OfType<Button>().ToList().ForEach(x => x.Enabled = (TorrentFileListTreeView.TotalFiles > 1));
@@ -622,11 +624,17 @@ namespace transmission_renamer
         {
 
             Hide();
+            bool doInformOfRenameCount = false;
             List<ListViewItem> items = new List<ListViewItem>();
             foreach (ListViewItem item in FileNamesOldNewListView.Items)
             {
-                items.Add((ListViewItem)item.Clone());
+                if (item.Text != item.SubItems[1].Text)
+                    items.Add((ListViewItem)item.Clone());
+                else
+                    doInformOfRenameCount = true;
             }
+            if (doInformOfRenameCount)
+                MessageBox.Show($"Only {items.Count} of {FileNamesOldNewListView.Items.Count} files will be renamed. The specified rules do not affect all selected files.", "Information", MessageBoxButtons.OK);
             RenamerForm renamerForm = new RenamerForm(items);
             renamerForm.ShowDialog();
             Show();
@@ -657,6 +665,23 @@ namespace transmission_renamer
             }
             var list = allItems.Cast<ListViewItem>().Where(x => x.SubItems[1].Text.ToLower().Contains(query)).ToArray();
             TorrentsListView.Items.AddRange(list);
+        }
+
+        private void CopyOldFileNameClick(object sender, EventArgs e)
+        {
+            if (FileNamesOldNewListView.SelectedItems.Count == 1)
+                Clipboard.SetText(FileNamesOldNewListView.SelectedItems[0].Text);
+        }
+
+        private void CopyNewFileNameClick(object sender, EventArgs e)
+        {
+            if (FileNamesOldNewListView.SelectedItems.Count == 1)
+                Clipboard.SetText(FileNamesOldNewListView.SelectedItems[0].SubItems[1].Text);
+        }
+
+        private void CopyFileNameClick(object sender, EventArgs e)
+        {
+            Clipboard.SetText(TorrentFileListTreeView.SelectedNode.Text);
         }
     }
 }

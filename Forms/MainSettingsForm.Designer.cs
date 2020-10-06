@@ -60,6 +60,9 @@
             this.FileNamesOldNewListView = new BufferedListView();
             this.CFOldName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.CFNewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CopyOldNewFileNameContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyOldFilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyNewFilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteRuleButton = new System.Windows.Forms.Button();
             this.MoveRuleDownButton = new System.Windows.Forms.Button();
             this.MoveRuleUpButton = new System.Windows.Forms.Button();
@@ -76,6 +79,8 @@
             this.RenameButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
             this.TimeOutTimer = new System.Windows.Forms.Timer(this.components);
+            this.CopyFileNameContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyFilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PagesTabControl.SuspendLayout();
             this.TorrentTabPage.SuspendLayout();
             this.RetrievingInformationLoadingPanel.SuspendLayout();
@@ -86,6 +91,8 @@
             this.RulesTabPage.SuspendLayout();
             this.ProcessingRulesFilesLoadingPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProcessingRulesFilesSpinnerLoadingPictureBox)).BeginInit();
+            this.CopyOldNewFileNameContextMenu.SuspendLayout();
+            this.CopyFileNameContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // PagesTabControl
@@ -318,6 +325,8 @@
             // TorrentFileListTreeView
             // 
             this.TorrentFileListTreeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TorrentFileListTreeView.ContextMenuStrip = this.CopyFileNameContextMenu;
+            this.TorrentFileListTreeView.FullRowSelect = true;
             this.TorrentFileListTreeView.Location = new System.Drawing.Point(3, 35);
             this.TorrentFileListTreeView.Name = "TorrentFileListTreeView";
             this.TorrentFileListTreeView.PathSeparator = "/";
@@ -381,13 +390,14 @@
             this.FileNamesOldNewListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.CFOldName,
             this.CFNewName});
+            this.FileNamesOldNewListView.ContextMenuStrip = this.CopyOldNewFileNameContextMenu;
             this.FileNamesOldNewListView.FullRowSelect = true;
             this.FileNamesOldNewListView.HideSelection = false;
             this.FileNamesOldNewListView.Location = new System.Drawing.Point(3, 241);
             this.FileNamesOldNewListView.MultiSelect = false;
             this.FileNamesOldNewListView.Name = "FileNamesOldNewListView";
             this.FileNamesOldNewListView.ShowItemToolTips = true;
-            this.FileNamesOldNewListView.Size = new System.Drawing.Size(850, 351);
+            this.FileNamesOldNewListView.Size = new System.Drawing.Size(850, 350);
             this.FileNamesOldNewListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.FileNamesOldNewListView.TabIndex = 11;
             this.FileNamesOldNewListView.UseCompatibleStateImageBehavior = false;
@@ -402,6 +412,29 @@
             // 
             this.CFNewName.Text = "New name";
             this.CFNewName.Width = 415;
+            // 
+            // CopyOldNewFileNameContextMenu
+            // 
+            this.CopyOldNewFileNameContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyOldFilenameToolStripMenuItem,
+            this.copyNewFilenameToolStripMenuItem});
+            this.CopyOldNewFileNameContextMenu.Name = "CopyOldNewFileNameContextMenu";
+            this.CopyOldNewFileNameContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.CopyOldNewFileNameContextMenu.Size = new System.Drawing.Size(177, 48);
+            // 
+            // copyOldFilenameToolStripMenuItem
+            // 
+            this.copyOldFilenameToolStripMenuItem.Name = "copyOldFilenameToolStripMenuItem";
+            this.copyOldFilenameToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.copyOldFilenameToolStripMenuItem.Text = "Copy old filename";
+            this.copyOldFilenameToolStripMenuItem.Click += new System.EventHandler(this.CopyOldFileNameClick);
+            // 
+            // copyNewFilenameToolStripMenuItem
+            // 
+            this.copyNewFilenameToolStripMenuItem.Name = "copyNewFilenameToolStripMenuItem";
+            this.copyNewFilenameToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.copyNewFilenameToolStripMenuItem.Text = "Copy new filename";
+            this.copyNewFilenameToolStripMenuItem.Click += new System.EventHandler(this.CopyNewFileNameClick);
             // 
             // DeleteRuleButton
             // 
@@ -555,6 +588,21 @@
             this.TimeOutTimer.Tag = "10";
             this.TimeOutTimer.Tick += new System.EventHandler(this.TimeOutTimerTick);
             // 
+            // CopyFileNameContextMenu
+            // 
+            this.CopyFileNameContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyFilenameToolStripMenuItem});
+            this.CopyFileNameContextMenu.Name = "contextMenuStrip1";
+            this.CopyFileNameContextMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.CopyFileNameContextMenu.Size = new System.Drawing.Size(181, 48);
+            // 
+            // copyFilenameToolStripMenuItem
+            // 
+            this.copyFilenameToolStripMenuItem.Name = "copyFilenameToolStripMenuItem";
+            this.copyFilenameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyFilenameToolStripMenuItem.Text = "Copy filename";
+            this.copyFilenameToolStripMenuItem.Click += new System.EventHandler(this.CopyFileNameClick);
+            // 
             // SelectTorrentFilesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -593,6 +641,8 @@
             this.ProcessingRulesFilesLoadingPanel.ResumeLayout(false);
             this.ProcessingRulesFilesLoadingPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ProcessingRulesFilesSpinnerLoadingPictureBox)).EndInit();
+            this.CopyOldNewFileNameContextMenu.ResumeLayout(false);
+            this.CopyFileNameContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -646,5 +696,10 @@
         private System.Windows.Forms.Label ProcessingRulesFilesLoadingLabel;
         private System.Windows.Forms.PictureBox ProcessingRulesFilesSpinnerLoadingPictureBox;
         private System.Windows.Forms.ColumnHeader CFNewName;
+        private System.Windows.Forms.ContextMenuStrip CopyOldNewFileNameContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem copyOldFilenameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyNewFilenameToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip CopyFileNameContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem copyFilenameToolStripMenuItem;
     }
 }
