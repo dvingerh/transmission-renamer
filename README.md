@@ -1,8 +1,11 @@
 # 🧲 Transmission Renamer
 Bulk torrent file renamer using Transmission's RPC protocol. Upon completion of this project its aim is to make renaming large amounts of torrent files faster and easier, using a variety of custom rules which are applied to the selected torrent files.
 
-Currently this project is **unfinished**, not all core functionality has been implemented and there are still a large amount of bugs to fix.
+Currently this project is **usable** but still **unfinished**, the core functionality has been implemented but there are still a handful bugs to fix.
 An overview of implemented and planned functionality can be found on the [Projects](https://github.com/dvingerh/transmission-renamer/projects) page, as well as some screenshots showcasing the user interface further down this README file.
+
+#### Warning
+Because of this project's unfinished state it is recommended to make a backup copy of any torrent files you wish to rename before testing this tool. By using this project you are you are responsible for any changes made to the torrent filenames.
 
 ![](/Screenshots/spacer.png?raw=true)
 
