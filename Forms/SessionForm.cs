@@ -14,8 +14,12 @@ namespace transmission_renamer
         public SessionForm()
         {
             InitializeComponent();
-            if (debug && File.Exists("Settings.xml"))
+            if (debug)
             {
+
+                if (!File.Exists("Settings.xml"))
+                    CreateConfig();
+
                 try
                 {
                     XmlDocument debugXmlDoc = new XmlDocument();
@@ -32,8 +36,31 @@ namespace transmission_renamer
                 {
                     MessageBox.Show("Settings.xml file was found but does not contain a valid configuration.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                }
+            }
+        }
 
+        private void CreateConfig()
+        {
+            StreamWriter sw = File.CreateText(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            sw.Write(Constants.CONFIG);
+            sw.Flush();
+            sw.Close();
+        }
+
+        private void SaveConfig()
+        {
+            XmlDocument debugXmlDoc = new XmlDocument();
+            debugXmlDoc.Load("Settings.xml");
+            XmlNode loginNodes = debugXmlDoc.SelectSingleNode("/Login");
+
+            loginNodes["Host"].InnerText = HostTextBox.Text;
+            loginNodes["Port"].InnerText = PortUpDown.Value.ToString();
+            loginNodes["Username"].InnerText = UsernameTextBox.Text;
+            loginNodes["Password"].InnerText = PasswordTextBox.Text;
+            loginNodes["RPCPath"].InnerText = RPCPathTextBox.Text;
+            loginNodes["Authentication"].InnerText = AuthenticationRequiredCheckBox.Checked.ToString().ToLower();
+
+            debugXmlDoc.Save("Settings.xml");
         }
 
         private void CloseCancelButtonPressed(object sender, EventArgs e)
@@ -87,6 +114,7 @@ namespace transmission_renamer
                 switch (connectionResult)
                 {
                     case Globals.RequestResult.Success:
+                        SaveConfig();
                         Hide();
                         SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm
                         {
