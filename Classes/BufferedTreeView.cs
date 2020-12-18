@@ -16,8 +16,7 @@ class BufferedTreeView : TreeView
 	}
 	// Pinvoke:
 	private const int TVM_SETEXTENDEDSTYLE = 0x1100 + 44;
-	private const int TVM_GETEXTENDEDSTYLE = 0x1100 + 45;
-	private const int TVS_EX_DOUBLEBUFFER = 0x0004;
+    private const int TVS_EX_DOUBLEBUFFER = 0x0004;
 	[DllImport("user32.dll")]
 	private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
@@ -158,18 +157,18 @@ class BufferedTreeView : TreeView
 		TotalFilesSelected = 0;
 		foreach (var node in GetAllNodes(Nodes))
 		{
-			if (node.Tag is FriendlyTorrentFileInfo)
+			if (node.Tag is FriendlyTorrentFileInfo info)
 			{
 				TotalFiles++;
 				if (node.Checked)
 				{
 					TotalFilesSelected++;
-					Globals.SelectedTorrentFiles.Add((FriendlyTorrentFileInfo)node.Tag);
+					Globals.SelectedTorrentFiles.Add(info);
 				}
 			}
 		}
 
-        SelectTorrentFilesForm parent = (SelectTorrentFilesForm)FindForm();
+        SettingsForm parent = (SettingsForm)FindForm();
         await parent.UpdateCheckedFileCountStatus();
     }
 

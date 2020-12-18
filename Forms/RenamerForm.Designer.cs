@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RenamerForm));
             this.StatisticsGroupBox = new System.Windows.Forms.GroupBox();
             this.TimedOutFilesLabel = new System.Windows.Forms.Label();
-            this.FailedFilesLabel = new System.Windows.Forms.Label();
+            this.ErrorFilesLabel = new System.Windows.Forms.Label();
             this.SuccessFilesLabel = new System.Windows.Forms.Label();
             this.TotalFilesLabel = new System.Windows.Forms.Label();
             this.DoneButton = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@
             // StatisticsGroupBox
             // 
             this.StatisticsGroupBox.Controls.Add(this.TimedOutFilesLabel);
-            this.StatisticsGroupBox.Controls.Add(this.FailedFilesLabel);
+            this.StatisticsGroupBox.Controls.Add(this.ErrorFilesLabel);
             this.StatisticsGroupBox.Controls.Add(this.SuccessFilesLabel);
             this.StatisticsGroupBox.Controls.Add(this.TotalFilesLabel);
             this.StatisticsGroupBox.Location = new System.Drawing.Point(17, 521);
@@ -59,33 +59,37 @@
             // 
             // TimedOutFilesLabel
             // 
+            this.TimedOutFilesLabel.AutoSize = true;
             this.TimedOutFilesLabel.Location = new System.Drawing.Point(125, 47);
             this.TimedOutFilesLabel.Name = "TimedOutFilesLabel";
-            this.TimedOutFilesLabel.Size = new System.Drawing.Size(93, 13);
+            this.TimedOutFilesLabel.Size = new System.Drawing.Size(71, 13);
             this.TimedOutFilesLabel.TabIndex = 3;
             this.TimedOutFilesLabel.Text = "Timed out: 0";
             // 
-            // FailedFilesLabel
+            // ErrorFilesLabel
             // 
-            this.FailedFilesLabel.Location = new System.Drawing.Point(146, 24);
-            this.FailedFilesLabel.Name = "FailedFilesLabel";
-            this.FailedFilesLabel.Size = new System.Drawing.Size(72, 13);
-            this.FailedFilesLabel.TabIndex = 2;
-            this.FailedFilesLabel.Text = "Failed: 0";
+            this.ErrorFilesLabel.AutoSize = true;
+            this.ErrorFilesLabel.Location = new System.Drawing.Point(125, 24);
+            this.ErrorFilesLabel.Name = "ErrorFilesLabel";
+            this.ErrorFilesLabel.Size = new System.Drawing.Size(44, 13);
+            this.ErrorFilesLabel.TabIndex = 2;
+            this.ErrorFilesLabel.Text = "Error: 0";
             // 
             // SuccessFilesLabel
             // 
-            this.SuccessFilesLabel.Location = new System.Drawing.Point(19, 47);
+            this.SuccessFilesLabel.AutoSize = true;
+            this.SuccessFilesLabel.Location = new System.Drawing.Point(9, 47);
             this.SuccessFilesLabel.Name = "SuccessFilesLabel";
-            this.SuccessFilesLabel.Size = new System.Drawing.Size(80, 13);
+            this.SuccessFilesLabel.Size = new System.Drawing.Size(58, 13);
             this.SuccessFilesLabel.TabIndex = 1;
             this.SuccessFilesLabel.Text = "Success: 0";
             // 
             // TotalFilesLabel
             // 
+            this.TotalFilesLabel.AutoSize = true;
             this.TotalFilesLabel.Location = new System.Drawing.Point(9, 24);
             this.TotalFilesLabel.Name = "TotalFilesLabel";
-            this.TotalFilesLabel.Size = new System.Drawing.Size(90, 13);
+            this.TotalFilesLabel.Size = new System.Drawing.Size(68, 13);
             this.TotalFilesLabel.TabIndex = 0;
             this.TotalFilesLabel.Text = "Total files: 0";
             // 
@@ -157,8 +161,8 @@
             // 
             // RenamerForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(884, 611);
             this.Controls.Add(this.Abortutton);
             this.Controls.Add(this.CurrentFileRenameLabel);
@@ -177,6 +181,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CloseFormCancel);
             this.Load += new System.EventHandler(this.OnFormLoad);
             this.StatisticsGroupBox.ResumeLayout(false);
+            this.StatisticsGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,7 +196,7 @@
         private System.Windows.Forms.Button DoneButton;
         private System.Windows.Forms.ProgressBar RenamingProgressBar;
         private System.Windows.Forms.Label TimedOutFilesLabel;
-        private System.Windows.Forms.Label FailedFilesLabel;
+        private System.Windows.Forms.Label ErrorFilesLabel;
         private System.Windows.Forms.Label SuccessFilesLabel;
         private System.Windows.Forms.Label TotalFilesLabel;
         private System.Windows.Forms.Label CurrentFileRenameLabel;

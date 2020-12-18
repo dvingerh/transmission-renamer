@@ -11,9 +11,10 @@ namespace transmission_renamer
         [STAThread]
         static void Main()
         {
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SessionForm());
+            Application.Run(new ConnectForm());
         }
     }
 }

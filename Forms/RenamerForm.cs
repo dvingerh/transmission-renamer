@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Transmission.API.RPC.Entity;
@@ -19,6 +15,7 @@ namespace transmission_renamer.Forms
 
         public RenamerForm(List<ListViewItem> items)
         {
+            Font = new Font("Segoe UI", 6.75f);
             torrentRenameItems = items;
             foreach(ListViewItem torrentItem in torrentRenameItems)
                 torrentItem.ImageIndex = 2;
@@ -106,12 +103,12 @@ namespace transmission_renamer.Forms
                                     FileNamesOldNewListView.Items[i].ImageIndex = 4;
                                     TimedOutFilesLabel.Text = $"Timed out: {timeout}";
                                 }); break;
-                            case Globals.RequestResult.Failed:
+                            case Globals.RequestResult.Error:
                                 failed++;
                                 Invoke((MethodInvoker)delegate
                                 {
                                     FileNamesOldNewListView.Items[i].ImageIndex = 5;
-                                    FailedFilesLabel.Text = $"Failed: {failed}";
+                                    ErrorFilesLabel.Text = $"Error: {failed}";
                                 }); break;
                             case Globals.RequestResult.Unknown:
                                 Invoke((MethodInvoker)delegate

@@ -43,7 +43,7 @@ namespace transmission_renamer
 
                 RequestResult connectionResult;
                 Task<SessionInfo> sessionInfoTask = client.GetSessionInformationAsync();
-                Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
+                Task delayTask = Task.Delay(TimeSpan.FromSeconds(Properties.Settings.Default.MaxRequestDuration));
 
                 await Task.Run(async () => await Task.WhenAny(sessionInfoTask, delayTask));
 
@@ -69,7 +69,7 @@ namespace transmission_renamer
                 if (httpWebResponse.StatusCode == HttpStatusCode.Unauthorized)
                     return RequestResult.Unauthorized;
                 else
-                    return RequestResult.Failed;
+                    return RequestResult.Error;
             }
         }
 
@@ -78,7 +78,7 @@ namespace transmission_renamer
             try
             {
                 Task<TransmissionTorrents> getTorrentsTask = client.TorrentGetAsync(TorrentFields.ALL_FIELDS);
-                Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
+                Task delayTask = Task.Delay(TimeSpan.FromSeconds(Properties.Settings.Default.MaxRequestDuration));
                 await Task.WhenAny(getTorrentsTask, delayTask);
                 if (!requestCancelled)
                 {
@@ -109,7 +109,7 @@ namespace transmission_renamer
             {
                 RequestResult renameResult;
                 Task<RenameTorrentInfo> renameFileTask = client.TorrentRenamePathAsync(torrent.ID, filePath, newName);
-                Task delayTask = Task.Delay(TimeSpan.FromSeconds(10));
+                Task delayTask = Task.Delay(TimeSpan.FromSeconds(Properties.Settings.Default.MaxRequestDuration));
 
                 await Task.Run(async () => await Task.WhenAny(renameFileTask, delayTask));
 
@@ -118,13 +118,13 @@ namespace transmission_renamer
                 else
                 {
                     RenameTorrentInfo renameTorrentInfo = renameFileTask.Result;
-                    renameResult = renameTorrentInfo != null && renameTorrentInfo.Name == newName ? RequestResult.Success : RequestResult.Failed;
+                    renameResult = renameTorrentInfo != null && renameTorrentInfo.Name == newName ? RequestResult.Success : RequestResult.Error;
                 }
                 return renameResult;
             }
             catch (AggregateException)
             {
-                return RequestResult.Failed;
+                return RequestResult.Error;
             }
         }
 

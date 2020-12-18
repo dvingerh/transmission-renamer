@@ -19,6 +19,7 @@ namespace transmission_renamer.Forms
 
         public RulesForm(bool editMode = false, IRenameRule rule = null)
         {
+            Font = new Font("Segoe UI", 6.75f);
             InitializeComponent();
             this.editMode = editMode;
             if (editMode && rule != null)

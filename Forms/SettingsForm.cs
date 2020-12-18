@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Transmission.API.RPC.Entity;
@@ -14,17 +12,19 @@ using transmission_renamer.Forms;
 
 namespace transmission_renamer
 {
-    public partial class SelectTorrentFilesForm : Form
+    public partial class SettingsForm : Form
     {
         // private properties
         private readonly ListViewColumnSorter lvwColumnSorter;
         private ListViewItem currentTorrentListViewItem;
         private TreeNode rootNode;
-        private List<ListViewItem> allItems = new List<ListViewItem>();
+        private readonly List<ListViewItem> allItems = new List<ListViewItem>();
 
-        public SelectTorrentFilesForm()
+        public SettingsForm()
         {
+            Font = new Font("Segoe UI", 6.75f);
             InitializeComponent();
+            TimeOutTimer.Tag = Properties.Settings.Default.MaxRequestDuration;
             lvwColumnSorter = new ListViewColumnSorter();
             TorrentsListView.ListViewItemSorter = lvwColumnSorter;
 
@@ -148,7 +148,7 @@ namespace transmission_renamer
                 List<TorrentInfo> torrentsInfo = await Task.Run(() => Globals.SessionHandler.GetTorrents());
 
                 TimeOutTimer.Stop();
-                TimeOutTimer.Tag = "10";
+                TimeOutTimer.Tag = Properties.Settings.Default.MaxRequestDuration;
 
                 // handle list response
                 if (torrentsInfo != null)
@@ -604,6 +604,7 @@ namespace transmission_renamer
             {
                 DeleteRuleButton.Enabled = false;
                 EditRuleButton.Enabled = false;
+                RenameButton.Enabled = false;
             }
         }
 

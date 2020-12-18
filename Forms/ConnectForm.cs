@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -6,42 +7,41 @@ using System.Xml;
 
 namespace transmission_renamer
 {
-    public partial class SessionForm : Form
+    public partial class ConnectForm : Form
     {
-        private readonly bool debug = true;
         private bool isConnecting = false;
 
-        public SessionForm()
+        public ConnectForm()
         {
+            Font = new Font("Segoe UI", 6.75f);
             InitializeComponent();
-            if (debug)
+            TimeOutTimer.Tag = Properties.Settings.Default.MaxRequestDuration;
+            if (!File.Exists("Settings.xml"))
+                CreateConfig();
+
+            try
             {
-
-                if (!File.Exists("Settings.xml"))
-                    CreateConfig();
-
-                try
-                {
-                    XmlDocument debugXmlDoc = new XmlDocument();
-                    debugXmlDoc.Load("Settings.xml");
-                    XmlNode loginNodes = debugXmlDoc.SelectSingleNode("/Login");
-                    HostTextBox.Text = loginNodes["Host"].InnerText;
-                    PortUpDown.Value = decimal.Parse(loginNodes["Port"].InnerText);
-                    UsernameTextBox.Text = loginNodes["Username"].InnerText;
-                    PasswordTextBox.Text = loginNodes["Password"].InnerText;
-                    RPCPathTextBox.Text = loginNodes["RPCPath"].InnerText;
-                    AuthenticationRequiredCheckBox.Checked = loginNodes["Authentication"].InnerText.ToLower() == "true";
-                }
-                catch (XmlException)
-                {
-                    MessageBox.Show("Settings.xml file was found but does not contain a valid configuration.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                XmlDocument debugXmlDoc = new XmlDocument();
+                debugXmlDoc.Load("Settings.xml");
+                XmlNode loginNodes = debugXmlDoc.SelectSingleNode("/Login");
+                HostTextBox.Text = loginNodes["Host"].InnerText;
+                PortUpDown.Value = decimal.Parse(loginNodes["Port"].InnerText);
+                UsernameTextBox.Text = loginNodes["Username"].InnerText;
+                PasswordTextBox.Text = loginNodes["Password"].InnerText;
+                RPCPathTextBox.Text = loginNodes["RPCPath"].InnerText;
+                AuthenticationRequiredCheckBox.Checked = loginNodes["Authentication"].InnerText.ToLower() == "true";
+            }
+            catch (XmlException)
+            {
+                MessageBox.Show("Settings.xml file was found but does not contain a valid configuration.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+        
 
         private void CreateConfig()
         {
-            StreamWriter sw = File.CreateText(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string configPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            StreamWriter sw = File.CreateText(Path.Combine(configPath, "Settings.xml"));
             sw.Write(Constants.CONFIG);
             sw.Flush();
             sw.Close();
@@ -69,7 +69,7 @@ namespace transmission_renamer
             {
                 TimeOutTimer.Stop();
                 TimeOutTimer.Enabled = false;
-                TimeOutTimer.Tag = "10";
+                TimeOutTimer.Tag = Properties.Settings.Default.MaxRequestDuration;
                 ConnectButton.Text = "Connect";
                 CloseCancelButton.Text = "Close";
                 RemoteGroupBox.Enabled = true;
@@ -96,7 +96,7 @@ namespace transmission_renamer
             isConnecting = true;
             RemoteGroupBox.Enabled = false;
             ConnectButton.Enabled = false;
-            ConnectButton.Text = "Waiting (10)";
+            ConnectButton.Text = "Waiting (20)";
             CloseCancelButton.Text = "Cancel";
             TimeOutTimer.Enabled = true;
             TimeOutTimer.Start();
@@ -116,7 +116,7 @@ namespace transmission_renamer
                     case Globals.RequestResult.Success:
                         SaveConfig();
                         Hide();
-                        SelectTorrentFilesForm selectTorrentFilesForm = new SelectTorrentFilesForm
+                        SettingsForm selectTorrentFilesForm = new SettingsForm
                         {
                             Text = $"Transmission Renamer - {Globals.SessionHandler.SessionUrl}"
                         };
@@ -129,7 +129,7 @@ namespace transmission_renamer
                     case Globals.RequestResult.InvalidResponse:
                         MessageBox.Show("The host returned an invalid response.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
-                    case Globals.RequestResult.Failed:
+                    case Globals.RequestResult.Error:
                         MessageBox.Show("The specified host or RPC path is invalid.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     case Globals.RequestResult.Unauthorized:
@@ -155,7 +155,7 @@ namespace transmission_renamer
                     isConnecting = false;
                     TimeOutTimer.Stop();
                     TimeOutTimer.Enabled = false;
-                    TimeOutTimer.Tag = "10";
+                    TimeOutTimer.Tag = Properties.Settings.Default.MaxRequestDuration;
                 }
             }
         }

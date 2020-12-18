@@ -9,7 +9,7 @@
             InvalidResponse,
             Unauthorized,
             Cancelled,
-            Failed,
+            Error,
             Unknown
         }
     }
