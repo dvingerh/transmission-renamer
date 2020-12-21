@@ -41,6 +41,7 @@ namespace transmission_renamer.Forms
             await Task.Run(async () => { await RenameTorrentFiles(); });
             isAbortedOrFinished = true;
             CurrentFileRenameLabel.Text = "Renaming finished.";
+            FileNamesOldNewListView.Enabled = true;
             Abortutton.Enabled = false;
             DoneButton.Enabled = true;
         }
@@ -117,6 +118,7 @@ namespace transmission_renamer.Forms
                                 }); break;
                             default:
                                 MessageBox.Show("An unknown error has occurred. The renaming process will be cancelled.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                RenamingProgressBar.SetState(1);
                                 isAbortedOrFinished = true;
                                 break;
                         }
@@ -145,6 +147,7 @@ namespace transmission_renamer.Forms
         private void AbortButtonClick(object sender, EventArgs e)
         {
             isAbortedOrFinished = true;
+            RenamingProgressBar.SetState(3);
         }
 
         private void CloseFormCancel(object sender, FormClosingEventArgs e)
@@ -153,7 +156,10 @@ namespace transmission_renamer.Forms
             {
                 DialogResult cancelResult = MessageBox.Show("The renaming process will be aborted.\n\nDo you want to continue?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (cancelResult == DialogResult.Yes)
+                {
                     isAbortedOrFinished = true;
+                    RenamingProgressBar.SetState(3);
+                }
 
                 e.Cancel = true;
             }

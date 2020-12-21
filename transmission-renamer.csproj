@@ -107,6 +107,7 @@
     <Compile Include="Classes\ColumnSorter.cs" />
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\Globals.RequestResult.cs" />
+    <Compile Include="Classes\ProgressBarColor.cs" />
     <Compile Include="Classes\Rules\CleanRule.cs" />
     <Compile Include="Classes\Rules\DeleteRule.cs" />
     <Compile Include="Classes\Rules\RegexRule.cs" />
@@ -195,6 +196,7 @@
     <None Include="AppImages\success.png" />
     <None Include="AppImages\transmission.png" />
     <None Include="AppImages\warning.png" />
+    <None Include="AppImages\unchanged.png" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

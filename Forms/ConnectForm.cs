@@ -174,5 +174,10 @@ namespace transmission_renamer
             PasswordLabel.Enabled = AuthenticationRequiredCheckBox.Checked;
             PasswordTextBox.Enabled = AuthenticationRequiredCheckBox.Checked;
         }
+
+        private void PortUpDown_Enter(object sender, EventArgs e)
+        {
+           PortUpDown.Select(0, PortUpDown.Text.Length);
+        }
     }
 }
