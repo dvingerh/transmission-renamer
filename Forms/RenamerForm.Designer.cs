@@ -177,7 +177,7 @@
             this.MinimizeBox = false;
             this.Name = "RenamerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Rename Selected Files";
+            this.Text = "Renaming Selected Files";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CloseFormCancel);
             this.Load += new System.EventHandler(this.OnFormLoad);
             this.StatisticsGroupBox.ResumeLayout(false);

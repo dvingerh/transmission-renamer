@@ -180,6 +180,7 @@
             0,
             0,
             0});
+            this.PortUpDown.Enter += new System.EventHandler(this.PortUpDown_Enter);
             // 
             // HostTextBox
             // 

@@ -37,6 +37,8 @@ namespace transmission_renamer
         {
             try
             {
+                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(SessionUrl); // This will throw an UriFormatException if the session url is invalid.
+
                 if (client != null)
                     client.CloseSessionAsync();
                 client = new Client(url: SessionUrl, login: Username, password: Password);
@@ -70,6 +72,11 @@ namespace transmission_renamer
                     return RequestResult.Unauthorized;
                 else
                     return RequestResult.Error;
+            }
+            catch (UriFormatException e)
+            {
+                return RequestResult.Error;
+
             }
         }
 
@@ -128,7 +135,11 @@ namespace transmission_renamer
             }
         }
 
-        public void CloseConnection() => client.CloseSessionAsync();
+        public void CloseConnection()
+        {
+            if (client != null)
+                client.CloseSessionAsync();
+        }
 
         public void CancelConnecting() => requestCancelled = true;
 

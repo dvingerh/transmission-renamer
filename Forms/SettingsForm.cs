@@ -350,7 +350,7 @@ namespace transmission_renamer
         // update UI state for checked file count, update rules tab file list
         public async Task UpdateCheckedFileCountStatus()
         {
-            RenameButton.Enabled = TorrentFileListTreeView.TotalFilesSelected > 0;
+            RenameButton.Enabled = TorrentFileListTreeView.TotalFilesSelected > 0 && RulesListView.Items.Count > 0;
             SelectedFileCountLabel.Text = $"Selected files: {TorrentFileListTreeView.TotalFilesSelected} of {TorrentFileListTreeView.TotalFiles} files currently selected";
             FilesTabPage.Text = $"Files ({TorrentFileListTreeView.TotalFilesSelected})";
 
@@ -374,7 +374,7 @@ namespace transmission_renamer
                     {
                         Text = torrentFile.InitialPath.Split('/').Last(), // don't show entire path, just the file name
                         ToolTipText = torrentFile.InitialPath,
-                        ImageIndex = 0,
+                        ImageIndex = -1,
                         Tag = torrentFile
                     };
                     torrentFileLVItem.SubItems.Add(torrentFileLVItem.Text);
@@ -480,6 +480,7 @@ namespace transmission_renamer
                 UpdateRulesListView();
                 UpdateFileRenameListView();
             }
+            RenameButton.Enabled = TorrentFileListTreeView.TotalFilesSelected > 0 && RulesListView.Items.Count > 0;
         }
 
         // update the RulesListView rename rule items
@@ -510,6 +511,7 @@ namespace transmission_renamer
                 torrentFileInfo.NewestName = torrentFileInfo.InitialPath;
                 torrentFileItem.SubItems[1].Text = torrentFileItem.Text;
                 torrentFileItem.Tag = torrentFileInfo;
+                torrentFileItem.ImageIndex = -1;
             }
             FileNamesOldNewListView.EndUpdate();
         }
@@ -529,7 +531,10 @@ namespace transmission_renamer
                         FriendlyTorrentFileInfo torrentFileInfo = (FriendlyTorrentFileInfo)torrentFileItem.Tag;
                         torrentFileInfo.NewestName = renameRule.DoRename(torrentFileInfo, torrentFileItem.Index);
                         torrentFileItem.SubItems[1].Text = torrentFileInfo.NewestName;
-                        torrentFileItem.Tag = torrentFileInfo;
+                        if (torrentFileItem.Text != torrentFileInfo.NewestName)
+                            torrentFileItem.ImageIndex = 2;
+                        else
+                            torrentFileItem.ImageIndex = -1;
                     }
                 }
                 FileNamesOldNewListView.EndUpdate();
@@ -623,6 +628,7 @@ namespace transmission_renamer
                 RulesListView.Items[currentRuleIndex].Focused = true;
                 RulesListView.Items[currentRuleIndex].Selected = true;
             }
+            RenameButton.Enabled = TorrentFileListTreeView.TotalFilesSelected > 0 && RulesListView.Items.Count > 0;
         }
         #endregion
 
@@ -639,12 +645,29 @@ namespace transmission_renamer
                     doInformOfRenameCount = true;
             }
             if (doInformOfRenameCount)
-                MessageBox.Show($"Only {items.Count} of {FileNamesOldNewListView.Items.Count} files will be renamed. The specified rules do not affect all selected files.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            Hide();
-            RenamerForm renamerForm = new RenamerForm(items);
-            renamerForm.ShowDialog();
-            Show();
-            RefreshTorrentListButton.PerformClick();
+            {
+                if (items.Count > 0)
+                {
+                    MessageBox.Show($"Only {items.Count} of {FileNamesOldNewListView.Items.Count} files will be renamed. The current ruleset does not affect all selected files.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Hide();
+                    RenamerForm renamerForm = new RenamerForm(items);
+                    renamerForm.ShowDialog();
+                    Show();
+                    RefreshTorrentListButton.PerformClick();
+                }
+                else
+                {
+                    MessageBox.Show($"None of the selected files will have its name changed with the current ruleset.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                Hide();
+                RenamerForm renamerForm = new RenamerForm(items);
+                renamerForm.ShowDialog();
+                Show();
+                RefreshTorrentListButton.PerformClick();
+            }
         }
 
         private void FocusTorrentSearchBoxShortcut(object sender, KeyEventArgs e)
