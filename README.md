@@ -6,7 +6,7 @@ Currently this project is considered finished, the core functionality has been i
 An overview of implemented functionality can be found on the [Projects](https://github.com/dvingerh/transmission-renamer/projects) page as well as some screenshots showcasing the user interface further down this README file.
 
 #### Warning
-By using this project you agree you are responsible for any changes made to the torrent filenames. There is no functionalityyyy to undo name changes at this time.
+By using this project you agree you are responsible for any changes made to the torrent filenames. There is no functionality to undo name changes at this time.
 
 ![](/Screenshots/spacer.png?raw=true)
 
