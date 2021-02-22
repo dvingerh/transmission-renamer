@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Windows.Forms;
 
 /// <summary>
@@ -10,7 +11,7 @@ public class ListViewColumnSorter : IComparer
     /// <summary>
     /// Case insensitive comparer object
     /// </summary>
-    private CaseInsensitiveComparer ObjectCompare;
+    private readonly CaseInsensitiveComparer ObjectCompare;
 
     /// <summary>
     /// Class constructor. Initializes various elements
@@ -42,8 +43,10 @@ public class ListViewColumnSorter : IComparer
         listviewX = (ListViewItem)x;
         listviewY = (ListViewItem)y;
 
-        // Compare the two items
-        compareResult = ObjectCompare.Compare(listviewX.SubItems[SortColumn].Text, listviewY.SubItems[SortColumn].Text);
+        if (int.TryParse(listviewX.SubItems[SortColumn].Text, out _) && int.TryParse(listviewX.SubItems[SortColumn].Text, out _))
+            compareResult = int.Parse(listviewX.SubItems[SortColumn].Text) - int.Parse(listviewY.SubItems[SortColumn].Text);
+        else
+            compareResult = ObjectCompare.Compare(listviewX.SubItems[SortColumn].Text, listviewY.SubItems[SortColumn].Text);
 
         // Calculate correct return value based on object comparison
         if (Order == SortOrder.Ascending)
