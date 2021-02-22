@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using transmission_renamer.Classes;
 using transmission_renamer.Classes.Rules;
 
 namespace transmission_renamer.Forms
@@ -311,6 +307,11 @@ namespace transmission_renamer.Forms
         private void CleanUserDefinedCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             CleanUserDefinedTextBox.Enabled = CleanUserDefinedCheckBox.Checked;
+        }
+
+        private void TextBoxCtrlKeyBack(object sender, KeyEventArgs e)
+        {
+            TextBoxBackFix.SearchCtrlBackSpace(sender, e);
         }
     }
 }

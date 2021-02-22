@@ -189,7 +189,7 @@
             this.InsertRuleTabPage.Controls.Add(this.InsertTypeGroupBox);
             this.InsertRuleTabPage.Location = new System.Drawing.Point(4, 5);
             this.InsertRuleTabPage.Name = "InsertRuleTabPage";
-            this.InsertRuleTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.InsertRuleTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.InsertRuleTabPage.Size = new System.Drawing.Size(516, 343);
             this.InsertRuleTabPage.TabIndex = 0;
             this.InsertRuleTabPage.Text = "Insert";
@@ -223,6 +223,7 @@
             this.InsertAfterTextTextBox.Name = "InsertAfterTextTextBox";
             this.InsertAfterTextTextBox.Size = new System.Drawing.Size(259, 22);
             this.InsertAfterTextTextBox.TabIndex = 13;
+            this.InsertAfterTextTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // InsertAfterTextRadioButton
             // 
@@ -240,6 +241,7 @@
             this.InsertBeforeTextTextBox.Name = "InsertBeforeTextTextBox";
             this.InsertBeforeTextTextBox.Size = new System.Drawing.Size(259, 22);
             this.InsertBeforeTextTextBox.TabIndex = 12;
+            this.InsertBeforeTextTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // InsertBeforeTextRadioButton
             // 
@@ -399,6 +401,7 @@
             this.InsertTextTextBox.Name = "InsertTextTextBox";
             this.InsertTextTextBox.Size = new System.Drawing.Size(348, 22);
             this.InsertTextTextBox.TabIndex = 20;
+            this.InsertTextTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // DeleteRuleTabPage
             // 
@@ -411,7 +414,7 @@
             this.DeleteRuleTabPage.Controls.Add(this.DeleteRuleTitleLabel);
             this.DeleteRuleTabPage.Location = new System.Drawing.Point(4, 5);
             this.DeleteRuleTabPage.Name = "DeleteRuleTabPage";
-            this.DeleteRuleTabPage.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.DeleteRuleTabPage.Padding = new System.Windows.Forms.Padding(3);
             this.DeleteRuleTabPage.Size = new System.Drawing.Size(516, 343);
             this.DeleteRuleTabPage.TabIndex = 1;
             this.DeleteRuleTabPage.Text = "Delete";
@@ -481,6 +484,7 @@
             this.DeleteToDelimiterTextBox.Name = "DeleteToDelimiterTextBox";
             this.DeleteToDelimiterTextBox.Size = new System.Drawing.Size(70, 22);
             this.DeleteToDelimiterTextBox.TabIndex = 12;
+            this.DeleteToDelimiterTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // DeleteToPositionNumericUpDown
             // 
@@ -533,6 +537,7 @@
             this.DeleteFromDelimiterTextBox.Name = "DeleteFromDelimiterTextBox";
             this.DeleteFromDelimiterTextBox.Size = new System.Drawing.Size(70, 22);
             this.DeleteFromDelimiterTextBox.TabIndex = 7;
+            this.DeleteFromDelimiterTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // DeleteFromDelimiterRadioButton
             // 
@@ -678,6 +683,7 @@
             this.RemoveTextTextBox.Name = "RemoveTextTextBox";
             this.RemoveTextTextBox.Size = new System.Drawing.Size(348, 22);
             this.RemoveTextTextBox.TabIndex = 5;
+            this.RemoveTextTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // RemoveLabel
             // 
@@ -727,6 +733,7 @@
             this.ReplaceFindTextBox.Name = "ReplaceFindTextBox";
             this.ReplaceFindTextBox.Size = new System.Drawing.Size(348, 22);
             this.ReplaceFindTextBox.TabIndex = 5;
+            this.ReplaceFindTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // FindLabel
             // 
@@ -819,6 +826,7 @@
             this.ReplaceTextTextBox.Name = "ReplaceTextTextBox";
             this.ReplaceTextTextBox.Size = new System.Drawing.Size(348, 22);
             this.ReplaceTextTextBox.TabIndex = 7;
+            this.ReplaceTextTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // ReplaceLabel
             // 
@@ -890,6 +898,7 @@
             this.CleanUserDefinedTextBox.Name = "CleanUserDefinedTextBox";
             this.CleanUserDefinedTextBox.Size = new System.Drawing.Size(222, 22);
             this.CleanUserDefinedTextBox.TabIndex = 12;
+            this.CleanUserDefinedTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // CleanUserDefinedCheckBox
             // 
@@ -1023,6 +1032,7 @@
             this.RegexFindTextTextBox.Name = "RegexFindTextTextBox";
             this.RegexFindTextTextBox.Size = new System.Drawing.Size(348, 22);
             this.RegexFindTextTextBox.TabIndex = 9;
+            this.RegexFindTextTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // RegexFindLabel
             // 
@@ -1040,6 +1050,7 @@
             this.RegexReplaceTextTextBox.Name = "RegexReplaceTextTextBox";
             this.RegexReplaceTextTextBox.Size = new System.Drawing.Size(348, 22);
             this.RegexReplaceTextTextBox.TabIndex = 11;
+            this.RegexReplaceTextTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // RegexReplaceLabel
             // 

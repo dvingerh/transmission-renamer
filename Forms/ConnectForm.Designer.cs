@@ -88,6 +88,7 @@
             this.RPCPathTextBox.Size = new System.Drawing.Size(136, 22);
             this.RPCPathTextBox.TabIndex = 1;
             this.RPCPathTextBox.Text = "/transmission/rpc";
+            this.RPCPathTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // AuthenticationRequiredCheckBox
             // 
@@ -148,6 +149,7 @@
             this.PasswordTextBox.PasswordChar = '●';
             this.PasswordTextBox.Size = new System.Drawing.Size(136, 22);
             this.PasswordTextBox.TabIndex = 5;
+            this.PasswordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // UsernameTextBox
             // 
@@ -157,6 +159,7 @@
             this.UsernameTextBox.Name = "UsernameTextBox";
             this.UsernameTextBox.Size = new System.Drawing.Size(136, 22);
             this.UsernameTextBox.TabIndex = 4;
+            this.UsernameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // PortUpDown
             // 
@@ -189,6 +192,7 @@
             this.HostTextBox.Name = "HostTextBox";
             this.HostTextBox.Size = new System.Drawing.Size(136, 22);
             this.HostTextBox.TabIndex = 0;
+            this.HostTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // ConnectButton
             // 

@@ -180,5 +180,10 @@ namespace transmission_renamer
         {
            PortUpDown.Select(0, PortUpDown.Text.Length);
         }
+
+        private void TextBoxCtrlKeyBack(object sender, KeyEventArgs e)
+        {
+            Classes.TextBoxBackFix.SearchCtrlBackSpace(sender, e);
+        }
     }
 }
