@@ -56,6 +56,8 @@
             this.CopyFileNameContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyFilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.RulesTabPage = new System.Windows.Forms.TabPage();
+            this.LoadRulesButton = new System.Windows.Forms.Button();
+            this.SaveRulesButton = new System.Windows.Forms.Button();
             this.ProcessingRulesFilesLoadingPanel = new System.Windows.Forms.Panel();
             this.ProcessingRulesFilesLoadingLabel = new System.Windows.Forms.Label();
             this.ProcessingRulesFilesSpinnerLoadingPictureBox = new System.Windows.Forms.PictureBox();
@@ -216,6 +218,7 @@
             this.SearchTorrentListTextBox.Size = new System.Drawing.Size(760, 22);
             this.SearchTorrentListTextBox.TabIndex = 0;
             this.SearchTorrentListTextBox.TextChanged += new System.EventHandler(this.SearchTorrentListTextBox_TextChanged);
+            this.SearchTorrentListTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // FilesTabPage
             // 
@@ -326,7 +329,7 @@
             this.TorrentFileListTreeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TorrentFileListTreeView.ContextMenuStrip = this.CopyFileNameContextMenu;
             this.TorrentFileListTreeView.FullRowSelect = true;
-            this.TorrentFileListTreeView.ItemHeight = 20;
+            this.TorrentFileListTreeView.ItemHeight = 19;
             this.TorrentFileListTreeView.Location = new System.Drawing.Point(3, 35);
             this.TorrentFileListTreeView.Name = "TorrentFileListTreeView";
             this.TorrentFileListTreeView.PathSeparator = "/";
@@ -354,6 +357,8 @@
             // RulesTabPage
             // 
             this.RulesTabPage.BackColor = System.Drawing.SystemColors.Control;
+            this.RulesTabPage.Controls.Add(this.LoadRulesButton);
+            this.RulesTabPage.Controls.Add(this.SaveRulesButton);
             this.RulesTabPage.Controls.Add(this.ProcessingRulesFilesLoadingPanel);
             this.RulesTabPage.Controls.Add(this.FileNamesOldNewListView);
             this.RulesTabPage.Controls.Add(this.DeleteRuleButton);
@@ -368,6 +373,26 @@
             this.RulesTabPage.Size = new System.Drawing.Size(856, 594);
             this.RulesTabPage.TabIndex = 2;
             this.RulesTabPage.Text = "Rules";
+            // 
+            // LoadRulesButton
+            // 
+            this.LoadRulesButton.Location = new System.Drawing.Point(697, 6);
+            this.LoadRulesButton.Name = "LoadRulesButton";
+            this.LoadRulesButton.Size = new System.Drawing.Size(75, 23);
+            this.LoadRulesButton.TabIndex = 17;
+            this.LoadRulesButton.Text = "Load";
+            this.LoadRulesButton.UseVisualStyleBackColor = true;
+            this.LoadRulesButton.Click += new System.EventHandler(this.LoadRulesButtonClick);
+            // 
+            // SaveRulesButton
+            // 
+            this.SaveRulesButton.Location = new System.Drawing.Point(778, 6);
+            this.SaveRulesButton.Name = "SaveRulesButton";
+            this.SaveRulesButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveRulesButton.TabIndex = 15;
+            this.SaveRulesButton.Text = "Save";
+            this.SaveRulesButton.UseVisualStyleBackColor = true;
+            this.SaveRulesButton.Click += new System.EventHandler(this.SaveRulesButtonClick);
             // 
             // ProcessingRulesFilesLoadingPanel
             // 
@@ -466,7 +491,7 @@
             // MoveRuleDownButton
             // 
             this.MoveRuleDownButton.Enabled = false;
-            this.MoveRuleDownButton.Location = new System.Drawing.Point(779, 6);
+            this.MoveRuleDownButton.Location = new System.Drawing.Point(343, 6);
             this.MoveRuleDownButton.Name = "MoveRuleDownButton";
             this.MoveRuleDownButton.Size = new System.Drawing.Size(75, 23);
             this.MoveRuleDownButton.TabIndex = 10;
@@ -477,7 +502,7 @@
             // MoveRuleUpButton
             // 
             this.MoveRuleUpButton.Enabled = false;
-            this.MoveRuleUpButton.Location = new System.Drawing.Point(698, 6);
+            this.MoveRuleUpButton.Location = new System.Drawing.Point(262, 6);
             this.MoveRuleUpButton.Name = "MoveRuleUpButton";
             this.MoveRuleUpButton.Size = new System.Drawing.Size(75, 23);
             this.MoveRuleUpButton.TabIndex = 9;
@@ -534,7 +559,7 @@
             // CRuleType
             // 
             this.CRuleType.Text = "Rule type";
-            this.CRuleType.Width = 150;
+            this.CRuleType.Width = 100;
             // 
             // CRuleDescription
             // 
@@ -666,7 +691,6 @@
         private System.Windows.Forms.Button SelectAllButton;
         private System.Windows.Forms.Button InverseButton;
         private System.Windows.Forms.Label SearchTorrentListLabel;
-        private System.Windows.Forms.TextBox SearchTorrentListTextBox;
         private System.Windows.Forms.Button CollapseAllButton;
         private System.Windows.Forms.Button ExpandAllButton;
         private System.Windows.Forms.TabPage RulesTabPage;
@@ -704,5 +728,8 @@
         private System.Windows.Forms.ToolStripMenuItem copyNewFilenameToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip CopyFileNameContextMenu;
         private System.Windows.Forms.ToolStripMenuItem copyFilenameToolStripMenuItem;
+        private System.Windows.Forms.Button SaveRulesButton;
+        private System.Windows.Forms.Button LoadRulesButton;
+        private System.Windows.Forms.TextBox SearchTorrentListTextBox;
     }
 }

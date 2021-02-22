@@ -383,6 +383,8 @@ namespace transmission_renamer
                 {
                     FileNamesOldNewListView.Items.AddRange(torrentFilesLVItems.ToArray());
                     FileNamesOldNewListView.Sort();
+                    if (FileNamesOldNewListView.Items.Count > 0)
+                        FileNamesOldNewListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                 }));
             });
             UpdateFileRenameListView();
@@ -410,10 +412,11 @@ namespace transmission_renamer
 
         // invert currently selected files in file tab
         // unused, function works but introduces buggy UI checked state which causes confusion
-        private void InverseButtonClick(object sender, EventArgs e)
+        private async void InverseButtonClick(object sender, EventArgs e)
         {
             TorrentFileListTreeView.BeginUpdate();
             InvertFileSelection(rootNode);
+            await TorrentFileListTreeView.UpdateCounters();
             TorrentFileListTreeView.EndUpdate();
         }
 
@@ -500,6 +503,8 @@ namespace transmission_renamer
                 ruleLVItem.Tag = rule;
                 RulesListView.Items.Add(ruleLVItem);
             }
+            if (RulesListView.Items.Count > 0)
+                RulesListView.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
             ResetOldNewFileNameValues();
         }
 
@@ -513,15 +518,16 @@ namespace transmission_renamer
                 torrentFileItem.SubItems[1].Text = torrentFileItem.Text;
                 torrentFileItem.Tag = torrentFileInfo;
                 torrentFileItem.BackColor = Color.FromArgb(255, 255, 255);
-
             }
             FileNamesOldNewListView.EndUpdate();
         }
 
         // update all the new file name previews in FileNamesOldNewListView
         private void UpdateFileRenameListView()
-        {
+        {               
             ResetOldNewFileNameValues();
+            if (FileNamesOldNewListView.Items.Count > 0)
+                FileNamesOldNewListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             if (Globals.RenameRules.Count > 0)
             {
                 ToggleLoadingPanels(true);
@@ -544,7 +550,6 @@ namespace transmission_renamer
                 }
                 FileNamesOldNewListView.EndUpdate();
                 ToggleLoadingPanels(false);
-
             }
         }
 
@@ -616,6 +621,7 @@ namespace transmission_renamer
                 EditRuleButton.Enabled = false;
                 RenameButton.Enabled = false;
             }
+            UpdateRuleButtonStates(null, null);
         }
 
         // edit selected rule from the list of rules, update UI state
@@ -639,7 +645,6 @@ namespace transmission_renamer
 
         private void RenameButtonClick(object sender, EventArgs e)
         {
-
             bool doInformOfRenameCount = false;
             List<ListViewItem> items = new List<ListViewItem>();
             foreach (ListViewItem item in FileNamesOldNewListView.Items)
@@ -729,6 +734,29 @@ namespace transmission_renamer
                 e.Item.BackColor = Color.FromArgb(235, 255, 255);
             UpdateFileRenameListView();
 
+        }
+
+        private void SaveRulesButtonClick(object sender, EventArgs e)
+        {
+            if (SaveLoadRuleset.SaveRulesToFile())
+            {
+                UpdateRulesListView();
+                MessageBox.Show("The ruleset has been saved successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void LoadRulesButtonClick(object sender, EventArgs e)
+        {
+            if (SaveLoadRuleset.LoadRulesFromFile())
+            {
+                UpdateRulesListView();
+                MessageBox.Show("The ruleset has been loaded successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void TextBoxCtrlKeyBack(object sender, KeyEventArgs e)
+        {
+            TextBoxBackFix.SearchCtrlBackSpace(sender, e);
         }
     }
 }
