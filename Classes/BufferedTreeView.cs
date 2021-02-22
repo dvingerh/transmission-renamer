@@ -6,6 +6,7 @@ using transmission_renamer;
 using Transmission.API.RPC.Entity;
 using transmission_renamer.Classes;
 using System.Threading.Tasks;
+using System.Drawing;
 
 class BufferedTreeView : TreeView
 {
@@ -156,6 +157,11 @@ class BufferedTreeView : TreeView
 		TotalFilesSelected = 0;
 		foreach (var node in GetAllNodes(Nodes))
 		{
+			if (node.StateImageIndex == (int)CheckedState.UnChecked)
+				node.BackColor = Color.FromArgb(255, 235, 235);
+			else
+				node.BackColor = Color.FromArgb(235, 255, 235);
+
 			if (node.Tag is FriendlyTorrentFileInfo info)
 			{
 				TotalFiles++;

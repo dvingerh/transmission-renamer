@@ -511,7 +511,8 @@ namespace transmission_renamer
                 torrentFileInfo.NewestName = torrentFileInfo.InitialPath;
                 torrentFileItem.SubItems[1].Text = torrentFileItem.Text;
                 torrentFileItem.Tag = torrentFileInfo;
-                torrentFileItem.ImageIndex = -1;
+                torrentFileItem.BackColor = Color.FromArgb(255, 255, 255);
+
             }
             FileNamesOldNewListView.EndUpdate();
         }
@@ -526,15 +527,18 @@ namespace transmission_renamer
                 FileNamesOldNewListView.BeginUpdate();
                 foreach (IRenameRule renameRule in Globals.RenameRules)
                 {
-                    foreach (ListViewItem torrentFileItem in FileNamesOldNewListView.Items)
+                    if (renameRule.Enabled)
                     {
-                        FriendlyTorrentFileInfo torrentFileInfo = (FriendlyTorrentFileInfo)torrentFileItem.Tag;
-                        torrentFileInfo.NewestName = renameRule.DoRename(torrentFileInfo, torrentFileItem.Index);
-                        torrentFileItem.SubItems[1].Text = torrentFileInfo.NewestName;
-                        if (torrentFileItem.Text != torrentFileInfo.NewestName)
-                            torrentFileItem.ImageIndex = 2;
-                        else
-                            torrentFileItem.ImageIndex = -1;
+                        foreach (ListViewItem torrentFileItem in FileNamesOldNewListView.Items)
+                        {
+                            FriendlyTorrentFileInfo torrentFileInfo = (FriendlyTorrentFileInfo)torrentFileItem.Tag;
+                            torrentFileInfo.NewestName = renameRule.DoRename(torrentFileInfo, torrentFileItem.Index);
+                            torrentFileItem.SubItems[1].Text = torrentFileInfo.NewestName;
+                            if (torrentFileItem.Text != torrentFileInfo.NewestName)
+                                torrentFileItem.BackColor = Color.FromArgb(235, 235, 255);
+                            else
+                                torrentFileItem.BackColor = Color.FromArgb(255, 255, 255);
+                        }
                     }
                 }
                 FileNamesOldNewListView.EndUpdate();
@@ -711,6 +715,19 @@ namespace transmission_renamer
         private void CopyFileNameClick(object sender, EventArgs e)
         {
             Clipboard.SetText(TorrentFileListTreeView.SelectedNode.Text);
+        }
+
+        private void RuleEnabledChanged(object sender, ItemCheckedEventArgs e)
+        {
+            IRenameRule currentSelectedRule = (IRenameRule)e.Item.Tag;
+            int ruleIndex = Globals.RenameRules.IndexOf(Globals.RenameRules.Find(rule => rule.Id == currentSelectedRule.Id));
+            Globals.RenameRules[ruleIndex].Enabled = e.Item.Checked;
+            if (!e.Item.Checked)
+                e.Item.BackColor = Color.FromArgb(255, 235, 235);
+            else
+                e.Item.BackColor = Color.FromArgb(235, 255, 255);
+            UpdateFileRenameListView();
+
         }
     }
 }
