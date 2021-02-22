@@ -13,6 +13,7 @@ namespace transmission_renamer.Classes.Rules
         public string Name { get; } = "Delete";
         public string Description { get; }
         public string Id { get; } = Guid.NewGuid().ToString();
+        public bool Enabled { get; set; } = true;
 
         public bool FromPosition { get; set; }
         public bool FromDelimiter { get; set; }
@@ -117,7 +118,7 @@ namespace transmission_renamer.Classes.Rules
                 if (ToDelimiter)
                     toDelimiterPos = newNameSb.ToString().IndexOf(ToDelimiterStr);
 
-                int removeStartIndex = FromPosition ? FromPositionIndex - 1 : fromDelimiterPos + (!KeepDelimiters ? 0 : FromDelimiterStr.Length);
+                int removeStartIndex = FromPosition ? FromPositionIndex : fromDelimiterPos + (!KeepDelimiters ? 0 : FromDelimiterStr.Length);
                 int removeLength = ToPosition ? (ToPositionIndex - removeStartIndex) : (toDelimiterPos + ToDelimiterStr.Length) - removeStartIndex - (!KeepDelimiters ? 0 : ToDelimiterStr.Length);
 
                 if (DeleteToEnd)

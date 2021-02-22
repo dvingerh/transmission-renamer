@@ -13,6 +13,7 @@ namespace transmission_renamer.Classes.Rules
         public string Name { get; } = "Remove";
         public string Description { get; }
         public string Id { get; } = Guid.NewGuid().ToString();
+        public bool Enabled { get; set; } = true;
 
         public string RemoveText { get; set; }
         public bool AllOccurrences { get; set; }

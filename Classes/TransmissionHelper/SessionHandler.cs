@@ -66,14 +66,18 @@ namespace transmission_renamer
             }
             catch (AggregateException ae)
             {
-                WebException exception = (WebException)ae.GetBaseException();
-                HttpWebResponse httpWebResponse = (HttpWebResponse)exception.Response;
-                if (httpWebResponse.StatusCode == HttpStatusCode.Unauthorized)
-                    return RequestResult.Unauthorized;
-                else
-                    return RequestResult.Error;
+                try
+                {
+                    WebException exception = (WebException)ae.GetBaseException();
+                    HttpWebResponse httpWebResponse = (HttpWebResponse)exception.Response;
+                    if (httpWebResponse.StatusCode == HttpStatusCode.Unauthorized)
+                        return RequestResult.Unauthorized;
+                    else
+                        return RequestResult.Error;
+                }
+                catch { return RequestResult.Unknown; }
             }
-            catch (UriFormatException e)
+            catch (Exception)
             {
                 return RequestResult.Error;
 

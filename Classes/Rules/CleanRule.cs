@@ -13,6 +13,7 @@ namespace transmission_renamer.Classes.Rules
         public string Name { get; } = "Clean";
         public string Description { get; }
         public string Id { get; } = Guid.NewGuid().ToString();
+        public bool Enabled { get; set; } = true;
 
         public bool CleanLatinAlphabet { get; set; }
         public bool CleanDigits { get; set; }

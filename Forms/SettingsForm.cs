@@ -50,7 +50,6 @@ namespace transmission_renamer
             torrentFilesImageList.Images.Add(Properties.Resources.warning);
             torrentFilesImageList.Images.Add(Properties.Resources.error);
             TorrentFileListTreeView.ImageList = torrentFilesImageList;
-            FileNamesOldNewListView.SmallImageList = torrentFilesImageList;
         }
 
         #region UI Functions
@@ -352,7 +351,7 @@ namespace transmission_renamer
         {
             RenameButton.Enabled = TorrentFileListTreeView.TotalFilesSelected > 0 && RulesListView.Items.Count > 0;
             SelectedFileCountLabel.Text = $"Selected files: {TorrentFileListTreeView.TotalFilesSelected} of {TorrentFileListTreeView.TotalFiles} files currently selected";
-            FilesTabPage.Text = $"Files ({TorrentFileListTreeView.TotalFilesSelected})";
+            FilesTabPage.Text = $"Files ({TorrentFileListTreeView.TotalFilesSelected}/{TorrentFileListTreeView.TotalFiles})";
 
             // one liner with conditional determination if the buttons should be enabled or not.
             FilesTabPage.Controls.OfType<Button>().ToList().ForEach(x => x.Enabled = (TorrentFileListTreeView.TotalFiles > 1));
@@ -494,6 +493,8 @@ namespace transmission_renamer
                 {
                     Text = (i + 1).ToString()
                 };
+                ruleLVItem.Checked = rule.Enabled;
+
                 ruleLVItem.SubItems.Add(rule.Name);
                 ruleLVItem.SubItems.Add(rule.Description);
                 ruleLVItem.Tag = rule;

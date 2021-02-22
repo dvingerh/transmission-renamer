@@ -106,6 +106,7 @@ namespace transmission_renamer
                 Globals.SessionHandler = new SessionHandler(HostTextBox.Text, RPCPathTextBox.Text, (int)PortUpDown.Value, UsernameTextBox.Text, PasswordTextBox.Text);
             else
                 Globals.SessionHandler = new SessionHandler(HostTextBox.Text, RPCPathTextBox.Text, (int)PortUpDown.Value, null, null);
+            
             await Task.Run(async () => { connectionResult = await Globals.SessionHandler.TestConnection(); });
 
             if (isConnecting)

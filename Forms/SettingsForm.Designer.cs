@@ -308,7 +308,6 @@
             this.InverseButton.TabIndex = 3;
             this.InverseButton.Text = "Inverse";
             this.InverseButton.UseVisualStyleBackColor = true;
-            this.InverseButton.Visible = false;
             this.InverseButton.Click += new System.EventHandler(this.InverseButtonClick);
             // 
             // SelectAllButton
@@ -327,6 +326,7 @@
             this.TorrentFileListTreeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TorrentFileListTreeView.ContextMenuStrip = this.CopyFileNameContextMenu;
             this.TorrentFileListTreeView.FullRowSelect = true;
+            this.TorrentFileListTreeView.ItemHeight = 20;
             this.TorrentFileListTreeView.Location = new System.Drawing.Point(3, 35);
             this.TorrentFileListTreeView.Name = "TorrentFileListTreeView";
             this.TorrentFileListTreeView.PathSeparator = "/";
@@ -337,6 +337,7 @@
             // 
             // CopyFileNameContextMenu
             // 
+            this.CopyFileNameContextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.CopyFileNameContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyFilenameToolStripMenuItem});
             this.CopyFileNameContextMenu.Name = "contextMenuStrip1";
@@ -429,6 +430,7 @@
             // 
             // CopyOldNewFileNameContextMenu
             // 
+            this.CopyOldNewFileNameContextMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.CopyOldNewFileNameContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyOldFilenameToolStripMenuItem,
             this.copyNewFilenameToolStripMenuItem});
@@ -507,6 +509,7 @@
             // RulesListView
             // 
             this.RulesListView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RulesListView.CheckBoxes = true;
             this.RulesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.CRuleQueuePosition,
             this.CRuleType,
@@ -520,12 +523,13 @@
             this.RulesListView.TabIndex = 0;
             this.RulesListView.UseCompatibleStateImageBehavior = false;
             this.RulesListView.View = System.Windows.Forms.View.Details;
+            this.RulesListView.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.RuleEnabledChanged);
             this.RulesListView.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.UpdateRuleButtonStates);
             // 
             // CRuleQueuePosition
             // 
             this.CRuleQueuePosition.Text = "#";
-            this.CRuleQueuePosition.Width = 30;
+            this.CRuleQueuePosition.Width = 50;
             // 
             // CRuleType
             // 
@@ -535,7 +539,7 @@
             // CRuleDescription
             // 
             this.CRuleDescription.Text = "Description";
-            this.CRuleDescription.Width = 650;
+            this.CRuleDescription.Width = 620;
             // 
             // ImagesTabPageImageList
             // 

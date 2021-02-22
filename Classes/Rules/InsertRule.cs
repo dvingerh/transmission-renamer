@@ -9,6 +9,7 @@ namespace transmission_renamer.Classes.Rules
         public string Name { get; } = "Insert";
         public string Description { get; }
         public string Id { get; } = Guid.NewGuid().ToString();
+        public bool Enabled { get; set; } = true;
 
         public string InsertText { get; set; }
         public string BeforeTextStr { get; set; }
