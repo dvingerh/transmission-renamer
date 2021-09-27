@@ -120,7 +120,6 @@
     <Compile Include="Classes\Globals.cs" />
     <Compile Include="Classes\Rules\InsertRule.cs" />
     <Compile Include="Classes\Rules\IRenameRule.cs" />
-    <Compile Include="Classes\Rules\Wildcard.cs" />
     <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,7 +197,6 @@
     <None Include="AppImages\success.png" />
     <None Include="AppImages\transmission.png" />
     <None Include="AppImages\warning.png" />
-    <None Include="AppImages\unchanged.png" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

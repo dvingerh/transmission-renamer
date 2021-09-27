@@ -70,7 +70,6 @@
             this.DeleteFromPositionRadioButton = new System.Windows.Forms.RadioButton();
             this.DeleteRuleTitleLabel = new System.Windows.Forms.Label();
             this.RemoveRuleTabPage = new System.Windows.Forms.TabPage();
-            this.RemoveInterpretWildcardsCheckBox = new System.Windows.Forms.CheckBox();
             this.RemoveIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
             this.RemoveCaseSensitiveCheckBox = new System.Windows.Forms.CheckBox();
             this.RemoveAllOccurrencesRadioButton = new System.Windows.Forms.RadioButton();
@@ -83,7 +82,6 @@
             this.ReplaceRuleTabPage = new System.Windows.Forms.TabPage();
             this.ReplaceFindTextBox = new System.Windows.Forms.TextBox();
             this.FindLabel = new System.Windows.Forms.Label();
-            this.ReplaceInterpretWildcardsCheckBox = new System.Windows.Forms.CheckBox();
             this.ReplaceIgnoreExtensionCheckBox = new System.Windows.Forms.CheckBox();
             this.ReplaceCaseSensitiveCheckBox = new System.Windows.Forms.CheckBox();
             this.ReplaceAllOccurrencesRadioButton = new System.Windows.Forms.RadioButton();
@@ -584,7 +582,6 @@
             // RemoveRuleTabPage
             // 
             this.RemoveRuleTabPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.RemoveRuleTabPage.Controls.Add(this.RemoveInterpretWildcardsCheckBox);
             this.RemoveRuleTabPage.Controls.Add(this.RemoveIgnoreExtensionCheckBox);
             this.RemoveRuleTabPage.Controls.Add(this.RemoveCaseSensitiveCheckBox);
             this.RemoveRuleTabPage.Controls.Add(this.RemoveAllOccurrencesRadioButton);
@@ -600,16 +597,6 @@
             this.RemoveRuleTabPage.TabIndex = 2;
             this.RemoveRuleTabPage.Text = "Remove";
             this.RemoveRuleTabPage.UseVisualStyleBackColor = true;
-            // 
-            // RemoveInterpretWildcardsCheckBox
-            // 
-            this.RemoveInterpretWildcardsCheckBox.AutoSize = true;
-            this.RemoveInterpretWildcardsCheckBox.Location = new System.Drawing.Point(230, 217);
-            this.RemoveInterpretWildcardsCheckBox.Name = "RemoveInterpretWildcardsCheckBox";
-            this.RemoveInterpretWildcardsCheckBox.Size = new System.Drawing.Size(152, 17);
-            this.RemoveInterpretWildcardsCheckBox.TabIndex = 12;
-            this.RemoveInterpretWildcardsCheckBox.Text = "Interpret [ * ] as wildcard";
-            this.RemoveInterpretWildcardsCheckBox.UseVisualStyleBackColor = true;
             // 
             // RemoveIgnoreExtensionCheckBox
             // 
@@ -709,7 +696,6 @@
             this.ReplaceRuleTabPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ReplaceRuleTabPage.Controls.Add(this.ReplaceFindTextBox);
             this.ReplaceRuleTabPage.Controls.Add(this.FindLabel);
-            this.ReplaceRuleTabPage.Controls.Add(this.ReplaceInterpretWildcardsCheckBox);
             this.ReplaceRuleTabPage.Controls.Add(this.ReplaceIgnoreExtensionCheckBox);
             this.ReplaceRuleTabPage.Controls.Add(this.ReplaceCaseSensitiveCheckBox);
             this.ReplaceRuleTabPage.Controls.Add(this.ReplaceAllOccurrencesRadioButton);
@@ -743,16 +729,6 @@
             this.FindLabel.Size = new System.Drawing.Size(33, 13);
             this.FindLabel.TabIndex = 4;
             this.FindLabel.Text = "Find:";
-            // 
-            // ReplaceInterpretWildcardsCheckBox
-            // 
-            this.ReplaceInterpretWildcardsCheckBox.AutoSize = true;
-            this.ReplaceInterpretWildcardsCheckBox.Location = new System.Drawing.Point(230, 231);
-            this.ReplaceInterpretWildcardsCheckBox.Name = "ReplaceInterpretWildcardsCheckBox";
-            this.ReplaceInterpretWildcardsCheckBox.Size = new System.Drawing.Size(152, 17);
-            this.ReplaceInterpretWildcardsCheckBox.TabIndex = 13;
-            this.ReplaceInterpretWildcardsCheckBox.Text = "Interpret [ * ] as wildcard";
-            this.ReplaceInterpretWildcardsCheckBox.UseVisualStyleBackColor = true;
             // 
             // ReplaceIgnoreExtensionCheckBox
             // 
@@ -1191,11 +1167,9 @@
         private System.Windows.Forms.TextBox RemoveTextTextBox;
         private System.Windows.Forms.Label RemoveLabel;
         private System.Windows.Forms.CheckBox RemoveCaseSensitiveCheckBox;
-        private System.Windows.Forms.CheckBox RemoveInterpretWildcardsCheckBox;
         private System.Windows.Forms.CheckBox RemoveIgnoreExtensionCheckBox;
         private System.Windows.Forms.TextBox ReplaceFindTextBox;
         private System.Windows.Forms.Label FindLabel;
-        private System.Windows.Forms.CheckBox ReplaceInterpretWildcardsCheckBox;
         private System.Windows.Forms.CheckBox ReplaceIgnoreExtensionCheckBox;
         private System.Windows.Forms.CheckBox ReplaceCaseSensitiveCheckBox;
         private System.Windows.Forms.RadioButton ReplaceAllOccurrencesRadioButton;

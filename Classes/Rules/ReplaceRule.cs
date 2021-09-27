@@ -24,7 +24,7 @@ namespace transmission_renamer.Classes.Rules
         public bool InterpretWildCards { get; set; }
         public bool IgnoreExtension { get; set; }
 
-        public ReplaceRule(string findText, string replaceText, bool allOccurrences, bool firstOccurrence, bool lastOccurrence, bool caseSensitive, bool interpretWildCards, bool ignoreExtension)
+        public ReplaceRule(string findText, string replaceText, bool allOccurrences, bool firstOccurrence, bool lastOccurrence, bool caseSensitive, bool ignoreExtension)
         {
             this.FindText = findText;
             this.ReplaceText = replaceText;
@@ -32,7 +32,6 @@ namespace transmission_renamer.Classes.Rules
             this.FirstOccurrence = firstOccurrence;
             this.LastOccurrence = lastOccurrence;
             this.CaseSensitive = caseSensitive;
-            this.InterpretWildCards = interpretWildCards;
             this.IgnoreExtension = ignoreExtension;
 
             this.Description = GenerateDescription();
@@ -96,51 +95,38 @@ namespace transmission_renamer.Classes.Rules
                     newNameSb = new StringBuilder(Path.GetFileName(torrentFileInfo.NewestName));
 
                 string result;
-                Wildcard wildcard;
-                if (InterpretWildCards)
-                {
-                    int lastIndex = newNameSb.ToString().LastIndexOf(FindText, StringComparison.Ordinal);
-                    if (CaseSensitive)
-                        wildcard = new Wildcard(FindText);
-                    else
-                        wildcard = new Wildcard(FindText, RegexOptions.IgnoreCase);
 
-                    result = Regex.Unescape(wildcard.Replace(Regex.Escape(newNameSb.ToString()), ReplaceText, FirstOccurrence ? 1 : 255, LastOccurrence ? lastIndex : 0));
-                    newNameSb = new StringBuilder(result);
-                }
-                else
+                if (AllOccurrences)
                 {
-                    if (AllOccurrences)
+                    if (CaseSensitive)
+                        newNameSb.Replace(FindText, ReplaceText);
+                    else
                     {
-                        if (CaseSensitive)
-                            newNameSb.Replace(FindText, ReplaceText);
-                        else
-                        {
-                            result = Regex.Unescape(Regex.Replace(Regex.Escape(newNameSb.ToString()), Regex.Escape(FindText), ReplaceText, RegexOptions.IgnoreCase));
-                            newNameSb = new StringBuilder(result);
-                        }
-                    }
-                    else if (FirstOccurrence)
-                    {
-                        int index;
-                        if (CaseSensitive)
-                            index = newNameSb.ToString().IndexOf(FindText, StringComparison.Ordinal);
-                        else
-                            index = newNameSb.ToString().IndexOf(FindText, StringComparison.OrdinalIgnoreCase);
-                        if (index != -1)
-                            newNameSb = (index < 0) ? newNameSb : newNameSb.Replace(FindText, ReplaceText, index, 1);
-                    }
-                    else if (LastOccurrence)
-                    {
-                        int index;
-                        if (CaseSensitive)
-                            index = newNameSb.ToString().LastIndexOf(FindText, StringComparison.Ordinal);
-                        else
-                            index = newNameSb.ToString().LastIndexOf(FindText, StringComparison.OrdinalIgnoreCase);
-                        if (index != -1)
-                            newNameSb = (index < 0) ? newNameSb : newNameSb.Replace(FindText, ReplaceText, index, 1);
+                        result = Regex.Replace(newNameSb.ToString(), Regex.Escape(FindText), ReplaceText, RegexOptions.IgnoreCase);
+                        newNameSb = new StringBuilder(result);
                     }
                 }
+                else if (FirstOccurrence)
+                {
+                    int index;
+                    if (CaseSensitive)
+                        index = newNameSb.ToString().IndexOf(FindText, StringComparison.InvariantCulture);
+                    else
+                        index = newNameSb.ToString().IndexOf(FindText, StringComparison.InvariantCultureIgnoreCase);
+                    if (index != -1)
+                        newNameSb = (index < 0) ? newNameSb : newNameSb.Replace(FindText, ReplaceText, index, FindText.Length);
+                }
+                else if (LastOccurrence)
+                {
+                    int index;
+                    if (CaseSensitive)
+                        index = newNameSb.ToString().LastIndexOf(FindText, StringComparison.InvariantCulture);
+                    else
+                        index = newNameSb.ToString().LastIndexOf(FindText, StringComparison.InvariantCultureIgnoreCase);
+                    if (index != -1)
+                        newNameSb = (index < 0) ? newNameSb : newNameSb.Replace(FindText, ReplaceText, index, FindText.Length);
+                }
+
 
 
                 if (IgnoreExtension)

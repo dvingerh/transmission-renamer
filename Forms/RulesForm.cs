@@ -72,7 +72,6 @@ namespace transmission_renamer.Forms
                     RemoveLastOccurrenceRadioButton.Checked = removeRule.LastOccurrence;
                     RemoveCaseSensitiveCheckBox.Checked = removeRule.CaseSensitive;
                     RemoveIgnoreExtensionCheckBox.Checked = removeRule.IgnoreExtension;
-                    RemoveInterpretWildcardsCheckBox.Checked = removeRule.InterpretWildCards;
                     break;
                 case ReplaceRule replaceRule:
                     RuleTypeListBox.SelectedIndex = 3;
@@ -83,7 +82,6 @@ namespace transmission_renamer.Forms
                     ReplaceLastOccurrenceRadioButton.Checked = replaceRule.LastOccurrence;
                     ReplaceCaseSensitiveCheckBox.Checked = replaceRule.CaseSensitive;
                     ReplaceIgnoreExtensionCheckBox.Checked = replaceRule.IgnoreExtension;
-                    ReplaceInterpretWildcardsCheckBox.Checked = replaceRule.InterpretWildCards;
                     break;
                 case CleanRule cleanRule:
                     RuleTypeListBox.SelectedIndex = 4;
@@ -205,7 +203,6 @@ namespace transmission_renamer.Forms
                         firstOccurrence: RemoveFirstOccurrenceRadioButton.Checked,
                         lastOccurrence: RemoveLastOccurrenceRadioButton.Checked,
                         caseSensitive: RemoveCaseSensitiveCheckBox.Checked,
-                        interpretWildCards: RemoveInterpretWildcardsCheckBox.Checked,
                         ignoreExtension: RemoveIgnoreExtensionCheckBox.Checked
                         );
 
@@ -228,7 +225,6 @@ namespace transmission_renamer.Forms
                         firstOccurrence: ReplaceFirstOccurrenceRadioButton.Checked,
                         lastOccurrence: ReplaceLastOccurrenceRadioButton.Checked,
                         caseSensitive: ReplaceCaseSensitiveCheckBox.Checked,
-                        interpretWildCards: ReplaceInterpretWildcardsCheckBox.Checked,
                         ignoreExtension: ReplaceIgnoreExtensionCheckBox.Checked
                         );
 
