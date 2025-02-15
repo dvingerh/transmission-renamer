@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("transmission-renamer")]
-[assembly: AssemblyCopyright("Copyright © dvingerh 2020")]
+[assembly: AssemblyCopyright("Copyright © dvingerh 2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

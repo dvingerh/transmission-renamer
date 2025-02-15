@@ -57,8 +57,7 @@ namespace transmission_renamer
         // close current connection, go back to SessionForm
         private void BackButtonClick(object sender, EventArgs e)
         {
-            if (Globals.SessionHandler != null)
-                Globals.SessionHandler.CloseConnection();
+            Globals.SessionHandler?.CloseConnection();
             Close();
         }
 
@@ -139,7 +138,7 @@ namespace transmission_renamer
                 Globals.SelectedTorrentFiles.Clear();
                 RenameButton.Enabled = false;
                 RefreshTorrentListButton.Enabled = false;
-                RefreshTorrentListButton.Text = "Waiting (10)";
+                RefreshTorrentListButton.Text = $"Waiting ({Properties.Settings.Default.MaxRequestDuration})";
                 TimeOutTimer.Start();
                 ToggleLoadingPanels(true);
 
@@ -381,8 +380,8 @@ namespace transmission_renamer
                 }
                 BeginInvoke((Action)(() =>
                 {
+                    torrentFilesLVItems.Sort(new ListViewColumnSorter().Compare);
                     FileNamesOldNewListView.Items.AddRange(torrentFilesLVItems.ToArray());
-                    FileNamesOldNewListView.Sort();
                     if (FileNamesOldNewListView.Items.Count > 0)
                         FileNamesOldNewListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
                 }));
@@ -494,9 +493,9 @@ namespace transmission_renamer
                 IRenameRule rule = Globals.RenameRules[i];
                 ListViewItem ruleLVItem = new ListViewItem
                 {
-                    Text = (i + 1).ToString()
+                    Text = (i + 1).ToString(),
+                    Checked = rule.Enabled
                 };
-                ruleLVItem.Checked = rule.Enabled;
 
                 ruleLVItem.SubItems.Add(rule.Name);
                 ruleLVItem.SubItems.Add(rule.Description);
@@ -757,6 +756,24 @@ namespace transmission_renamer
         private void TextBoxCtrlKeyBack(object sender, KeyEventArgs e)
         {
             TextBoxBackFix.SearchCtrlBackSpace(sender, e);
+        }
+
+        private void SelectHighlightedButton_Click(object sender, EventArgs e)
+        {
+            TorrentFileListTreeView.SelectedNodes.ForEach(x => x.Checked = true);
+
+        }
+
+        private void DeselectHighlightedButton_Click(object sender, EventArgs e)
+        {
+            TorrentFileListTreeView.SelectedNodes.ForEach(x => x.Checked = false);
+
+        }
+
+        private void InverseHighlightedButton_Click(object sender, EventArgs e)
+        {
+            TorrentFileListTreeView.SelectedNodes.ForEach(x => x.Checked = !x.Checked);
+
         }
     }
 }

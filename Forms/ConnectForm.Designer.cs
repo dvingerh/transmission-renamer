@@ -45,12 +45,17 @@
             this.ConnectButton = new System.Windows.Forms.Button();
             this.CloseCancelButton = new System.Windows.Forms.Button();
             this.TimeOutTimer = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.MaxRequestDurationUpDown = new System.Windows.Forms.NumericUpDown();
             this.RemoteGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PortUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxRequestDurationUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // RemoteGroupBox
             // 
+            this.RemoteGroupBox.Controls.Add(this.label1);
+            this.RemoteGroupBox.Controls.Add(this.MaxRequestDurationUpDown);
             this.RemoteGroupBox.Controls.Add(this.RPCPathLabel);
             this.RemoteGroupBox.Controls.Add(this.RPCPathTextBox);
             this.RemoteGroupBox.Controls.Add(this.AuthenticationRequiredCheckBox);
@@ -62,11 +67,11 @@
             this.RemoteGroupBox.Controls.Add(this.UsernameTextBox);
             this.RemoteGroupBox.Controls.Add(this.PortUpDown);
             this.RemoteGroupBox.Controls.Add(this.HostTextBox);
-            this.RemoteGroupBox.Location = new System.Drawing.Point(12, 12);
-            this.RemoteGroupBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.RemoteGroupBox.Location = new System.Drawing.Point(18, 18);
+            this.RemoteGroupBox.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RemoteGroupBox.Name = "RemoteGroupBox";
-            this.RemoteGroupBox.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.RemoteGroupBox.Size = new System.Drawing.Size(210, 183);
+            this.RemoteGroupBox.Padding = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.RemoteGroupBox.Size = new System.Drawing.Size(315, 315);
             this.RemoteGroupBox.TabIndex = 4;
             this.RemoteGroupBox.TabStop = false;
             this.RemoteGroupBox.Text = "Session settings";
@@ -74,18 +79,19 @@
             // RPCPathLabel
             // 
             this.RPCPathLabel.AutoSize = true;
-            this.RPCPathLabel.Location = new System.Drawing.Point(6, 50);
+            this.RPCPathLabel.Location = new System.Drawing.Point(9, 75);
+            this.RPCPathLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.RPCPathLabel.Name = "RPCPathLabel";
-            this.RPCPathLabel.Size = new System.Drawing.Size(57, 13);
+            this.RPCPathLabel.Size = new System.Drawing.Size(85, 23);
             this.RPCPathLabel.TabIndex = 10;
             this.RPCPathLabel.Text = "RPC path:";
             // 
             // RPCPathTextBox
             // 
-            this.RPCPathTextBox.Location = new System.Drawing.Point(68, 48);
-            this.RPCPathTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.RPCPathTextBox.Location = new System.Drawing.Point(102, 72);
+            this.RPCPathTextBox.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.RPCPathTextBox.Name = "RPCPathTextBox";
-            this.RPCPathTextBox.Size = new System.Drawing.Size(136, 22);
+            this.RPCPathTextBox.Size = new System.Drawing.Size(202, 29);
             this.RPCPathTextBox.TabIndex = 1;
             this.RPCPathTextBox.Text = "/transmission/rpc";
             this.RPCPathTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
@@ -93,10 +99,10 @@
             // AuthenticationRequiredCheckBox
             // 
             this.AuthenticationRequiredCheckBox.AutoSize = true;
-            this.AuthenticationRequiredCheckBox.Location = new System.Drawing.Point(9, 106);
-            this.AuthenticationRequiredCheckBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.AuthenticationRequiredCheckBox.Location = new System.Drawing.Point(14, 199);
+            this.AuthenticationRequiredCheckBox.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.AuthenticationRequiredCheckBox.Name = "AuthenticationRequiredCheckBox";
-            this.AuthenticationRequiredCheckBox.Size = new System.Drawing.Size(150, 17);
+            this.AuthenticationRequiredCheckBox.Size = new System.Drawing.Size(218, 27);
             this.AuthenticationRequiredCheckBox.TabIndex = 3;
             this.AuthenticationRequiredCheckBox.Text = "Authentication required";
             this.AuthenticationRequiredCheckBox.UseVisualStyleBackColor = true;
@@ -106,9 +112,10 @@
             // 
             this.PasswordLabel.AutoSize = true;
             this.PasswordLabel.Enabled = false;
-            this.PasswordLabel.Location = new System.Drawing.Point(6, 158);
+            this.PasswordLabel.Location = new System.Drawing.Point(9, 277);
+            this.PasswordLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PasswordLabel.Name = "PasswordLabel";
-            this.PasswordLabel.Size = new System.Drawing.Size(59, 13);
+            this.PasswordLabel.Size = new System.Drawing.Size(84, 23);
             this.PasswordLabel.TabIndex = 7;
             this.PasswordLabel.Text = "Password:";
             // 
@@ -116,55 +123,58 @@
             // 
             this.UsernameLabel.AutoSize = true;
             this.UsernameLabel.Enabled = false;
-            this.UsernameLabel.Location = new System.Drawing.Point(6, 132);
+            this.UsernameLabel.Location = new System.Drawing.Point(9, 238);
+            this.UsernameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.UsernameLabel.Name = "UsernameLabel";
-            this.UsernameLabel.Size = new System.Drawing.Size(61, 13);
+            this.UsernameLabel.Size = new System.Drawing.Size(91, 23);
             this.UsernameLabel.TabIndex = 6;
             this.UsernameLabel.Text = "Username:";
             // 
             // PortLabel
             // 
             this.PortLabel.AutoSize = true;
-            this.PortLabel.Location = new System.Drawing.Point(6, 77);
+            this.PortLabel.Location = new System.Drawing.Point(9, 114);
+            this.PortLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.PortLabel.Name = "PortLabel";
-            this.PortLabel.Size = new System.Drawing.Size(31, 13);
+            this.PortLabel.Size = new System.Drawing.Size(45, 23);
             this.PortLabel.TabIndex = 5;
             this.PortLabel.Text = "Port:";
             // 
             // HostLabel
             // 
             this.HostLabel.AutoSize = true;
-            this.HostLabel.Location = new System.Drawing.Point(6, 23);
+            this.HostLabel.Location = new System.Drawing.Point(9, 31);
+            this.HostLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.HostLabel.Name = "HostLabel";
-            this.HostLabel.Size = new System.Drawing.Size(34, 13);
+            this.HostLabel.Size = new System.Drawing.Size(49, 23);
             this.HostLabel.TabIndex = 4;
             this.HostLabel.Text = "Host:";
             // 
             // PasswordTextBox
             // 
             this.PasswordTextBox.Enabled = false;
-            this.PasswordTextBox.Location = new System.Drawing.Point(68, 156);
-            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.PasswordTextBox.Location = new System.Drawing.Point(102, 274);
+            this.PasswordTextBox.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.PasswordTextBox.Name = "PasswordTextBox";
             this.PasswordTextBox.PasswordChar = '●';
-            this.PasswordTextBox.Size = new System.Drawing.Size(136, 22);
+            this.PasswordTextBox.Size = new System.Drawing.Size(202, 29);
             this.PasswordTextBox.TabIndex = 5;
             this.PasswordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // UsernameTextBox
             // 
             this.UsernameTextBox.Enabled = false;
-            this.UsernameTextBox.Location = new System.Drawing.Point(68, 129);
-            this.UsernameTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.UsernameTextBox.Location = new System.Drawing.Point(102, 234);
+            this.UsernameTextBox.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.UsernameTextBox.Name = "UsernameTextBox";
-            this.UsernameTextBox.Size = new System.Drawing.Size(136, 22);
+            this.UsernameTextBox.Size = new System.Drawing.Size(202, 29);
             this.UsernameTextBox.TabIndex = 4;
             this.UsernameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // PortUpDown
             // 
-            this.PortUpDown.Location = new System.Drawing.Point(68, 75);
-            this.PortUpDown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.PortUpDown.Location = new System.Drawing.Point(102, 112);
+            this.PortUpDown.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.PortUpDown.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -176,7 +186,7 @@
             0,
             0});
             this.PortUpDown.Name = "PortUpDown";
-            this.PortUpDown.Size = new System.Drawing.Size(136, 22);
+            this.PortUpDown.Size = new System.Drawing.Size(204, 29);
             this.PortUpDown.TabIndex = 2;
             this.PortUpDown.Value = new decimal(new int[] {
             9091,
@@ -187,19 +197,19 @@
             // 
             // HostTextBox
             // 
-            this.HostTextBox.Location = new System.Drawing.Point(68, 19);
-            this.HostTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.HostTextBox.Location = new System.Drawing.Point(102, 28);
+            this.HostTextBox.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.HostTextBox.Name = "HostTextBox";
-            this.HostTextBox.Size = new System.Drawing.Size(136, 22);
+            this.HostTextBox.Size = new System.Drawing.Size(202, 29);
             this.HostTextBox.TabIndex = 0;
             this.HostTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxCtrlKeyBack);
             // 
             // ConnectButton
             // 
-            this.ConnectButton.Location = new System.Drawing.Point(12, 201);
-            this.ConnectButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ConnectButton.Location = new System.Drawing.Point(18, 345);
+            this.ConnectButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.ConnectButton.Name = "ConnectButton";
-            this.ConnectButton.Size = new System.Drawing.Size(98, 23);
+            this.ConnectButton.Size = new System.Drawing.Size(147, 34);
             this.ConnectButton.TabIndex = 6;
             this.ConnectButton.Text = "Connect";
             this.ConnectButton.UseVisualStyleBackColor = true;
@@ -208,10 +218,10 @@
             // CloseCancelButton
             // 
             this.CloseCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CloseCancelButton.Location = new System.Drawing.Point(124, 201);
-            this.CloseCancelButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.CloseCancelButton.Location = new System.Drawing.Point(186, 345);
+            this.CloseCancelButton.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.CloseCancelButton.Name = "CloseCancelButton";
-            this.CloseCancelButton.Size = new System.Drawing.Size(98, 23);
+            this.CloseCancelButton.Size = new System.Drawing.Size(147, 34);
             this.CloseCancelButton.TabIndex = 7;
             this.CloseCancelButton.Text = "Close";
             this.CloseCancelButton.UseVisualStyleBackColor = true;
@@ -223,21 +233,55 @@
             this.TimeOutTimer.Tag = "";
             this.TimeOutTimer.Tick += new System.EventHandler(this.TimeOutTimerTick);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 155);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 23);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Timeout:";
+            // 
+            // MaxRequestDurationUpDown
+            // 
+            this.MaxRequestDurationUpDown.Location = new System.Drawing.Point(102, 153);
+            this.MaxRequestDurationUpDown.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.MaxRequestDurationUpDown.Maximum = new decimal(new int[] {
+            1800,
+            0,
+            0,
+            0});
+            this.MaxRequestDurationUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.MaxRequestDurationUpDown.Name = "MaxRequestDurationUpDown";
+            this.MaxRequestDurationUpDown.Size = new System.Drawing.Size(204, 29);
+            this.MaxRequestDurationUpDown.TabIndex = 11;
+            this.MaxRequestDurationUpDown.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.MaxRequestDurationUpDown.Enter += new System.EventHandler(this.MaxRequestDurationUpDown_Enter);
+            // 
             // ConnectForm
             // 
             this.AcceptButton = this.ConnectButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.CloseCancelButton;
-            this.ClientSize = new System.Drawing.Size(234, 236);
+            this.ClientSize = new System.Drawing.Size(351, 394);
             this.Controls.Add(this.CloseCancelButton);
             this.Controls.Add(this.RemoteGroupBox);
             this.Controls.Add(this.ConnectButton);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConnectForm";
@@ -246,6 +290,7 @@
             this.RemoteGroupBox.ResumeLayout(false);
             this.RemoteGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PortUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxRequestDurationUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -267,6 +312,8 @@
         private System.Windows.Forms.Button ConnectButton;
         private System.Windows.Forms.Button CloseCancelButton;
         private System.Windows.Forms.Timer TimeOutTimer;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown MaxRequestDurationUpDown;
     }
 }
 

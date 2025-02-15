@@ -44,13 +44,16 @@
             this.SearchTorrentListLabel = new System.Windows.Forms.Label();
             this.SearchTorrentListTextBox = new System.Windows.Forms.TextBox();
             this.FilesTabPage = new System.Windows.Forms.TabPage();
+            this.DeselectHighlightedButton = new System.Windows.Forms.Button();
+            this.InverseHighlightedButton = new System.Windows.Forms.Button();
+            this.SelectHighlightedButton = new System.Windows.Forms.Button();
             this.ProcessingFilesLoadingPanel = new System.Windows.Forms.Panel();
             this.ProcessingFilesLoadingLabel = new System.Windows.Forms.Label();
             this.ProcessingFilesSpinnerLoadingPictureBox = new System.Windows.Forms.PictureBox();
             this.DeselectAllButton = new System.Windows.Forms.Button();
             this.CollapseAllButton = new System.Windows.Forms.Button();
             this.ExpandAllButton = new System.Windows.Forms.Button();
-            this.InverseButton = new System.Windows.Forms.Button();
+            this.InverseAllButton = new System.Windows.Forms.Button();
             this.SelectAllButton = new System.Windows.Forms.Button();
             this.TorrentFileListTreeView = new BufferedTreeView();
             this.CopyFileNameContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -104,7 +107,7 @@
             this.PagesTabControl.Controls.Add(this.RulesTabPage);
             this.PagesTabControl.ImageList = this.ImagesTabPageImageList;
             this.PagesTabControl.Location = new System.Drawing.Point(15, 61);
-            this.PagesTabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PagesTabControl.Margin = new System.Windows.Forms.Padding(4);
             this.PagesTabControl.Name = "PagesTabControl";
             this.PagesTabControl.SelectedIndex = 0;
             this.PagesTabControl.Size = new System.Drawing.Size(1080, 776);
@@ -119,9 +122,9 @@
             this.TorrentTabPage.Controls.Add(this.SearchTorrentListTextBox);
             this.TorrentTabPage.ImageIndex = 0;
             this.TorrentTabPage.Location = new System.Drawing.Point(4, 28);
-            this.TorrentTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TorrentTabPage.Margin = new System.Windows.Forms.Padding(4);
             this.TorrentTabPage.Name = "TorrentTabPage";
-            this.TorrentTabPage.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TorrentTabPage.Padding = new System.Windows.Forms.Padding(4);
             this.TorrentTabPage.Size = new System.Drawing.Size(1072, 744);
             this.TorrentTabPage.TabIndex = 0;
             this.TorrentTabPage.Text = "Torrents";
@@ -133,7 +136,7 @@
             this.RetrievingInformationLoadingPanel.Controls.Add(this.RetrievingSpinnerLoadingPictureBox);
             this.RetrievingInformationLoadingPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RetrievingInformationLoadingPanel.Location = new System.Drawing.Point(426, 334);
-            this.RetrievingInformationLoadingPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RetrievingInformationLoadingPanel.Margin = new System.Windows.Forms.Padding(4);
             this.RetrievingInformationLoadingPanel.Name = "RetrievingInformationLoadingPanel";
             this.RetrievingInformationLoadingPanel.Size = new System.Drawing.Size(218, 74);
             this.RetrievingInformationLoadingPanel.TabIndex = 12;
@@ -153,7 +156,7 @@
             // 
             this.RetrievingSpinnerLoadingPictureBox.Image = global::transmission_renamer.Properties.Resources.spinner;
             this.RetrievingSpinnerLoadingPictureBox.Location = new System.Drawing.Point(14, 26);
-            this.RetrievingSpinnerLoadingPictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RetrievingSpinnerLoadingPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.RetrievingSpinnerLoadingPictureBox.Name = "RetrievingSpinnerLoadingPictureBox";
             this.RetrievingSpinnerLoadingPictureBox.Size = new System.Drawing.Size(16, 16);
             this.RetrievingSpinnerLoadingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -172,7 +175,7 @@
             this.TorrentsListView.FullRowSelect = true;
             this.TorrentsListView.HideSelection = false;
             this.TorrentsListView.Location = new System.Drawing.Point(4, 44);
-            this.TorrentsListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TorrentsListView.Margin = new System.Windows.Forms.Padding(4);
             this.TorrentsListView.MultiSelect = false;
             this.TorrentsListView.Name = "TorrentsListView";
             this.TorrentsListView.Size = new System.Drawing.Size(1062, 696);
@@ -221,7 +224,7 @@
             // 
             this.SearchTorrentListTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.SearchTorrentListTextBox.Location = new System.Drawing.Point(116, 9);
-            this.SearchTorrentListTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SearchTorrentListTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.SearchTorrentListTextBox.Name = "SearchTorrentListTextBox";
             this.SearchTorrentListTextBox.Size = new System.Drawing.Size(950, 26);
             this.SearchTorrentListTextBox.TabIndex = 0;
@@ -231,21 +234,60 @@
             // FilesTabPage
             // 
             this.FilesTabPage.BackColor = System.Drawing.SystemColors.Control;
+            this.FilesTabPage.Controls.Add(this.DeselectHighlightedButton);
+            this.FilesTabPage.Controls.Add(this.InverseHighlightedButton);
+            this.FilesTabPage.Controls.Add(this.SelectHighlightedButton);
             this.FilesTabPage.Controls.Add(this.ProcessingFilesLoadingPanel);
             this.FilesTabPage.Controls.Add(this.DeselectAllButton);
             this.FilesTabPage.Controls.Add(this.CollapseAllButton);
             this.FilesTabPage.Controls.Add(this.ExpandAllButton);
-            this.FilesTabPage.Controls.Add(this.InverseButton);
+            this.FilesTabPage.Controls.Add(this.InverseAllButton);
             this.FilesTabPage.Controls.Add(this.SelectAllButton);
             this.FilesTabPage.Controls.Add(this.TorrentFileListTreeView);
             this.FilesTabPage.ImageIndex = 1;
             this.FilesTabPage.Location = new System.Drawing.Point(4, 28);
-            this.FilesTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FilesTabPage.Margin = new System.Windows.Forms.Padding(4);
             this.FilesTabPage.Name = "FilesTabPage";
-            this.FilesTabPage.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FilesTabPage.Padding = new System.Windows.Forms.Padding(4);
             this.FilesTabPage.Size = new System.Drawing.Size(1072, 744);
             this.FilesTabPage.TabIndex = 1;
             this.FilesTabPage.Text = "Files";
+            // 
+            // DeselectHighlightedButton
+            // 
+            this.DeselectHighlightedButton.Enabled = false;
+            this.DeselectHighlightedButton.Location = new System.Drawing.Point(510, 8);
+            this.DeselectHighlightedButton.Margin = new System.Windows.Forms.Padding(4);
+            this.DeselectHighlightedButton.Name = "DeselectHighlightedButton";
+            this.DeselectHighlightedButton.Size = new System.Drawing.Size(150, 29);
+            this.DeselectHighlightedButton.TabIndex = 15;
+            this.DeselectHighlightedButton.Text = "Deselect Highlighted";
+            this.DeselectHighlightedButton.UseVisualStyleBackColor = true;
+            this.DeselectHighlightedButton.Click += new System.EventHandler(this.DeselectHighlightedButton_Click);
+            // 
+            // InverseHighlightedButton
+            // 
+            this.InverseHighlightedButton.Enabled = false;
+            this.InverseHighlightedButton.Location = new System.Drawing.Point(668, 7);
+            this.InverseHighlightedButton.Margin = new System.Windows.Forms.Padding(4);
+            this.InverseHighlightedButton.Name = "InverseHighlightedButton";
+            this.InverseHighlightedButton.Size = new System.Drawing.Size(150, 29);
+            this.InverseHighlightedButton.TabIndex = 16;
+            this.InverseHighlightedButton.Text = "Inverse Highlighted";
+            this.InverseHighlightedButton.UseVisualStyleBackColor = true;
+            this.InverseHighlightedButton.Click += new System.EventHandler(this.InverseHighlightedButton_Click);
+            // 
+            // SelectHighlightedButton
+            // 
+            this.SelectHighlightedButton.Enabled = false;
+            this.SelectHighlightedButton.Location = new System.Drawing.Point(352, 8);
+            this.SelectHighlightedButton.Margin = new System.Windows.Forms.Padding(4);
+            this.SelectHighlightedButton.Name = "SelectHighlightedButton";
+            this.SelectHighlightedButton.Size = new System.Drawing.Size(150, 29);
+            this.SelectHighlightedButton.TabIndex = 14;
+            this.SelectHighlightedButton.Text = "Select Highlighted";
+            this.SelectHighlightedButton.UseVisualStyleBackColor = true;
+            this.SelectHighlightedButton.Click += new System.EventHandler(this.SelectHighlightedButton_Click);
             // 
             // ProcessingFilesLoadingPanel
             // 
@@ -254,7 +296,7 @@
             this.ProcessingFilesLoadingPanel.Controls.Add(this.ProcessingFilesSpinnerLoadingPictureBox);
             this.ProcessingFilesLoadingPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProcessingFilesLoadingPanel.Location = new System.Drawing.Point(426, 334);
-            this.ProcessingFilesLoadingPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ProcessingFilesLoadingPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ProcessingFilesLoadingPanel.Name = "ProcessingFilesLoadingPanel";
             this.ProcessingFilesLoadingPanel.Size = new System.Drawing.Size(218, 74);
             this.ProcessingFilesLoadingPanel.TabIndex = 13;
@@ -274,7 +316,7 @@
             // 
             this.ProcessingFilesSpinnerLoadingPictureBox.Image = global::transmission_renamer.Properties.Resources.spinner;
             this.ProcessingFilesSpinnerLoadingPictureBox.Location = new System.Drawing.Point(51, 26);
-            this.ProcessingFilesSpinnerLoadingPictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ProcessingFilesSpinnerLoadingPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.ProcessingFilesSpinnerLoadingPictureBox.Name = "ProcessingFilesSpinnerLoadingPictureBox";
             this.ProcessingFilesSpinnerLoadingPictureBox.Size = new System.Drawing.Size(16, 16);
             this.ProcessingFilesSpinnerLoadingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -285,7 +327,7 @@
             // 
             this.DeselectAllButton.Enabled = false;
             this.DeselectAllButton.Location = new System.Drawing.Point(105, 8);
-            this.DeselectAllButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DeselectAllButton.Margin = new System.Windows.Forms.Padding(4);
             this.DeselectAllButton.Name = "DeselectAllButton";
             this.DeselectAllButton.Size = new System.Drawing.Size(94, 29);
             this.DeselectAllButton.TabIndex = 2;
@@ -297,7 +339,7 @@
             // 
             this.CollapseAllButton.Enabled = false;
             this.CollapseAllButton.Location = new System.Drawing.Point(974, 8);
-            this.CollapseAllButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CollapseAllButton.Margin = new System.Windows.Forms.Padding(4);
             this.CollapseAllButton.Name = "CollapseAllButton";
             this.CollapseAllButton.Size = new System.Drawing.Size(94, 29);
             this.CollapseAllButton.TabIndex = 5;
@@ -309,7 +351,7 @@
             // 
             this.ExpandAllButton.Enabled = false;
             this.ExpandAllButton.Location = new System.Drawing.Point(872, 8);
-            this.ExpandAllButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ExpandAllButton.Margin = new System.Windows.Forms.Padding(4);
             this.ExpandAllButton.Name = "ExpandAllButton";
             this.ExpandAllButton.Size = new System.Drawing.Size(94, 29);
             this.ExpandAllButton.TabIndex = 4;
@@ -317,23 +359,23 @@
             this.ExpandAllButton.UseVisualStyleBackColor = true;
             this.ExpandAllButton.Click += new System.EventHandler(this.ExpandAllButtonClick);
             // 
-            // InverseButton
+            // InverseAllButton
             // 
-            this.InverseButton.Enabled = false;
-            this.InverseButton.Location = new System.Drawing.Point(206, 8);
-            this.InverseButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.InverseButton.Name = "InverseButton";
-            this.InverseButton.Size = new System.Drawing.Size(94, 29);
-            this.InverseButton.TabIndex = 3;
-            this.InverseButton.Text = "Inverse";
-            this.InverseButton.UseVisualStyleBackColor = true;
-            this.InverseButton.Click += new System.EventHandler(this.InverseButtonClick);
+            this.InverseAllButton.Enabled = false;
+            this.InverseAllButton.Location = new System.Drawing.Point(206, 8);
+            this.InverseAllButton.Margin = new System.Windows.Forms.Padding(4);
+            this.InverseAllButton.Name = "InverseAllButton";
+            this.InverseAllButton.Size = new System.Drawing.Size(94, 29);
+            this.InverseAllButton.TabIndex = 3;
+            this.InverseAllButton.Text = "Inverse All";
+            this.InverseAllButton.UseVisualStyleBackColor = true;
+            this.InverseAllButton.Click += new System.EventHandler(this.InverseButtonClick);
             // 
             // SelectAllButton
             // 
             this.SelectAllButton.Enabled = false;
             this.SelectAllButton.Location = new System.Drawing.Point(4, 8);
-            this.SelectAllButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SelectAllButton.Margin = new System.Windows.Forms.Padding(4);
             this.SelectAllButton.Name = "SelectAllButton";
             this.SelectAllButton.Size = new System.Drawing.Size(94, 29);
             this.SelectAllButton.TabIndex = 1;
@@ -348,9 +390,10 @@
             this.TorrentFileListTreeView.FullRowSelect = true;
             this.TorrentFileListTreeView.ItemHeight = 19;
             this.TorrentFileListTreeView.Location = new System.Drawing.Point(4, 44);
-            this.TorrentFileListTreeView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TorrentFileListTreeView.Margin = new System.Windows.Forms.Padding(4);
             this.TorrentFileListTreeView.Name = "TorrentFileListTreeView";
             this.TorrentFileListTreeView.PathSeparator = "/";
+            this.TorrentFileListTreeView.SelectedNodes = ((System.Collections.Generic.List<System.Windows.Forms.TreeNode>)(resources.GetObject("TorrentFileListTreeView.SelectedNodes")));
             this.TorrentFileListTreeView.ShowNodeToolTips = true;
             this.TorrentFileListTreeView.Size = new System.Drawing.Size(1062, 696);
             this.TorrentFileListTreeView.TabIndex = 0;
@@ -387,7 +430,7 @@
             this.RulesTabPage.Controls.Add(this.RulesListView);
             this.RulesTabPage.ImageIndex = 3;
             this.RulesTabPage.Location = new System.Drawing.Point(4, 28);
-            this.RulesTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RulesTabPage.Margin = new System.Windows.Forms.Padding(4);
             this.RulesTabPage.Name = "RulesTabPage";
             this.RulesTabPage.Size = new System.Drawing.Size(1072, 744);
             this.RulesTabPage.TabIndex = 2;
@@ -396,7 +439,7 @@
             // LoadRulesButton
             // 
             this.LoadRulesButton.Location = new System.Drawing.Point(871, 8);
-            this.LoadRulesButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LoadRulesButton.Margin = new System.Windows.Forms.Padding(4);
             this.LoadRulesButton.Name = "LoadRulesButton";
             this.LoadRulesButton.Size = new System.Drawing.Size(94, 29);
             this.LoadRulesButton.TabIndex = 17;
@@ -407,7 +450,7 @@
             // SaveRulesButton
             // 
             this.SaveRulesButton.Location = new System.Drawing.Point(972, 8);
-            this.SaveRulesButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SaveRulesButton.Margin = new System.Windows.Forms.Padding(4);
             this.SaveRulesButton.Name = "SaveRulesButton";
             this.SaveRulesButton.Size = new System.Drawing.Size(94, 29);
             this.SaveRulesButton.TabIndex = 15;
@@ -422,7 +465,7 @@
             this.ProcessingRulesFilesLoadingPanel.Controls.Add(this.ProcessingRulesFilesSpinnerLoadingPictureBox);
             this.ProcessingRulesFilesLoadingPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProcessingRulesFilesLoadingPanel.Location = new System.Drawing.Point(426, 334);
-            this.ProcessingRulesFilesLoadingPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ProcessingRulesFilesLoadingPanel.Margin = new System.Windows.Forms.Padding(4);
             this.ProcessingRulesFilesLoadingPanel.Name = "ProcessingRulesFilesLoadingPanel";
             this.ProcessingRulesFilesLoadingPanel.Size = new System.Drawing.Size(218, 74);
             this.ProcessingRulesFilesLoadingPanel.TabIndex = 14;
@@ -441,7 +484,7 @@
             // 
             this.ProcessingRulesFilesSpinnerLoadingPictureBox.Image = global::transmission_renamer.Properties.Resources.spinner;
             this.ProcessingRulesFilesSpinnerLoadingPictureBox.Location = new System.Drawing.Point(51, 26);
-            this.ProcessingRulesFilesSpinnerLoadingPictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ProcessingRulesFilesSpinnerLoadingPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.ProcessingRulesFilesSpinnerLoadingPictureBox.Name = "ProcessingRulesFilesSpinnerLoadingPictureBox";
             this.ProcessingRulesFilesSpinnerLoadingPictureBox.Size = new System.Drawing.Size(16, 16);
             this.ProcessingRulesFilesSpinnerLoadingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -458,7 +501,7 @@
             this.FileNamesOldNewListView.FullRowSelect = true;
             this.FileNamesOldNewListView.HideSelection = false;
             this.FileNamesOldNewListView.Location = new System.Drawing.Point(4, 301);
-            this.FileNamesOldNewListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FileNamesOldNewListView.Margin = new System.Windows.Forms.Padding(4);
             this.FileNamesOldNewListView.MultiSelect = false;
             this.FileNamesOldNewListView.Name = "FileNamesOldNewListView";
             this.FileNamesOldNewListView.ShowItemToolTips = true;
@@ -506,7 +549,7 @@
             // 
             this.DeleteRuleButton.Enabled = false;
             this.DeleteRuleButton.Location = new System.Drawing.Point(206, 8);
-            this.DeleteRuleButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DeleteRuleButton.Margin = new System.Windows.Forms.Padding(4);
             this.DeleteRuleButton.Name = "DeleteRuleButton";
             this.DeleteRuleButton.Size = new System.Drawing.Size(94, 29);
             this.DeleteRuleButton.TabIndex = 7;
@@ -518,7 +561,7 @@
             // 
             this.MoveRuleDownButton.Enabled = false;
             this.MoveRuleDownButton.Location = new System.Drawing.Point(429, 8);
-            this.MoveRuleDownButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MoveRuleDownButton.Margin = new System.Windows.Forms.Padding(4);
             this.MoveRuleDownButton.Name = "MoveRuleDownButton";
             this.MoveRuleDownButton.Size = new System.Drawing.Size(94, 29);
             this.MoveRuleDownButton.TabIndex = 10;
@@ -530,7 +573,7 @@
             // 
             this.MoveRuleUpButton.Enabled = false;
             this.MoveRuleUpButton.Location = new System.Drawing.Point(328, 8);
-            this.MoveRuleUpButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MoveRuleUpButton.Margin = new System.Windows.Forms.Padding(4);
             this.MoveRuleUpButton.Name = "MoveRuleUpButton";
             this.MoveRuleUpButton.Size = new System.Drawing.Size(94, 29);
             this.MoveRuleUpButton.TabIndex = 9;
@@ -542,7 +585,7 @@
             // 
             this.EditRuleButton.Enabled = false;
             this.EditRuleButton.Location = new System.Drawing.Point(105, 8);
-            this.EditRuleButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.EditRuleButton.Margin = new System.Windows.Forms.Padding(4);
             this.EditRuleButton.Name = "EditRuleButton";
             this.EditRuleButton.Size = new System.Drawing.Size(94, 29);
             this.EditRuleButton.TabIndex = 8;
@@ -553,7 +596,7 @@
             // NewRuleButton
             // 
             this.NewRuleButton.Location = new System.Drawing.Point(4, 8);
-            this.NewRuleButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.NewRuleButton.Margin = new System.Windows.Forms.Padding(4);
             this.NewRuleButton.Name = "NewRuleButton";
             this.NewRuleButton.Size = new System.Drawing.Size(94, 29);
             this.NewRuleButton.TabIndex = 6;
@@ -572,7 +615,7 @@
             this.RulesListView.FullRowSelect = true;
             this.RulesListView.HideSelection = false;
             this.RulesListView.Location = new System.Drawing.Point(4, 44);
-            this.RulesListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RulesListView.Margin = new System.Windows.Forms.Padding(4);
             this.RulesListView.MultiSelect = false;
             this.RulesListView.Name = "RulesListView";
             this.RulesListView.Size = new System.Drawing.Size(1062, 250);
@@ -629,7 +672,7 @@
             // RefreshTorrentListButton
             // 
             this.RefreshTorrentListButton.Location = new System.Drawing.Point(829, 845);
-            this.RefreshTorrentListButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RefreshTorrentListButton.Margin = new System.Windows.Forms.Padding(4);
             this.RefreshTorrentListButton.Name = "RefreshTorrentListButton";
             this.RefreshTorrentListButton.Size = new System.Drawing.Size(160, 29);
             this.RefreshTorrentListButton.TabIndex = 3;
@@ -641,7 +684,7 @@
             // 
             this.RenameButton.Enabled = false;
             this.RenameButton.Location = new System.Drawing.Point(996, 845);
-            this.RenameButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RenameButton.Margin = new System.Windows.Forms.Padding(4);
             this.RenameButton.Name = "RenameButton";
             this.RenameButton.Size = new System.Drawing.Size(94, 29);
             this.RenameButton.TabIndex = 4;
@@ -653,7 +696,7 @@
             // 
             this.BackButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BackButton.Location = new System.Drawing.Point(15, 845);
-            this.BackButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.BackButton.Margin = new System.Windows.Forms.Padding(4);
             this.BackButton.Name = "BackButton";
             this.BackButton.Size = new System.Drawing.Size(94, 29);
             this.BackButton.TabIndex = 2;
@@ -684,7 +727,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
@@ -726,7 +769,7 @@
         private System.Windows.Forms.Timer TimeOutTimer;
         private System.Windows.Forms.Button DeselectAllButton;
         private System.Windows.Forms.Button SelectAllButton;
-        private System.Windows.Forms.Button InverseButton;
+        private System.Windows.Forms.Button InverseAllButton;
         private System.Windows.Forms.Label SearchTorrentListLabel;
         private System.Windows.Forms.Button CollapseAllButton;
         private System.Windows.Forms.Button ExpandAllButton;
@@ -768,5 +811,8 @@
         private System.Windows.Forms.Button SaveRulesButton;
         private System.Windows.Forms.Button LoadRulesButton;
         private System.Windows.Forms.TextBox SearchTorrentListTextBox;
+        private System.Windows.Forms.Button DeselectHighlightedButton;
+        private System.Windows.Forms.Button InverseHighlightedButton;
+        private System.Windows.Forms.Button SelectHighlightedButton;
     }
 }

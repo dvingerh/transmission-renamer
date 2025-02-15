@@ -29,6 +29,7 @@ namespace transmission_renamer
                 UsernameTextBox.Text = loginNodes["Username"].InnerText;
                 PasswordTextBox.Text = loginNodes["Password"].InnerText;
                 RPCPathTextBox.Text = loginNodes["RPCPath"].InnerText;
+                MaxRequestDurationUpDown.Value = decimal.Parse(loginNodes["MaxRequestDuration"].InnerText);
                 AuthenticationRequiredCheckBox.Checked = loginNodes["Authentication"].InnerText.ToLower() == "true";
             }
             catch (XmlException)
@@ -59,6 +60,10 @@ namespace transmission_renamer
             loginNodes["Password"].InnerText = PasswordTextBox.Text;
             loginNodes["RPCPath"].InnerText = RPCPathTextBox.Text;
             loginNodes["Authentication"].InnerText = AuthenticationRequiredCheckBox.Checked.ToString().ToLower();
+            loginNodes["MaxRequestDuration"].InnerText = MaxRequestDurationUpDown.Value.ToString().ToLower();
+
+            Properties.Settings.Default.MaxRequestDuration = (double)MaxRequestDurationUpDown.Value;
+            Properties.Settings.Default.Save();
 
             debugXmlDoc.Save("Settings.xml");
         }
@@ -79,8 +84,7 @@ namespace transmission_renamer
             }
             else
             {
-                if (Globals.SessionHandler != null)
-                    Globals.SessionHandler.CloseConnection();
+                Globals.SessionHandler?.CloseConnection();
                 Application.Exit();
             }
         }
@@ -92,11 +96,12 @@ namespace transmission_renamer
                 MessageBox.Show("The host value may not be empty.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            SaveConfig();
 
             isConnecting = true;
             RemoteGroupBox.Enabled = false;
             ConnectButton.Enabled = false;
-            ConnectButton.Text = "Waiting (20)";
+            ConnectButton.Text = $"Waiting ({Properties.Settings.Default.MaxRequestDuration})";
             CloseCancelButton.Text = "Cancel";
             TimeOutTimer.Enabled = true;
             TimeOutTimer.Start();
@@ -184,6 +189,11 @@ namespace transmission_renamer
         private void TextBoxCtrlKeyBack(object sender, KeyEventArgs e)
         {
             Classes.TextBoxBackFix.SearchCtrlBackSpace(sender, e);
+        }
+
+        private void MaxRequestDurationUpDown_Enter(object sender, EventArgs e)
+        {
+            MaxRequestDurationUpDown.Select(0, MaxRequestDurationUpDown.Text.Length);
         }
     }
 }
